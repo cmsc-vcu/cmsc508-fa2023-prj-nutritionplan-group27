@@ -1,0 +1,98 @@
+---
+title: Homework 5 - Database Normalization
+date: last-modified
+author: Zachariah Dellimore
+format:
+    html:
+        theme: cosmo
+        toc: false
+        embed-resources: true
+---
+
+## Project Overview and Key Deliverables
+1. Temp
+1. Useful Links
+    * [Pitch Video](https://cdnapisec.kaltura.com/index.php/extwidget/preview/partner_id/1888231/uiconf_id/28242191/entry_id/1_gz2tt2pm/embed/dynamic)
+    * Design Video
+    * [Repository](https://github.com/cmsc-vcu/cmsc508-fa2023-prj-nutritionplan-group27#welcome-to-semecter-project-repository)
+
+meal plan, user, recipe, nutritional info, goals
+
+## Problem Description
+1. **Problem Domain:** 
+1. **Need:**
+1. **Context, scope, and perspective:**
+1. **User roles and use cases:**
+1. **Security and Privacy:**
+
+## Database Design
+6. **Entity-Relationship diagram(ERD):**
+
+    1. High-Level Overview
+        ```{dot}
+            graph ER {
+                layout=neato;
+                scale=1.1;
+                node [shape=box]; User, MealPlan, Recipe, Goal;
+                node [shape=ellipse]; user_id, user_name, user_password, meal_plan_name, recipe_name, recipe_nutrition, goal_name, ingredients, recipe_instructions, goal_description, meal_plan_id, recipe_id, goal_id;
+
+                node [shape=diamond,style=filled,color=lightgrey]; using, has, contains;
+                
+                User -- using [label="n",len=1.00]
+                using -- MealPlan [label="1",len=1.00]
+                MealPlan -- contains [label="1",len=1.00]
+                contains -- Recipe [label="n",len=1.00]
+                User -- has [label="1",len=1.00]
+                has -- Goal [label="1",len=1.00]
+                
+                User -- user_id, user_name, user_password;
+                MealPlan -- meal_plan_name, meal_plan_id;
+                Recipe -- recipe_name, recipe_nutrition, ingredients, recipe_instructions, recipe_id;
+                Goal -- goal_name, goal_description, goal_id;
+            }
+        ```
+
+    2. Granular
+        ```{mermaid}
+        erDiagram
+            User o{--|| MealPlan : using
+                User {
+                    PRIMARY_KEY user_id
+                    string username
+                    string password
+                }
+
+                MealPlan {
+                    PRIMARY_KEY meal_plan_id
+                    string name
+                    FOREIGN_KEY recipes
+                }
+            
+            MealPlan ||--o{ Recipe : hosts
+                MealPlan{}
+
+                Recipe{
+                    PRIMARY_KEY recipe_id
+                    string name
+                    string nutrition
+                    string ingredients
+                    string instructions
+                }
+
+            User ||--|| Goal : has
+                User{}
+
+                Goal{
+                    PRIMARY_KEY goal_id
+                    string name
+                    string description
+                }
+        ```
+1. **Relational Schemas:**
+1. **Functional Dependencies and Normalization:**
+1. **Specific Queries:**
+1. **Sample Data:**
+
+## Project Management
+11. **Draft Project schedule:**
+1. **Video:**
