@@ -1,7 +1,7 @@
 ---
-title: Homework 5 - Database Normalization
-date: last-modified
-author: Zachariah Dellimore
+title: Phase 1 Deliverable 
+date: 10-13-2024
+author: Zachariah Dellimore, Suhas Narayanan, Jeffi Thomas
 format:
     html:
         theme: cosmo
@@ -101,7 +101,55 @@ meal plan, user, recipe, nutritional info, goals
                     string description
                 }
         ```
+
 1. **Relational Schemas:**
+* User
+user_id (Primary Key): Integer or unique identifier – - Domain: Unique integers or GUIDs.
+
+username: String – Domain: Alphanumeric characters, certain symbols. Constraint: Must be unique.
+
+password: String – Domain: Alphanumeric characters, symbols. Constraint: Should adhere to password security standards (length, combination of characters, etc.).
+
+* MealPlan:
+meal_plan_id (Primary Key): Integer or unique identifier – Domain: Unique integers or GUIDs.
+
+name: String – Domain: Alphanumeric characters, certain symbols.
+
+recipes (Foreign Key pointing to Recipe): List of integers or unique identifiers – Domain: List of unique integers or GUIDs corresponding to Recipe.
+
+* Recipe:
+recipe_id (Primary Key): Integer or unique identifier – Domain: Unique integers or GUIDs.
+name: String – Domain: Alphanumeric characters, certain symbols.
+
+nutrition: String – Domain: Text format with nutritional details. Constraint: Could have a standard format or units.
+
+ingredients: String – Domain: List or text format detailing ingredients.
+
+instructions: String – Domain: Step-by-step text format.
+
+* Goal:
+goal_id (Primary Key): Integer or unique identifier – Domain: Unique integers or GUIDs.
+
+name: String – Domain: Alphanumeric characters, certain symbols.
+
+**Relationships**
+* User - MealPlan: One to Many:
+
+One user can have multiple meal plans but each meal plan is used by only one user. This relationship is represented by the foreign key in the MealPlan table pointing to the User's primary key.
+
+* MealPlan - Recipe: Many to Many:
+
+A meal plan can host multiple recipes and a single recipe can be part of multiple meal plans. To efficiently represent this relationship, an intermediary table (junction table) is often used:
+
+* User - Goal: One to One: 
+
+One user has one goal. This is represented by the foreign key in the Goal table pointing to the User's primary key. (However, if you anticipate a user having multiple goals in the future, this relationship may need to change to one-to-many).
+
+**Constraints:**
+
+* User's username must be unique.
+* Passwords in the User table should adhere to certain security constraints like minimum length, and a mix of alphanumeric and special characters.
+
 1. **Functional Dependencies and Normalization:**
 1. **Specific Queries:**
 1. **Sample Data:**

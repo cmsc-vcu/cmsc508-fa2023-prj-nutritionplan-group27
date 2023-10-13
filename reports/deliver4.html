@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Zachariah Dellimore">
-<meta name="dcterms.date" content="2023-10-12">
+<meta name="author" content="Zachariah Dellimore, Suhas Narayanan, Jeffi Thomas">
+<meta name="dcterms.date" content="2024-10-13">
 
-<title>Homework 5 - Database Normalization</title>
+<title>Phase 1 Deliverable</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3279,7 +3279,7 @@ z-index: 1000;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Homework 5 - Database Normalization</h1>
+<h1 class="title">Phase 1 Deliverable</h1>
 </div>
 
 
@@ -3289,14 +3289,14 @@ z-index: 1000;
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Zachariah Dellimore </p>
+             <p>Zachariah Dellimore, Suhas Narayanan, Jeffi Thomas </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 12, 2023</p>
+      <p class="date">October 13, 2024</p>
     </div>
   </div>
   
@@ -3570,10 +3570,28 @@ contains–Recipe
 </div>
 <ol type="1">
 <li><strong>Relational Schemas:</strong></li>
-<li><strong>Functional Dependencies and Normalization:</strong></li>
-<li><strong>Specific Queries:</strong></li>
-<li><strong>Sample Data:</strong></li>
 </ol>
+<ul>
+<li>User user_id (Primary Key): Integer or unique identifier – - Domain: Unique integers or GUIDs.</li>
+</ul>
+<p>username: String – Domain: Alphanumeric characters, certain symbols. Constraint: Must be unique.</p>
+<p>password: String – Domain: Alphanumeric characters, symbols. Constraint: Should adhere to password security standards (length, combination of characters, etc.).</p>
+<ul>
+<li>MealPlan: meal_plan_id (Primary Key): Integer or unique identifier – Domain: Unique integers or GUIDs.</li>
+</ul>
+<p>name: String – Domain: Alphanumeric characters, certain symbols.</p>
+<p>recipes (Foreign Key pointing to Recipe): List of integers or unique identifiers – Domain: List of unique integers or GUIDs corresponding to Recipe.</p>
+<ul>
+<li>Recipe: recipe_id (Primary Key): Integer or unique identifier – Domain: Unique integers or GUIDs. name: String – Domain: Alphanumeric characters, certain symbols.</li>
+</ul>
+<p>nutrition: String – Domain: Text format with nutritional details. Constraint: Could have a standard format or units.</p>
+<p>ingredients: String – Domain: List or text format detailing ingredients.</p>
+<p>instructions: String – Domain: Step-by-step text format.</p>
+<ul>
+<li>Goal: goal_id (Primary Key): Integer or unique identifier – Domain: Unique integers or GUIDs.</li>
+</ul>
+<p>name: String – Domain: Alphanumeric characters, certain symbols.</p>
+<p>description: String – Domain: Detailed text about the goal. 1. <strong>Functional Dependencies and Normalization:</strong> 1. <strong>Specific Queries:</strong> 1. <strong>Sample Data:</strong></p>
 </section>
 <section id="project-management" class="level2">
 <h2 class="anchored" data-anchor-id="project-management">Project Management</h2>
