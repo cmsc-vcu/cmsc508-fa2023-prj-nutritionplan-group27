@@ -3322,11 +3322,28 @@ z-index: 1000;
 <section id="problem-description" class="level2">
 <h2 class="anchored" data-anchor-id="problem-description">Problem Description</h2>
 <ol type="1">
-<li><strong>Problem Domain:</strong></li>
-<li><strong>Need:</strong></li>
-<li><strong>Context, scope, and perspective:</strong></li>
-<li><strong>User roles and use cases:</strong></li>
-<li><strong>Security and Privacy:</strong></li>
+<li><p><strong>Problem Domain:</strong> Health and fitness is becoming more and more mainstream. A major aspect of this is your diet and what you are eating. It just so happens that this is also the hardest part of maintaining your health. There are thousands of websites, programs, and videos online however they are mainly general plans that aren’t tailored to individuals. This leads to a lot of people giving up on their diet after a short period of time because of a lack of interest, lack of feasibility, or a lack of results. A proper nutritional plan must be tailored to the individual based on lifestyle, goals, and personal health to prove effective in the long run.</p></li>
+<li><p><strong>Need:</strong> This database is needed because of the increased demand for guidance in nutritional planning. The sheer volume of resources all with conflicting information makes it confusing to find a plan that works for you. This nutritional database takes into consideration things like dietary restrictions, allergies, health goals, personal lifestyle, meal preferences, etc all to create a sustainable, effective, and fun nutritional plan.</p></li>
+<li><p><strong>Context, scope, and perspective:</strong> This database has a wide scope as it can apply to anyone who is interested in a nutritional plan. For example, students, teachers, athletes, patients, trainers, children, etc.</p></li>
+<li><p><strong>User roles and use cases:</strong></p>
+<ul>
+<li>Individuals seeking dietary plans:
+<ul>
+<li>Needs: Access to personalized dietary plans, tracking and analysis of food intake, viewing and adding recipes, setting health goals.</li>
+<li>Usage: Will log in to view or update their profile, input daily food consumption, view recipes, and monitor progress towards their dietary goals.</li>
+</ul></li>
+<li>Nutritionists:
+<ul>
+<li>Needs: Access to client profiles (with permission), ability to customize and assign dietary plans, monitor and provide feedback on client progress, add new dietary plans or modify existing ones.</li>
+<li>Usage: After accessing a client’s profile, they’ll review dietary records, adjust meal plans, and provide notes or feedback to the individual</li>
+</ul></li>
+<li>Fitness Trainer:
+<ul>
+<li>Needs: View (with permission) the dietary habits of clients to adjust fitness routines accordingly, and possibly provide input or feedback on the balance between diet and exercise.</li>
+<li>Usage: After reviewing the dietary intake of a client, they might adjust workout plans to complement the client’s nutritional intake.</li>
+</ul></li>
+</ul></li>
+<li><p><strong>Security and Privacy:</strong> We need to have concern over user’s personal information like name, email, contact details, and health data (allergies, medical condition, dietary restrictions). We could implement a multi-factor authentication to ensure legitimate user access to the system. We can also Provide a User Awareness &amp; Education overview providing users with information on how their data is used in order to maintain security.</p></li>
 </ol>
 </section>
 <section id="database-design" class="level2">
@@ -3551,9 +3568,6 @@ contains–Recipe
 </div>
 </div>
 </div>
-<pre><code>| Meal Plan  | User   | Recipe     | Nutrition | Goals |
-|------------|--------|------------|-----------|-------|
-|Protein     |Suhas   |Salmon Curry|151cal     |Muscle |</code></pre>
 <ol type="1">
 <li><strong>Relational Schemas:</strong></li>
 <li><strong>Functional Dependencies and Normalization:</strong></li>
