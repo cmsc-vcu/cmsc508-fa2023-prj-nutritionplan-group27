@@ -3348,12 +3348,8 @@ z-index: 1000;
 </section>
 <section id="database-design" class="level2">
 <h2 class="anchored" data-anchor-id="database-design">Database Design</h2>
-<ol start="6" type="1">
-<li><p><strong>Entity-Relationship diagram(ERD):</strong></p>
-<ol type="1">
-<li>High-Level Overview</li>
-</ol></li>
-</ol>
+<p><strong>Entity-Relationship diagram(ERD):</strong></p>
+<pre><code>1. High-Level Overview</code></pre>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -3568,9 +3564,7 @@ contains–Recipe
 </div>
 </div>
 </div>
-<ol type="1">
-<li><strong>Relational Schemas:</strong></li>
-</ol>
+<p><strong>Relational Schemas:</strong></p>
 <ul>
 <li>User user_id (Primary Key): Integer or unique identifier – - Domain: Unique integers or GUIDs.</li>
 </ul>
@@ -3591,12 +3585,52 @@ contains–Recipe
 <li>Goal: goal_id (Primary Key): Integer or unique identifier – Domain: Unique integers or GUIDs.</li>
 </ul>
 <p>name: String – Domain: Alphanumeric characters, certain symbols.</p>
-<p>description: String – Domain: Detailed text about the goal. 1. <strong>Functional Dependencies and Normalization:</strong> 1. <strong>Specific Queries:</strong> 1. <strong>Sample Data:</strong></p>
+<p><strong>Relationships</strong></p>
+<ul>
+<li>User - MealPlan: One to Many:</li>
+</ul>
+<p>One user can have multiple meal plans but each meal plan is used by only one user. This relationship is represented by the foreign key in the MealPlan table pointing to the User’s primary key.</p>
+<ul>
+<li>MealPlan - Recipe: Many to Many:</li>
+</ul>
+<p>A meal plan can host multiple recipes and a single recipe can be part of multiple meal plans. To efficiently represent this relationship, an intermediary table (junction table) is often used:</p>
+<ul>
+<li>User - Goal: One to One:</li>
+</ul>
+<p>One user has one goal. This is represented by the foreign key in the Goal table pointing to the User’s primary key. (However, if you anticipate a user having multiple goals in the future, this relationship may need to change to one-to-many).</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>User’s username must be unique.</li>
+<li>Passwords in the User table should adhere to certain security constraints like minimum length, and a mix of alphanumeric and special characters.</li>
+</ul>
+<p><strong>Functional Dependencies and Normalization:</strong></p>
+<p><strong>Specific Queries:</strong></p>
+<p><strong>Sample Data:</strong></p>
 </section>
 <section id="project-management" class="level2">
 <h2 class="anchored" data-anchor-id="project-management">Project Management</h2>
 <ol start="11" type="1">
 <li><strong>Draft Project schedule:</strong></li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">    gantt
+        title A Gantt Diagram
+        dateFormat YYYY-MM-DD
+        section Section
+            Create Basic Website    :a1, 10-15-2023, 7d
+            Create Database    :a2, after a1, 14d
+            Collect Data    :a3, after a2, 7d
+            Finish Website    :a4, after a3, 21d
+            Finishing Touches    :a5, after a4, 11d
+</pre>
+</div>
+</div>
+</div>
+</div>
+<ol start="12" type="1">
 <li><strong>Video:</strong></li>
 </ol>
 </section>

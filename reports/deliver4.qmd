@@ -39,7 +39,7 @@ meal plan, user, recipe, nutritional info, goals
 1. **Security and Privacy:** We need to have concern over user’s personal information like name, email, contact details, and health data (allergies, medical condition, dietary restrictions). We could implement a multi-factor authentication to ensure legitimate user access to the system. We can also Provide a User Awareness & Education overview providing users with information on how their data is used in order to maintain security. 
 
 ## Database Design
-6. **Entity-Relationship diagram(ERD):**
+**Entity-Relationship diagram(ERD):**
 
     1. High-Level Overview
         ```{dot}
@@ -102,7 +102,9 @@ meal plan, user, recipe, nutritional info, goals
                 }
         ```
 
-1. **Relational Schemas:**
+
+**Relational Schemas:**
+
 * User
 user_id (Primary Key): Integer or unique identifier – - Domain: Unique integers or GUIDs.
 
@@ -132,7 +134,9 @@ goal_id (Primary Key): Integer or unique identifier – Domain: Unique integers 
 
 name: String – Domain: Alphanumeric characters, certain symbols.
 
+
 **Relationships**
+
 * User - MealPlan: One to Many:
 
 One user can have multiple meal plans but each meal plan is used by only one user. This relationship is represented by the foreign key in the MealPlan table pointing to the User's primary key.
@@ -145,15 +149,33 @@ A meal plan can host multiple recipes and a single recipe can be part of multipl
 
 One user has one goal. This is represented by the foreign key in the Goal table pointing to the User's primary key. (However, if you anticipate a user having multiple goals in the future, this relationship may need to change to one-to-many).
 
+
 **Constraints:**
 
 * User's username must be unique.
 * Passwords in the User table should adhere to certain security constraints like minimum length, and a mix of alphanumeric and special characters.
 
-1. **Functional Dependencies and Normalization:**
-1. **Specific Queries:**
-1. **Sample Data:**
+
+**Functional Dependencies and Normalization:**
+
+
+**Specific Queries:**
+
+
+**Sample Data:**
+
 
 ## Project Management
 11. **Draft Project schedule:**
-1. **Video:**
+    ```{mermaid}
+    gantt
+        title A Gantt Diagram
+        dateFormat YYYY-MM-DD
+        section Section
+            Create Basic Website    :a1, 10-15-2023, 7d
+            Create Database    :a2, after a1, 14d
+            Collect Data    :a3, after a2, 7d
+            Finish Website    :a4, after a3, 21d
+            Finishing Touches    :a5, after a4, 11d
+    ```
+12. **Video:**
