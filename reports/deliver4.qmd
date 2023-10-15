@@ -159,6 +159,7 @@ One user has one goal. This is represented by the foreign key in the Goal table 
 **Functional Dependencies and Normalization:**
 
 
+
 **Specific Queries:**
 
 1. Sort users by name alphabetically
@@ -183,8 +184,51 @@ One user has one goal. This is represented by the foreign key in the Goal table 
 
 1. List the most popular ingredient in all recipes
 
+TODO: Change Tables
 
 **Sample Data:**
+
+**User Table**
+
+| UserID | UserName | UserPassword | MealPlanID | GoalID |
+|--------|----------|--------------|------------|--------|
+| 001    | StarNova | WompWomp205! | 002        | 1      |
+| 002    | JohnLeon | ard101       | 001        | 3      |
+| 003    | GimmeA   | goodGrade100 | 003        | 2      |
+
+
+**Meal Plan Table**
+
+| MealPlanID | MealPlanName |
+|------------|--------------|
+| 001        | ProteinPunch |
+| 002        | WeightLoss   |
+| 003        | WeightGain   |
+
+
+**Recipe Junction Table**
+
+| MealPlanID | RecipeId |
+|------------|----------|
+| 001        | 1        |
+| 001        | 2        |
+| 003        | 3        |
+
+Recipe Table
+
+| RecipeId | RecipeName | Nutrition |   Ingredients    |    Instructions   |
+|----------|------------|-----------|------------------|-------------------|
+| 1        | ChicknRice | 500cal    | Chickn,Rice,etc. | Season Chicken... |
+| 2        | SteakBowl  | 782cal    | Steak,Rice,etc.  | Season Steak...   |
+| 3        | CaesarSalad|  289cal   | Lettuce,Salt,etc.| Wash Lettuce...   |
+
+Goal Table
+
+| GoalID |      Name      | Description                       |
+|--------|----------------|-----------------------------------|
+| 1      | WeightLoss     | Lose 20lbs in 6 months            |
+| 2      | WeightGain     | Gain 20lbs in 6 months            |
+| 3      | MaintainWeight | Maintain within 5lbs for 6 months |
 
 
 ## Project Management
