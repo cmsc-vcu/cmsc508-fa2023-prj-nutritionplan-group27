@@ -161,6 +161,28 @@ One user has one goal. This is represented by the foreign key in the Goal table 
 
 **Specific Queries:**
 
+1. Sort users by name alphabetically
+
+1. List all users that have losing weight as their goal
+
+1. List all recipes that contain egg
+
+1. List all the recipes that are less than 750 calories
+
+1. List all the Meal Plans that do not contain peanut butter
+
+1. Who are the 5 oldest(date signed up) users
+
+1. List the 3 most popular Goal
+
+1. List the 5 most popular Meal Plans
+
+1. List the 5 most popular Meal Plan that users with the losing weight goal use
+
+1. List the 5 most popular recipes
+
+1. List the most popular ingredient in all recipes
+
 
 **Sample Data:**
 
