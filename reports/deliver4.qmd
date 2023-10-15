@@ -19,24 +19,11 @@ format:
 meal plan, user, recipe, nutritional info, goals
 
 ## Problem Description
-1. **Problem Domain:** Health and fitness is becoming more and more mainstream. A major aspect of this is your diet and what you are eating. It just so happens that this is also the hardest part of maintaining your health. There are thousands of websites, programs, and videos online however they are mainly general plans that aren't tailored to individuals. This leads to a lot of people giving up on their diet after a short period of time because of a lack of interest, lack of feasibility, or a lack of results. A proper nutritional plan must be tailored to the individual based on lifestyle, goals, and personal health to prove effective in the long run. 
-
-1. **Need:** This database is needed because of the increased demand for guidance in nutritional planning. The sheer volume of resources all with conflicting information makes it confusing to find a plan that works for you. This nutritional database takes into consideration things like dietary restrictions, allergies, health goals, personal lifestyle, meal preferences, etc all to create a sustainable, effective, and fun nutritional plan.
-
-1. **Context, scope, and perspective:** This database has a wide scope as it can apply to anyone who is interested in a nutritional plan. For example, students, teachers, athletes, patients, trainers, children, etc. 
-
+1. **Problem Domain:** 
+1. **Need:**
+1. **Context, scope, and perspective:**
 1. **User roles and use cases:**
-    * Individuals seeking dietary plans:
-        * Needs: Access to personalized dietary plans, tracking and analysis of food intake, viewing and adding recipes, setting health goals.
-        * Usage: Will log in to view or update their profile, input daily food consumption, view recipes, and monitor progress towards their dietary goals.
-    * Nutritionists:
-        * Needs: Access to client profiles (with permission), ability to customize and assign dietary plans, monitor and provide feedback on client progress, add new dietary plans or modify existing ones.
-        * Usage: After accessing a client's profile, they'll review dietary records, adjust meal plans, and provide notes or feedback to the individual
-    * Fitness Trainer:
-        * Needs: View (with permission) the dietary habits of clients to adjust fitness routines accordingly, and possibly provide input or feedback on the balance between diet and exercise.
-        * Usage: After reviewing the dietary intake of a client, they might adjust workout plans to complement the client's nutritional intake.
-
-1. **Security and Privacy:** We need to have concern over user’s personal information like name, email, contact details, and health data (allergies, medical condition, dietary restrictions). We could implement a multi-factor authentication to ensure legitimate user access to the system. We can also Provide a User Awareness & Education overview providing users with information on how their data is used in order to maintain security. 
+1. **Security and Privacy:**
 
 ## Database Design
 **Entity-Relationship diagram(ERD):**
