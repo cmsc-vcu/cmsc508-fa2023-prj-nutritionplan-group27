@@ -1,7 +1,7 @@
 ---
-title: Deliverable 4 - Database Design
-date: last-modified
-author: Zachariah Dellimore, Jeffi Thomas, Suhas Narayanan
+title: Phase 1 Deliverable 
+date: 10-13-2024
+author: Zachariah Dellimore, Suhas Narayanan, Jeffi Thomas
 format:
     html:
         theme: cosmo
@@ -20,42 +20,13 @@ meal plan, user, recipe, nutritional info, goals
 
 ## Problem Description
 1. **Problem Domain:** 
-
-    Health and fitness is becoming more and more mainstream. A major aspect of this is your diet and what you are eating. It just so happens that this is also the hardest part of maintaining your health. There are thousands of websites, programs, and videos online however they are mainly general plans that aren't tailored to individuals. This leads to a lot of people giving up on their diet after a short period of time because of a lack of interest, lack of feasibility, or a lack of results. A proper nutritional plan must be tailored to the individual based on lifestyle, goals, and personal health to prove effective in the long run.
-
-2. **Need:**
-
-    This database is needed because of the increased demand for guidance in nutritional planning. The sheer volume of resources all with conflicting information makes it confusing to find a plan that works for you. This nutritional database takes into consideration things like dietary restrictions, allergies, health goals, personal lifestyle, meal preferences, etc all to create a sustainable, effective, and fun nutritional plan.
-
-3. **Context, scope, and perspective:**
-
-    This database has a wide scope as it can apply to anyone who is interested in a nutritional plan. For example, students, teachers, athletes, patients, trainers, children, etc. 
-
-4. **User roles and use cases:**
-
-    Individuals seeking dietary plans
-    - Needs: Access to personalized dietary plans, tracking and analysis of food intake, viewing and adding recipes, setting health goals.
-
-    - Usage: Will log in to view or update their profile, input daily food consumption, view recipes, and monitor progress towards their dietary goals.
-
-    Nutritionists:
-    - Needs: Access to client profiles (with permission), ability to customize and assign dietary plans, monitor and provide feedback on client progress, add new dietary plans or modify existing ones.
-
-    - Usage: After accessing a client's profile, they'll review dietary records, adjust meal plans, and provide notes or feedback to the individual
-
-
-    Fitness Trainer
-    - Needs: View (with permission) the dietary habits of clients to adjust fitness routines accordingly, and possibly provide input or feedback on the balance between diet and exercise.
-
-    - Usage: After reviewing the dietary intake of a client, they might adjust workout plans to complement the client's nutritional intake.
-
-5. **Security and Privacy:**
-
-    We need to have concern over user’s personal information like name, email, contact details, and health data (allergies, medical condition, dietary restrictions). We could implement a multi-factor authentication to ensure legitimate user access to the system. We can also Provide a User Awareness & Education overview providing users with information on how their data is used in order to maintain security. 
-
+1. **Need:**
+1. **Context, scope, and perspective:**
+1. **User roles and use cases:**
+1. **Security and Privacy:**
 
 ## Database Design
-6. **Entity-Relationship diagram(ERD):**
+**Entity-Relationship diagram(ERD):**
 
     1. High-Level Overview
         ```{dot}
@@ -117,11 +88,83 @@ meal plan, user, recipe, nutritional info, goals
                     string description
                 }
         ```
-1. **Relational Schemas:**
-1. **Functional Dependencies and Normalization:**
-1. **Specific Queries:**
-1. **Sample Data:**
+
+
+**Relational Schemas:**
+
+* User
+user_id (Primary Key): Integer or unique identifier – - Domain: Unique integers or GUIDs.
+
+username: String – Domain: Alphanumeric characters, certain symbols. Constraint: Must be unique.
+
+password: String – Domain: Alphanumeric characters, symbols. Constraint: Should adhere to password security standards (length, combination of characters, etc.).
+
+* MealPlan:
+meal_plan_id (Primary Key): Integer or unique identifier – Domain: Unique integers or GUIDs.
+
+name: String – Domain: Alphanumeric characters, certain symbols.
+
+recipes (Foreign Key pointing to Recipe): List of integers or unique identifiers – Domain: List of unique integers or GUIDs corresponding to Recipe.
+
+* Recipe:
+recipe_id (Primary Key): Integer or unique identifier – Domain: Unique integers or GUIDs.
+name: String – Domain: Alphanumeric characters, certain symbols.
+
+nutrition: String – Domain: Text format with nutritional details. Constraint: Could have a standard format or units.
+
+ingredients: String – Domain: List or text format detailing ingredients.
+
+instructions: String – Domain: Step-by-step text format.
+
+* Goal:
+goal_id (Primary Key): Integer or unique identifier – Domain: Unique integers or GUIDs.
+
+name: String – Domain: Alphanumeric characters, certain symbols.
+
+
+**Relationships**
+
+* User - MealPlan: One to Many:
+
+One user can have multiple meal plans but each meal plan is used by only one user. This relationship is represented by the foreign key in the MealPlan table pointing to the User's primary key.
+
+* MealPlan - Recipe: Many to Many:
+
+A meal plan can host multiple recipes and a single recipe can be part of multiple meal plans. To efficiently represent this relationship, an intermediary table (junction table) is often used:
+
+* User - Goal: One to One: 
+
+One user has one goal. This is represented by the foreign key in the Goal table pointing to the User's primary key. (However, if you anticipate a user having multiple goals in the future, this relationship may need to change to one-to-many).
+
+
+**Constraints:**
+
+* User's username must be unique.
+* Passwords in the User table should adhere to certain security constraints like minimum length, and a mix of alphanumeric and special characters.
+
+
+**Functional Dependencies and Normalization:**
+
+
+**Specific Queries:**
+
+
+**Sample Data:**
+
 
 ## Project Management
 11. **Draft Project schedule:**
-1. **Video:**
+    ```{mermaid}
+    gantt
+        title A Gantt Diagram
+        dateFormat YYYY-MM-DD
+        section Section
+            Create Basic Website    :a1, 10-15-2023, 7d
+            Create Database    :a2, after a1, 14d
+            Collect Data    :a3, after a2, 7d
+            Finish Website    :a4, after a3, 21d
+            Finishing Touches    :a5, after a4, 11d
+    ```
+
+    
+12. **Video:**

@@ -6,10 +6,17 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<<<<<<< HEAD
 <meta name="author" content="Zachariah Dellimore, Jeffi Thomas, Suhas Narayanan">
 <meta name="dcterms.date" content="2023-10-14">
 
 <title>Deliverable 4 - Database Design</title>
+=======
+<meta name="author" content="Zachariah Dellimore, Suhas Narayanan, Jeffi Thomas">
+<meta name="dcterms.date" content="2024-10-13">
+
+<title>Phase 1 Deliverable</title>
+>>>>>>> fad02d3d0d9c6ea6e66ed0018873a94b751c52f9
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3279,7 +3286,11 @@ z-index: 1000;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
+<<<<<<< HEAD
 <h1 class="title">Deliverable 4 - Database Design</h1>
+=======
+<h1 class="title">Phase 1 Deliverable</h1>
+>>>>>>> fad02d3d0d9c6ea6e66ed0018873a94b751c52f9
 </div>
 
 
@@ -3289,14 +3300,22 @@ z-index: 1000;
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
+<<<<<<< HEAD
              <p>Zachariah Dellimore, Jeffi Thomas, Suhas Narayanan </p>
+=======
+             <p>Zachariah Dellimore, Suhas Narayanan, Jeffi Thomas </p>
+>>>>>>> fad02d3d0d9c6ea6e66ed0018873a94b751c52f9
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
+<<<<<<< HEAD
       <p class="date">October 14, 2023</p>
+=======
+      <p class="date">October 13, 2024</p>
+>>>>>>> fad02d3d0d9c6ea6e66ed0018873a94b751c52f9
     </div>
   </div>
   
@@ -3322,6 +3341,7 @@ z-index: 1000;
 <section id="problem-description" class="level2">
 <h2 class="anchored" data-anchor-id="problem-description">Problem Description</h2>
 <ol type="1">
+<<<<<<< HEAD
 <li><p><strong>Problem Domain:</strong></p>
 <p>Health and fitness is becoming more and more mainstream. A major aspect of this is your diet and what you are eating. It just so happens that this is also the hardest part of maintaining your health. There are thousands of websites, programs, and videos online however they are mainly general plans that aren’t tailored to individuals. This leads to a lot of people giving up on their diet after a short period of time because of a lack of interest, lack of feasibility, or a lack of results. A proper nutritional plan must be tailored to the individual based on lifestyle, goals, and personal health to prove effective in the long run.</p></li>
 <li><p><strong>Need:</strong></p>
@@ -3346,16 +3366,36 @@ z-index: 1000;
 </ul></li>
 <li><p><strong>Security and Privacy:</strong></p>
 <p>We need to have concern over user’s personal information like name, email, contact details, and health data (allergies, medical condition, dietary restrictions). We could implement a multi-factor authentication to ensure legitimate user access to the system. We can also Provide a User Awareness &amp; Education overview providing users with information on how their data is used in order to maintain security.</p></li>
+=======
+<li><p><strong>Problem Domain:</strong> Health and fitness is becoming more and more mainstream. A major aspect of this is your diet and what you are eating. It just so happens that this is also the hardest part of maintaining your health. There are thousands of websites, programs, and videos online however they are mainly general plans that aren’t tailored to individuals. This leads to a lot of people giving up on their diet after a short period of time because of a lack of interest, lack of feasibility, or a lack of results. A proper nutritional plan must be tailored to the individual based on lifestyle, goals, and personal health to prove effective in the long run.</p></li>
+<li><p><strong>Need:</strong> This database is needed because of the increased demand for guidance in nutritional planning. The sheer volume of resources all with conflicting information makes it confusing to find a plan that works for you. This nutritional database takes into consideration things like dietary restrictions, allergies, health goals, personal lifestyle, meal preferences, etc all to create a sustainable, effective, and fun nutritional plan.</p></li>
+<li><p><strong>Context, scope, and perspective:</strong> This database has a wide scope as it can apply to anyone who is interested in a nutritional plan. For example, students, teachers, athletes, patients, trainers, children, etc.</p></li>
+<li><p><strong>User roles and use cases:</strong></p>
+<ul>
+<li>Individuals seeking dietary plans:
+<ul>
+<li>Needs: Access to personalized dietary plans, tracking and analysis of food intake, viewing and adding recipes, setting health goals.</li>
+<li>Usage: Will log in to view or update their profile, input daily food consumption, view recipes, and monitor progress towards their dietary goals.</li>
+</ul></li>
+<li>Nutritionists:
+<ul>
+<li>Needs: Access to client profiles (with permission), ability to customize and assign dietary plans, monitor and provide feedback on client progress, add new dietary plans or modify existing ones.</li>
+<li>Usage: After accessing a client’s profile, they’ll review dietary records, adjust meal plans, and provide notes or feedback to the individual</li>
+</ul></li>
+<li>Fitness Trainer:
+<ul>
+<li>Needs: View (with permission) the dietary habits of clients to adjust fitness routines accordingly, and possibly provide input or feedback on the balance between diet and exercise.</li>
+<li>Usage: After reviewing the dietary intake of a client, they might adjust workout plans to complement the client’s nutritional intake.</li>
+</ul></li>
+</ul></li>
+<li><p><strong>Security and Privacy:</strong> We need to have concern over user’s personal information like name, email, contact details, and health data (allergies, medical condition, dietary restrictions). We could implement a multi-factor authentication to ensure legitimate user access to the system. We can also Provide a User Awareness &amp; Education overview providing users with information on how their data is used in order to maintain security.</p></li>
+>>>>>>> fad02d3d0d9c6ea6e66ed0018873a94b751c52f9
 </ol>
 </section>
 <section id="database-design" class="level2">
 <h2 class="anchored" data-anchor-id="database-design">Database Design</h2>
-<ol start="6" type="1">
-<li><p><strong>Entity-Relationship diagram(ERD):</strong></p>
-<ol type="1">
-<li>High-Level Overview</li>
-</ol></li>
-</ol>
+<p><strong>Entity-Relationship diagram(ERD):</strong></p>
+<pre><code>1. High-Level Overview</code></pre>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -3570,17 +3610,82 @@ contains–Recipe
 </div>
 </div>
 </div>
+<<<<<<< HEAD
 <ol type="1">
 <li><strong>Relational Schemas:</strong></li>
 <li><strong>Functional Dependencies and Normalization:</strong></li>
 <li><strong>Specific Queries:</strong></li>
 <li><strong>Sample Data:</strong></li>
 </ol>
+=======
+<p><strong>Relational Schemas:</strong></p>
+<ul>
+<li>User user_id (Primary Key): Integer or unique identifier – - Domain: Unique integers or GUIDs.</li>
+</ul>
+<p>username: String – Domain: Alphanumeric characters, certain symbols. Constraint: Must be unique.</p>
+<p>password: String – Domain: Alphanumeric characters, symbols. Constraint: Should adhere to password security standards (length, combination of characters, etc.).</p>
+<ul>
+<li>MealPlan: meal_plan_id (Primary Key): Integer or unique identifier – Domain: Unique integers or GUIDs.</li>
+</ul>
+<p>name: String – Domain: Alphanumeric characters, certain symbols.</p>
+<p>recipes (Foreign Key pointing to Recipe): List of integers or unique identifiers – Domain: List of unique integers or GUIDs corresponding to Recipe.</p>
+<ul>
+<li>Recipe: recipe_id (Primary Key): Integer or unique identifier – Domain: Unique integers or GUIDs. name: String – Domain: Alphanumeric characters, certain symbols.</li>
+</ul>
+<p>nutrition: String – Domain: Text format with nutritional details. Constraint: Could have a standard format or units.</p>
+<p>ingredients: String – Domain: List or text format detailing ingredients.</p>
+<p>instructions: String – Domain: Step-by-step text format.</p>
+<ul>
+<li>Goal: goal_id (Primary Key): Integer or unique identifier – Domain: Unique integers or GUIDs.</li>
+</ul>
+<p>name: String – Domain: Alphanumeric characters, certain symbols.</p>
+<p><strong>Relationships</strong></p>
+<ul>
+<li>User - MealPlan: One to Many:</li>
+</ul>
+<p>One user can have multiple meal plans but each meal plan is used by only one user. This relationship is represented by the foreign key in the MealPlan table pointing to the User’s primary key.</p>
+<ul>
+<li>MealPlan - Recipe: Many to Many:</li>
+</ul>
+<p>A meal plan can host multiple recipes and a single recipe can be part of multiple meal plans. To efficiently represent this relationship, an intermediary table (junction table) is often used:</p>
+<ul>
+<li>User - Goal: One to One:</li>
+</ul>
+<p>One user has one goal. This is represented by the foreign key in the Goal table pointing to the User’s primary key. (However, if you anticipate a user having multiple goals in the future, this relationship may need to change to one-to-many).</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>User’s username must be unique.</li>
+<li>Passwords in the User table should adhere to certain security constraints like minimum length, and a mix of alphanumeric and special characters.</li>
+</ul>
+<p><strong>Functional Dependencies and Normalization:</strong></p>
+<p><strong>Specific Queries:</strong></p>
+<p><strong>Sample Data:</strong></p>
+>>>>>>> fad02d3d0d9c6ea6e66ed0018873a94b751c52f9
 </section>
 <section id="project-management" class="level2">
 <h2 class="anchored" data-anchor-id="project-management">Project Management</h2>
 <ol start="11" type="1">
 <li><strong>Draft Project schedule:</strong></li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">    gantt
+        title A Gantt Diagram
+        dateFormat YYYY-MM-DD
+        section Section
+            Create Basic Website    :a1, 10-15-2023, 7d
+            Create Database    :a2, after a1, 14d
+            Collect Data    :a3, after a2, 7d
+            Finish Website    :a4, after a3, 21d
+            Finishing Touches    :a5, after a4, 11d
+</pre>
+</div>
+</div>
+</div>
+</div>
+<ol start="12" type="1">
 <li><strong>Video:</strong></li>
 </ol>
 </section>
