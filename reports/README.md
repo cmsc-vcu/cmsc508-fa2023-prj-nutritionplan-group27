@@ -13,3 +13,8 @@ Quarto should then output and html file for your use.
 
 ## How to use this project
 This project is intended to be use to show the progression of our project and to get a better understanding of how our decisions were made.
+
+## Useful Links
+* [Pitch Video](https://cdnapisec.kaltura.com/index.php/extwidget/preview/partner_id/1888231/uiconf_id/28242191/entry_id/1_gz2tt2pm/embed/dynamic)
+* [Design Video](https://vcu.zoom.us/rec/share/pVgBUN4D_LdJPS6ypM4SuUXBwF3OqcmSJhfzxkhCtDG6PB_N2rLlR07iCvvruGI.X2-c_Vxr13gZsWZs?startTime=1697421780000)
+* [Deliverable 4](deliver4.html)
