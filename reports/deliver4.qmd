@@ -158,7 +158,14 @@ One user has one goal. This is represented by the foreign key in the Goal table 
 
 **Functional Dependencies and Normalization:**
 
+* $R_{0}(UserID, UserName, UserPassword, MealPlanID, GoalID)$ with FD(s): $UserID \rightarrow UserName, UserPassword, MealPlanID, GoalID;$
+* $R_{1}(MealPlanID, MealPlanName)$ with FD(s): $MealPlanID \rightarrow MealPlanName;$
+* $R_{2}(MealPlanID, RecipeId)$ with FD(s): $MealPlanID \rightarrow RecipeId;$
+* $R_{3}(RecipeId, RecipeName, Nutrition, Ingredients, Instructions)$ with FD(s): $RecipeID \rightarrow RecipeName, Nutrition, Ingredients, Instructions;$
+* $R_{4}(GoalID, Name, Description)$ with FD(s): $GoalID \rightarrow Name, Description;$
 
+Decomposing input relation into 3NF using canonical functional dependency cover (lossless and preserving all minimal cover set functional dependencies):
+Decomposing input relation into 3NF relations using the Synthesis algorithm. For each functional dependency of the canonical cover set (merging functional dependencies having the same left-hand attribute(s)) of original relation's functional dependencies, create a relation schema with the attributes in that functional dependency (both sides). Checking if at least one key can be found in at least one newly formed 3NF relation. Since key {A} is present in at least one of the new 3NF relations, no new relation was created. Testing if any relation includes all of the attributes found in another relation (and deleting the duplicate or smaller one). No new relations were removed. Finished decomposing input relation into 3NF relations
 
 **Specific Queries:**
 
