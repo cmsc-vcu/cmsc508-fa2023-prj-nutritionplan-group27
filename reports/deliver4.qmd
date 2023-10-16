@@ -14,7 +14,7 @@ format:
 
 1. Useful Links
     * [Pitch Video](https://cdnapisec.kaltura.com/index.php/extwidget/preview/partner_id/1888231/uiconf_id/28242191/entry_id/1_gz2tt2pm/embed/dynamic)
-    * [Design Video]()
+    * [Design Video](https://vcu.zoom.us/rec/share/pVgBUN4D_LdJPS6ypM4SuUXBwF3OqcmSJhfzxkhCtDG6PB_N2rLlR07iCvvruGI.X2-c_Vxr13gZsWZs?startTime=1697421780000)
     * [Repository](https://github.com/cmsc-vcu/cmsc508-fa2023-prj-nutritionplan-group27#welcome-to-semecter-project-repository)
 
 ## Problem Description
@@ -346,3 +346,5 @@ Goal Table
 
     
 12. **Video:**
+
+    * [Design Video](https://vcu.zoom.us/rec/share/pVgBUN4D_LdJPS6ypM4SuUXBwF3OqcmSJhfzxkhCtDG6PB_N2rLlR07iCvvruGI.X2-c_Vxr13gZsWZs?startTime=1697421780000)
