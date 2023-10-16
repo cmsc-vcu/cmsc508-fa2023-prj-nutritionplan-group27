@@ -10,13 +10,12 @@ format:
 ---
 
 ## Project Overview and Key Deliverables
-1. Temp
+1. Personal health and dietary consciousness are at the forefront, our nutritional planner database project aims to bridge the gap between diverse dietary needs and accurate meal planning. This system offers a comprehensive platform for users to customize, track, and analyze their dietary habits, ensuring they meet specific health goals. With a rich food database, integrated recipes, and targeted meal suggestions, the project addresses the challenge of providing tailored dietary solutions for varied individual requirements.
+
 1. Useful Links
     * [Pitch Video](https://cdnapisec.kaltura.com/index.php/extwidget/preview/partner_id/1888231/uiconf_id/28242191/entry_id/1_gz2tt2pm/embed/dynamic)
-    * Design Video
+    * [Design Video]()
     * [Repository](https://github.com/cmsc-vcu/cmsc508-fa2023-prj-nutritionplan-group27#welcome-to-semecter-project-repository)
-
-meal plan, user, recipe, nutritional info, goals
 
 ## Problem Description
 1. **Problem Domain:** Health and fitness is becoming more and more mainstream. A major aspect of this is your diet and what you are eating. It just so happens that this is also the hardest part of maintaining your health. There are thousands of websites, programs, and videos online however they are mainly general plans that aren't tailored to individuals. This leads to a lot of people giving up on their diet after a short period of time because of a lack of interest, lack of feasibility, or a lack of results. A proper nutritional plan must be tailored to the individual based on lifestyle, goals, and personal health to prove effective in the long run. 
@@ -178,29 +177,81 @@ For each functional dependency of the canonical cover set (merging functional de
 
 1. Sort users by name alphabetically
 
-    $\theta_{(UserName)} \pi_{(OrderBy: UserName)}$
+    $\theta_{(UserName)} \tau_{(UserName)}$
 
-1. List all users that have losing weight as their goal
+2. List all users that have losing weight as their goal
 
-1. List all recipes that contain egg
+    $\theta_{(UserName)} \pi_{(GoalName: "LoseWeight")} (User \bowtie Goal)$
 
-1. List all the recipes that are less than 750 calories
+3. List all recipes that contain Egg
 
-1. List all the Meal Plans that do not contain peanut butter
+    $\theta_{(RecipeName)} \pi_{(Ingredients LIKE "\%Egg\%")} (User \bowtie Goal)$
 
-1. Who are the 5 oldest(date signed up) users
+4. List all the recipes that are less than 750 calories
 
-1. List the 3 most popular Goal
+    $\theta_{(RecipeName)} \pi_{(Nutrition < 750)}$
 
-1. List the 5 most popular Meal Plans
+5. List all the Meal Plans that do not contain peanut butter
 
-1. List the 5 most popular Meal Plan that users with the losing weight goal use
+    $\theta_{(MealName)} \pi_{NOT(Ingredients LIKE "\%Peanut Butter\%")} (Recipe \bowtie MealPlan)$
 
-1. List the 5 most popular recipes
+6. List the 3 most popular Goals
 
-1. List the most popular ingredient in all recipes
+    $\theta_{(GoalName)} \tau_{\pi_{(Count(GoalID))}} (User \bowtie Goal)$
 
-TODO: Change Tables
+7. List the 5 most popular Meal Plans
+
+    $\theta_{(MealPlanName)} \tau_{\pi_{(Count(MealPlanName))}} (User \bowtie MealPlan)$
+
+8. List the 5 most popular Meal Plan that users with the losing weight goal use
+
+    $\theta_{(MealPlanName)} \tau_{\pi_{(Count(MealPlanName && GoalName: WeightLoss))}} (User \bowtie Goal \bowtie MealPlan)$
+
+9. List the 5 most popular recipes
+
+    $\theta_{(RecipeName)} \tau_{\pi_{(Count(RecipeName))}} (User \bowtie Meal Plan \bowtie Recipe)$
+
+10. List all users without a meal plan
+
+    $\theta_{(UserName)} \pi_{MealPlanID: Null}$
+
+11. Order recipes by Nutrition
+
+    $\theta_{(RecipeName)} \tau_{(Nutrition)}$
+
+12. List all users with meal plans with salmon
+
+    $\theta_{(UserName)} \pi_{(Ingredients LIKE "Salmon")} (User \bowtie MealPlan \bowtie Recipe)$
+    
+13. List all users who have the goal set to "lose weight" and has a meal plan
+
+14. Sort by user password
+
+    $\theta_{(UserPassword)} \tau_{(UserPassword)}$
+
+15. Sort the recipes
+
+    $\theta_{(RecipeName)} \tau_{(RecipeName)}$
+
+16. List all recipes that are more than 400 calories
+
+    $\theta_{(RecipeName)} \pi_{(Nutrition > 400)}$
+
+17. Sort by goal name
+
+    $\theta_{(GoalName)} \tau_{(GoalName)}$
+
+18. Number of Users using the ProteinPunch MealPlan
+
+    $\theta_{(UserName)} \pi_{COUNT(MealName: "ProteinPunch")} (User \bowtie MealPlan)$
+
+19. Sort users who have the goal maintaining weight
+
+    $\theta_{(UserName)} \tau_{\pi_{(GoalName: "MaintainWeight")}} (User \bowtie Goal)$
+
+20. Sort by most popular goals
+
+    $\theta_{(GoalName)} \tau_{\pi_{(Count(GoalID))}} (User \bowtie Goal)$
 
 **Sample Data:**
 
@@ -208,9 +259,13 @@ TODO: Change Tables
 
 | UserID | UserName | UserPassword | MealPlanID | GoalID |
 |--------|----------|--------------|------------|--------|
-| 001    | StarNova | WompWomp205! | 002        | 1      |
-| 002    | JohnLeon | ard101       | 001        | 3      |
-| 003    | GimmeA   | goodGrade100 | 003        | 2      |
+| 001    | StarNova | WompWomp205! | 002        | 001    |
+| 002    | SuhasNar | LeanMch1ne   | 001        | 003    |
+| 003    | x_swag_x | D4rkn3ss     | 003        | 002    |
+| 004    | TaylorZa | Icantthink1! | 007        | 006    |
+| 005    | SwagMan9 | Meow128312   | 002        | 007    |
+| 006    | Brorher2 | Bark1298     | 004        | 004    |
+| 007    | Groudon3 | Earthwquake1 | 005        | 005    |
 
 
 **Meal Plan Table**
@@ -220,6 +275,10 @@ TODO: Change Tables
 | 001        | ProteinPunch |
 | 002        | WeightLoss   |
 | 003        | WeightGain   |
+| 004        | Vegetarian   |
+| 005        | Vegan        |
+| 006        | Pescatarian  |
+| 007        | DirtyBulk    |
 
 
 **Recipe Junction Table**
@@ -228,7 +287,23 @@ TODO: Change Tables
 |------------|----------|
 | 001        | 1        |
 | 001        | 2        |
-| 003        | 3        |
+| 001        | 5        |
+| 002        | 3        |
+| 002        | 4        |
+| 002        | 6        |
+| 003        | 2        |
+| 003        | 5        |
+| 003        | 7        |
+| 004        | 3        |
+| 004        | 4        |
+| 004        | 5        |
+| 005        | 3        |
+| 005        | 4        |
+| 006        | 3        |
+| 006        | 6        |
+| 007        | 2        |
+| 007        | 5        |
+| 007        | 7        |
 
 Recipe Table
 
@@ -237,14 +312,22 @@ Recipe Table
 | 1        | ChicknRice | 500cal    | Chickn,Rice,etc. | Season Chicken... |
 | 2        | SteakBowl  | 782cal    | Steak,Rice,etc.  | Season Steak...   |
 | 3        | CaesarSalad|  289cal   | Lettuce,Salt,etc.| Wash Lettuce...   |
+| 4        | TofuLasagna|  552cal   | Tofu,Salt,etc.   | Press Tofu...     |
+| 5        | StwbyShake |  400cal   | Stwby,Milk,etc.  | Wash stwby ...    |
+| 6        | SalmonBake | 452cal    | Salmon,salt,etc. | Cook Salmon ...   |
+| 7        | Bigmac     | 899cal    | Beef,Sauce,etc.  | Cook patty  ...   |
 
 Goal Table
 
 | GoalID |      Name      | Description                       |
 |--------|----------------|-----------------------------------|
 | 1      | WeightLoss     | Lose 20lbs in 6 months            |
-| 2      | WeightGain     | Gain 20lbs in 6 months            |
+| 2      | WeightGain     | Gain healthy 20lbs in 6 months    |
 | 3      | MaintainWeight | Maintain within 5lbs for 6 months |
+| 4      | Vegetarianism  | Have a vegetarian diet            |
+| 5      | Veganism       | Have a vegan diet                 |
+| 6      | DirtyBulk      | Gain Weight faster                |
+| 7      | Eat Healthier  | Eat more organic foods            |
 
 
 ## Project Management

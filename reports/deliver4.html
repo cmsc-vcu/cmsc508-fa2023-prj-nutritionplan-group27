@@ -3268,6 +3268,17 @@ z-index: 1000;
 }
 </style>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
 
 </head>
 
@@ -3309,15 +3320,14 @@ z-index: 1000;
 <section id="project-overview-and-key-deliverables" class="level2">
 <h2 class="anchored" data-anchor-id="project-overview-and-key-deliverables">Project Overview and Key Deliverables</h2>
 <ol type="1">
-<li>Temp</li>
-<li>Useful Links
+<li><p>Personal health and dietary consciousness are at the forefront, our nutritional planner database project aims to bridge the gap between diverse dietary needs and accurate meal planning. This system offers a comprehensive platform for users to customize, track, and analyze their dietary habits, ensuring they meet specific health goals. With a rich food database, integrated recipes, and targeted meal suggestions, the project addresses the challenge of providing tailored dietary solutions for varied individual requirements.</p></li>
+<li><p>Useful Links</p>
 <ul>
 <li><a href="https://cdnapisec.kaltura.com/index.php/extwidget/preview/partner_id/1888231/uiconf_id/28242191/entry_id/1_gz2tt2pm/embed/dynamic">Pitch Video</a></li>
 <li>Design Video</li>
 <li><a href="https://github.com/cmsc-vcu/cmsc508-fa2023-prj-nutritionplan-group27#welcome-to-semecter-project-repository">Repository</a></li>
 </ul></li>
 </ol>
-<p>meal plan, user, recipe, nutritional info, goals</p>
 </section>
 <section id="problem-description" class="level2">
 <h2 class="anchored" data-anchor-id="problem-description">Problem Description</h2>
@@ -3622,21 +3632,56 @@ contains–Recipe
 <li>Passwords in the User table should adhere to certain security constraints like minimum length, and a mix of alphanumeric and special characters.</li>
 </ul>
 <p><strong>Functional Dependencies and Normalization:</strong></p>
+<ul>
+<li><span class="math inline">\(R_{0}(UserID, UserName, UserPassword, MealPlanID, GoalID)\)</span> with FD(s): <span class="math inline">\(UserID \rightarrow UserName, UserPassword, MealPlanID, GoalID;\)</span></li>
+<li><span class="math inline">\(R_{1}(MealPlanID, MealPlanName)\)</span> with FD(s): <span class="math inline">\(MealPlanID \rightarrow MealPlanName;\)</span></li>
+<li><span class="math inline">\(R_{2}(MealPlanID, RecipeId)\)</span> with FD(s): <span class="math inline">\(MealPlanID \rightarrow RecipeId;\)</span></li>
+<li><span class="math inline">\(R_{3}(RecipeId, RecipeName, Nutrition, Ingredients, Instructions)\)</span> with FD(s): <span class="math inline">\(RecipeID \rightarrow RecipeName, Nutrition, Ingredients, Instructions;\)</span></li>
+<li><span class="math inline">\(R_{4}(GoalID, Name, Description)\)</span> with FD(s): <span class="math inline">\(GoalID \rightarrow Name, Description;\)</span></li>
+</ul>
+<p>Here our functional dependencies show how UserName, UserPassword, MealPlanID, GoalID can all be determined by UserId; MealPlanName and RecipeId can be determined by MealPlanID; RecipeName, Nutrition, Ingredients, Instructions can be determined by RecipeId; and Description, Name can be determined by GoalId. To decompose input relation into 3NF: For each functional dependency of the canonical cover set (merging functional dependencies having the same left-hand attributes) of original relation’s functional dependencies, create a relation schema with the attributes in that functional dependency (both sides). Since key {A} is present in at least one of the new 3NF relations, no new relation was created.</p>
 <p><strong>Specific Queries:</strong></p>
 <ol type="1">
-<li><p>Sort users by name alphabetically</p></li>
-<li><p>List all users that have losing weight as their goal</p></li>
-<li><p>List all recipes that contain egg</p></li>
-<li><p>List all the recipes that are less than 750 calories</p></li>
-<li><p>List all the Meal Plans that do not contain peanut butter</p></li>
-<li><p>Who are the 5 oldest(date signed up) users</p></li>
-<li><p>List the 3 most popular Goal</p></li>
-<li><p>List the 5 most popular Meal Plans</p></li>
-<li><p>List the 5 most popular Meal Plan that users with the losing weight goal use</p></li>
-<li><p>List the 5 most popular recipes</p></li>
-<li><p>List the most popular ingredient in all recipes</p></li>
+<li><p>Sort users by name alphabetically</p>
+<p><span class="math inline">\(\theta_{(UserName)} \tau_{(UserName)}\)</span></p></li>
+<li><p>List all users that have losing weight as their goal</p>
+<p><span class="math inline">\(\theta_{(UserName)} \pi_{(GoalName: &quot;LoseWeight&quot;)} (User \bowtie Goal)\)</span></p></li>
+<li><p>List all recipes that contain Egg</p>
+<p><span class="math inline">\(\theta_{(RecipeName)} \pi_{(Ingredients LIKE &quot;\%Egg\%&quot;)} (User \bowtie Goal)\)</span></p></li>
+<li><p>List all the recipes that are less than 750 calories</p>
+<p><span class="math inline">\(\theta_{(RecipeName)} \pi_{(Nutrition &lt; 750)}\)</span></p></li>
+<li><p>List all the Meal Plans that do not contain peanut butter</p>
+<p><span class="math inline">\(\theta_{(MealName)} \pi_{NOT(Ingredients LIKE &quot;\%Peanut Butter\%&quot;)} (Recipe \bowtie MealPlan)\)</span></p></li>
+<li><p>List the 3 most popular Goals</p>
+<p><span class="math inline">\(\theta_{(GoalName)} \tau_{\pi_{(Count(GoalID))}} (User \bowtie Goal)\)</span></p></li>
+<li><p>List the 5 most popular Meal Plans</p>
+<p><span class="math inline">\(\theta_{(MealPlanName)} \tau_{\pi_{(Count(MealPlanName))}} (User \bowtie MealPlan)\)</span></p></li>
+<li><p>List the 5 most popular Meal Plan that users with the losing weight goal use</p>
+<p><span class="math inline">\(\theta_{(MealPlanName)} \tau_{\pi_{(Count(MealPlanName &amp;&amp; GoalName: WeightLoss))}} (User \bowtie Goal \bowtie MealPlan)\)</span></p></li>
+<li><p>List the 5 most popular recipes</p>
+<p><span class="math inline">\(\theta_{(RecipeName)} \tau_{\pi_{(Count(RecipeName))}} (User \bowtie Meal Plan \bowtie Recipe)\)</span></p></li>
+<li><p>List all users without a meal plan</p>
+<p><span class="math inline">\(\theta_{(UserName)} \pi_{MealPlanID: Null}\)</span></p></li>
+<li><p>Order recipes by Nutrition</p>
+<p><span class="math inline">\(\theta_{(RecipeName)} \tau_{(Nutrition)}\)</span></p></li>
+<li><p>List all users with meal plans with salmon</p>
+<p><span class="math inline">\(\theta_{(UserName)} \pi_{(Ingredients LIKE &quot;Salmon&quot;)} (User \bowtie MealPlan \bowtie Recipe)\)</span></p></li>
+<li><p>List all users who have the goal set to “lose weight” and has a meal plan</p></li>
+<li><p>Sort by user password</p>
+<p><span class="math inline">\(\theta_{(UserPassword)} \tau_{(UserPassword)}\)</span></p></li>
+<li><p>Sort the recipes</p>
+<p><span class="math inline">\(\theta_{(RecipeName)} \tau_{(RecipeName)}\)</span></p></li>
+<li><p>List all recipes that are more than 400 calories</p>
+<p><span class="math inline">\(\theta_{(RecipeName)} \pi_{(Nutrition &gt; 400)}\)</span></p></li>
+<li><p>Sort by goal name</p>
+<p><span class="math inline">\(\theta_{(GoalName)} \tau_{(GoalName)}\)</span></p></li>
+<li><p>Number of Users using the ProteinPunch MealPlan</p>
+<p><span class="math inline">\(\theta_{(UserName)} \pi_{COUNT(MealName: &quot;ProteinPunch&quot;)} (User \bowtie MealPlan)\)</span></p></li>
+<li><p>Sort users who have the goal maintaining weight</p>
+<p><span class="math inline">\(\theta_{(UserName)} \tau_{\pi_{(GoalName: &quot;MaintainWeight&quot;)}} (User \bowtie Goal)\)</span></p></li>
+<li><p>Sort by most popular goals</p>
+<p><span class="math inline">\(\theta_{(GoalName)} \tau_{\pi_{(Count(GoalID))}} (User \bowtie Goal)\)</span></p></li>
 </ol>
-<p>TODO: Change Tables</p>
 <p><strong>Sample Data:</strong></p>
 <p><strong>User Table</strong></p>
 <table class="table">
@@ -3655,21 +3700,49 @@ contains–Recipe
 <td>StarNova</td>
 <td>WompWomp205!</td>
 <td>002</td>
-<td>1</td>
+<td>001</td>
 </tr>
 <tr class="even">
 <td>002</td>
-<td>JohnLeon</td>
-<td>ard101</td>
+<td>SuhasNar</td>
+<td>LeanMch1ne</td>
 <td>001</td>
-<td>3</td>
+<td>003</td>
 </tr>
 <tr class="odd">
 <td>003</td>
-<td>GimmeA</td>
-<td>goodGrade100</td>
+<td>x_swag_x</td>
+<td>D4rkn3ss</td>
 <td>003</td>
-<td>2</td>
+<td>002</td>
+</tr>
+<tr class="even">
+<td>004</td>
+<td>TaylorZa</td>
+<td>Icantthink1!</td>
+<td>007</td>
+<td>006</td>
+</tr>
+<tr class="odd">
+<td>005</td>
+<td>SwagMan9</td>
+<td>Meow128312</td>
+<td>002</td>
+<td>007</td>
+</tr>
+<tr class="even">
+<td>006</td>
+<td>Brorher2</td>
+<td>Bark1298</td>
+<td>004</td>
+<td>004</td>
+</tr>
+<tr class="odd">
+<td>007</td>
+<td>Groudon3</td>
+<td>Earthwquake1</td>
+<td>005</td>
+<td>005</td>
 </tr>
 </tbody>
 </table>
@@ -3694,6 +3767,22 @@ contains–Recipe
 <td>003</td>
 <td>WeightGain</td>
 </tr>
+<tr class="even">
+<td>004</td>
+<td>Vegetarian</td>
+</tr>
+<tr class="odd">
+<td>005</td>
+<td>Vegan</td>
+</tr>
+<tr class="even">
+<td>006</td>
+<td>Pescatarian</td>
+</tr>
+<tr class="odd">
+<td>007</td>
+<td>DirtyBulk</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Recipe Junction Table</strong></p>
@@ -3714,8 +3803,72 @@ contains–Recipe
 <td>2</td>
 </tr>
 <tr class="odd">
-<td>003</td>
+<td>001</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>002</td>
 <td>3</td>
+</tr>
+<tr class="odd">
+<td>002</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>002</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>003</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>003</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>003</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>004</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>004</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>004</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>005</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>005</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>006</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>006</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>007</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>007</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>007</td>
+<td>7</td>
 </tr>
 </tbody>
 </table>
@@ -3759,6 +3912,34 @@ contains–Recipe
 <td>Lettuce,Salt,etc.</td>
 <td>Wash Lettuce…</td>
 </tr>
+<tr class="even">
+<td>4</td>
+<td>TofuLasagna</td>
+<td>552cal</td>
+<td>Tofu,Salt,etc.</td>
+<td>Press Tofu…</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>StwbyShake</td>
+<td>400cal</td>
+<td>Stwby,Milk,etc.</td>
+<td>Wash stwby …</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>SalmonBake</td>
+<td>452cal</td>
+<td>Salmon,salt,etc.</td>
+<td>Cook Salmon …</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Bigmac</td>
+<td>899cal</td>
+<td>Beef,Sauce,etc.</td>
+<td>Cook patty …</td>
+</tr>
 </tbody>
 </table>
 <p>Goal Table</p>
@@ -3779,12 +3960,32 @@ contains–Recipe
 <tr class="even">
 <td>2</td>
 <td>WeightGain</td>
-<td>Gain 20lbs in 6 months</td>
+<td>Gain healthy 20lbs in 6 months</td>
 </tr>
 <tr class="odd">
 <td>3</td>
 <td>MaintainWeight</td>
 <td>Maintain within 5lbs for 6 months</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Vegetarianism</td>
+<td>Have a vegetarian diet</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Veganism</td>
+<td>Have a vegan diet</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>DirtyBulk</td>
+<td>Gain Weight faster</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Eat Healthier</td>
+<td>Eat more organic foods</td>
 </tr>
 </tbody>
 </table>
