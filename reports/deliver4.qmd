@@ -170,12 +170,15 @@ One user has one goal. This is represented by the foreign key in the Goal table 
 * $R_{3}(RecipeId, RecipeName, Nutrition, Ingredients, Instructions)$ with FD(s): $RecipeID \rightarrow RecipeName, Nutrition, Ingredients, Instructions;$
 * $R_{4}(GoalID, Name, Description)$ with FD(s): $GoalID \rightarrow Name, Description;$
 
-Decomposing input relation into 3NF using canonical functional dependency cover (lossless and preserving all minimal cover set functional dependencies):
-Decomposing input relation into 3NF relations using the Synthesis algorithm. For each functional dependency of the canonical cover set (merging functional dependencies having the same left-hand attribute(s)) of original relation's functional dependencies, create a relation schema with the attributes in that functional dependency (both sides). Checking if at least one key can be found in at least one newly formed 3NF relation. Since key {A} is present in at least one of the new 3NF relations, no new relation was created. Testing if any relation includes all of the attributes found in another relation (and deleting the duplicate or smaller one). No new relations were removed. Finished decomposing input relation into 3NF relations
+Here our functional dependencies show how  UserName, UserPassword, MealPlanID, GoalID can all be determined by UserId; MealPlanName and RecipeId can be determined by MealPlanID; RecipeName, Nutrition, Ingredients, Instructions can be determined by RecipeId; and Description, Name can be determined by GoalId.
+To decompose input relation into 3NF:
+For each functional dependency of the canonical cover set (merging functional dependencies having the same left-hand attributes) of original relation's functional dependencies, create a relation schema with the attributes in that functional dependency (both sides). Since key {A} is present in at least one of the new 3NF relations, no new relation was created.
 
 **Specific Queries:**
 
 1. Sort users by name alphabetically
+
+    $\theta_{(UserName)} \pi_{(OrderBy: UserName)}$
 
 1. List all users that have losing weight as their goal
 
