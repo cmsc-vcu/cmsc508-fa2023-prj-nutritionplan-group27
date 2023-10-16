@@ -44,25 +44,29 @@ meal plan, user, recipe, nutritional info, goals
     1. High-Level Overview
         ```{dot}
             graph ER {
-                layout=neato;
-                scale=1.1;
-                node [shape=box]; User, MealPlan, Recipe, Goal;
-                node [shape=ellipse]; user_id, user_name, user_password, meal_plan_name, recipe_name, recipe_nutrition, goal_name, ingredients, recipe_instructions, goal_description, meal_plan_id, recipe_id, goal_id;
+    layout=neato;
+    scale=1.1;
+    node [shape=box]; User, MealPlan, Recipe, Goal;
+    node [shape=ellipse]; user_id, user_name, user_password, meal_plan_name, recipe_name, recipe_nutrition, goal_name, ingredients, recipe_instructions, goal_description, meal_plan_id, recipe_id, goal_id, user_meal_plan_id, user_goal_id;
 
-                node [shape=diamond,style=filled,color=lightgrey]; using, has, contains;
-                
-                User -- using [label="n",len=1.00]
-                using -- MealPlan [label="1",len=1.00]
-                MealPlan -- contains [label="1",len=1.00]
-                contains -- Recipe [label="n",len=1.00]
-                User -- has [label="1",len=1.00]
-                has -- Goal [label="1",len=1.00]
-                
-                User -- user_id, user_name, user_password;
-                MealPlan -- meal_plan_name, meal_plan_id;
-                Recipe -- recipe_name, recipe_nutrition, ingredients, recipe_instructions, recipe_id;
-                Goal -- goal_name, goal_description, goal_id;
-            }
+    node [shape=diamond,style=filled,color=lightgrey]; using, has, contains;
+    
+    User -- using [label="n",len=1.5]
+    using -- MealPlan [label="1",len=1.5]
+    MealPlan -- contains [label="1",len=1.5]
+    contains -- Recipe [label="n",len=1.5]
+    User -- has [label="1",len=1.5]
+    has -- Goal [label="1",len=1.5]
+    
+    User -- user_id, user_name, user_password, user_meal_plan_id, user_goal_id;
+    MealPlan -- meal_plan_name, meal_plan_id;
+    Recipe -- recipe_name, recipe_nutrition, ingredients, recipe_instructions, recipe_id;
+    Goal -- goal_name, goal_description, goal_id;
+    
+    user_meal_plan_id [label="meal_plan_id (FK)"];
+    user_goal_id [label="goal_id (FK)"];
+}
+
         ```
 
     2. Granular
@@ -73,12 +77,14 @@ meal plan, user, recipe, nutritional info, goals
                     PRIMARY_KEY user_id
                     string username
                     string password
+                    FOREIGN_KEY meal_plan_id
+                    FOREIGN_KEY goal_id
                 }
 
                 MealPlan {
                     PRIMARY_KEY meal_plan_id
                     string name
-                    FOREIGN_KEY recipes
+                    FOREIGN_KEY recipe_id
                 }
             
             MealPlan ||--o{ Recipe : hosts
