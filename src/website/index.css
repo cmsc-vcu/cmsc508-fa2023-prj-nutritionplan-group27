@@ -1,0 +1,21 @@
+/* 
+Background: #6eb142
+Text: #1a122a
+Buttons: #384c2b
+Actions: #d5dbda
+*/
+
+@font-face {
+    font-family: Roboto-Regular;
+    src:url("/fonts/Roboto-Regular.ttf");
+}
+
+body {
+    background-color: #6eb142;
+}
+
+#text {
+    color: #1a122a;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
