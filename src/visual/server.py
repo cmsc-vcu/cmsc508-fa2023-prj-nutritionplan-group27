@@ -56,7 +56,7 @@ def recipes():
                                               
     return jsonify(data)
 
-@app.route('/recipes/<recipe>', methods=['GET'])
+@app.route('/recipes/search/<recipe>', methods=['GET'])
 def searchRecipe(recipe):
     cnx = pymysql.connect(host=config['host'],
                         user=config['user'],
@@ -92,6 +92,56 @@ def searchRecipe(recipe):
                     }
                     print(formattedRow)
                     data['results'].append(formattedRow)
+                                              
+    return jsonify(data)
+
+@app.route('/recipes/<recipe_id>', methods=['GET'])
+def searchRecipeById(recipe_id):
+    cnx = pymysql.connect(host=config['host'],
+                        user=config['user'],
+                        password=config['password'],
+                        database=config['database'],
+                        cursorclass=pymysql.cursors.DictCursor)
+  
+    current_page = request.args.get('page', default=1, type=int)
+    
+    data = {
+        'results': []
+    }
+    
+    with cnx:
+        with cnx.cursor() as cursor:
+                query = f"""
+                SELECT * 
+                FROM recipes 
+                WHERE recipes.id = {recipe_id} 
+                LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
+                """
+                cursor.execute(query)
+                result = cursor.fetchall()
+                if len(result) == page_size:
+                    data['next'] = f"{request.base_url}?page={current_page+1}"
+                
+                for row in result:
+                    formattedRow = {
+                        'name': row['name'],
+                        'ingredients': row['ingredients'],
+                        'instructions': row['instructions'],
+                        'nutrition': row['nutrition']
+                    }
+                data['results'].append(formattedRow)
+                
+                query = f"""
+                SELECT * 
+                FROM mealplanRecipes 
+                WHERE mealplanRecipes.recipe_id = {recipe_id} 
+                LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
+                """
+                cursor.execute(query)
+                result = cursor.fetchall()
+                
+                for row in result:
+                    data['results'].append(row['mealplan_id'])
                                               
     return jsonify(data)
 
