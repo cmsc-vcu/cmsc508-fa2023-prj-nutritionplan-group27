@@ -1,0 +1,23 @@
+# Query Checklist
+- This file was made to ensure we included all of our queries from deliverable 4
+
+- [X] Sort users by name alphabetically
+- [X] List all users that have losing weight as their goal
+- [X] List all recipes that contain an ingredient
+- [X] List all the recipes that are less than 750 calories
+- [X] List all the Meal Plans that do not contain peanut butter
+- [X] List the 3 most popular Goals
+- [X] List the 5 most popular Meal Plans
+- [ ] List the 5 most popular Meal Plan that users with the losing weight goal use
+- [ ] List the 5 most popular recipes
+- [ ] List all users without a meal plan
+- [X] Order recipes by Calories
+- [ ] List all users with meal plans with salmon
+- [ ] List all users who have the goal set to “lose weight” and has a meal plan
+- [X] Sort by user about me
+- [X] Sort the recipes by name
+- [X] List all recipes that are more than 400 calories
+- [X] Sort by goal name
+- [X] Number of Users using the ProteinPunch MealPlan
+- [X] Sort users who have the goal maintaining weight
+- [ ] Sort by most popular goals
