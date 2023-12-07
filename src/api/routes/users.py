@@ -27,14 +27,10 @@ def users():
                     cursorclass=pymysql.cursors.DictCursor)
     
     current_page = request.args.get('page', default=1, type=int)
+    user_id = request.headers.get('user_id', default=0, type=int)
     direction = "ASC"
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "DESC"
-    
-    goal_id = request.args.get('goal_id', default=0, type=int)
-    mealplan_id = request.args.get('mealplan_id', default=0, type=int)
-    
-    ids = filter(valid_id, [goal_id, mealplan_id])
     
     data = {
         'results': []
@@ -45,9 +41,12 @@ def users():
                 query = f"""
                 SELECT *
                 FROM users
-                ORDER BY users.id {direction}
-                LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
                 """
+                if(user_id != 0):
+                    query += f"WHERE users.id = {user_id}"
+                query += f"""
+                ORDER BY users.id {direction}
+                LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
                 
                 cursor.execute(query)
                 result = cursor.fetchall()
@@ -75,7 +74,7 @@ def sortUsersByGoals():
                     cursorclass=pymysql.cursors.DictCursor)
     
     current_page = request.args.get('page', default=1, type=int)
-    goal_id = request.args.get('goal', default=0, type=int)
+    goal_id = request.headers.get('goal_id', default=0, type=int)
     direction = "ASC"
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "DESC"
@@ -122,7 +121,7 @@ def sortUsersByMealplans():
                     cursorclass=pymysql.cursors.DictCursor)
     
     current_page = request.args.get('page', default=1, type=int)
-    mealplan_id = request.args.get('mealplan', default=0, type=int)
+    mealplan_id = request.headers.get('mealplan_id', default=0, type=int)
     direction = "ASC"
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "DESC"
@@ -160,53 +159,6 @@ def sortUsersByMealplans():
                     data['results'].append(formattedRow)
     return jsonify(data)
 
-@users_bp.route('/users/id', methods=['GET'])
-def getUserById():
-    cnx = pymysql.connect(host=config['host'],
-                    user=config['user'],
-                    password=config['password'],
-                    database=config['database'],
-                    cursorclass=pymysql.cursors.DictCursor)
-    
-    current_page = request.args.get('page', default=1, type=int)
-    user_id = request.args.get('id', default=0, type=int)
-    direction = "ASC"
-    if(request.args.get('direction', default=0, type=int) == 1):
-        direction = "DESC"
-    
-    data = {
-        'results': []
-    }
-    
-    with cnx:
-        with cnx.cursor() as cursor:
-                query = f"""
-                SELECT *
-                FROM users
-                """
-                if(user_id != 0):
-                    query += f"WHERE users.id = {user_id}"
-                query += f"""
-                ORDER BY users.id {direction}
-                LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
-                
-                cursor.execute(query)
-                result = cursor.fetchall()
-                
-                if len(result) == page_size:
-                    data['next'] = f"{request.base_url}?page={current_page+1}"
-                
-                for row in result:
-                    formattedRow = {
-                        'username': row['username'],
-                        'id': row['id'],
-                        'mealplan_id': row['mealplan_id'],
-                        'goal_id': row['goal_id'],
-                        'about_me': row['about_me']
-                    }
-                    data['results'].append(formattedRow)
-    return jsonify(data)
-
 @users_bp.route('/users/username', methods=['GET'])
 def getUserByUsername():
     cnx = pymysql.connect(host=config['host'],
@@ -216,7 +168,7 @@ def getUserByUsername():
                     cursorclass=pymysql.cursors.DictCursor)
     
     current_page = request.args.get('page', default=1, type=int)
-    username = request.args.get('username', default="")
+    username = request.headers.get('username', default="")
     direction = "ASC"
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "DESC"
@@ -263,7 +215,7 @@ def sortusersByAboutMe():
                     cursorclass=pymysql.cursors.DictCursor)
     
     current_page = request.args.get('page', default=1, type=int)
-    search = request.args.get('search', default="")
+    search = request.headers.get('aboutme', default="")
     
     direction = "ASC"
     if(request.args.get('direction', default=0, type=int) == 1):
@@ -303,5 +255,5 @@ def sortusersByAboutMe():
                         'nutrition': row['goal_id']
                     }
                     data['results'].append(formattedRow)
-                                            
+                    
     return jsonify(data)

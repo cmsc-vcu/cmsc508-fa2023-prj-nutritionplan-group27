@@ -63,21 +63,21 @@ def createRecipe():
                     database=config['database'],
                     cursorclass=pymysql.cursors.DictCursor)
     
-    name = request.headers.get('name')
-    nutrition = request.headers.get('nutrition')
-    ingredients = request.headers.get('ingredients')
-    instructions = request.headers.get('instructions')
+    name = request.headers.get('recipe-name')
+    calories = request.headers.get('recipe-calories')
+    ingredients = request.headers.get('recipe-ingredients')
+    instructions = request.headers.get('recipe-instructions')
     
-    if not name or not nutrition or not ingredients or not instructions:
+    if not name or not calories or not ingredients or not instructions:
         return jsonify( {'error': 
-            'Please enter values for name, nutrition, ingredients, and instructions in the header file'} )
+            'Please enter values for name, calories, ingredients, and instructions in the header file'} )
     
     with cnx:
         with cnx.cursor() as cursor:            
             query = f"""
             insert into `recipes`
-            (`name`, `nutrition`, `ingredients`, `instructions`) 
-            values ("{name}", "{nutrition}", "{ingredients}", "{instructions}");
+            (`name`, `calories`, `ingredients`, `instructions`) 
+            values ("{name}", "{calories}", "{ingredients}", "{instructions}");
             """
             
             cursor.execute(query)

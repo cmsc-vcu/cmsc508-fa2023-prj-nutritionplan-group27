@@ -7,6 +7,7 @@ from routes.goals import goals_bp
 from routes.mealplans import mealplans_bp
 from routes.create import create_bp
 from routes.update import update_bp
+from routes.delete import delete_bp
 
 app = Flask(__name__)
 app.register_blueprint(users_bp)
@@ -15,6 +16,7 @@ app.register_blueprint(goals_bp)
 app.register_blueprint(mealplans_bp)
 app.register_blueprint(create_bp)
 app.register_blueprint(update_bp)
+app.register_blueprint(delete_bp)
 CORS(app)
 
 config = {

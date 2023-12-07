@@ -25,7 +25,7 @@ def createUser():
     password = request.headers.get('password', default=None)
     new_username = request.headers.get('new-username', default=None)
     new_password = request.headers.get('new-password', default=None)
-    new_about_me = request.headers.get('new-about_me', default=None)
+    new_about_me = request.headers.get('new-aboutme', default=None)
     new_mealplan = request.headers.get('new-mealplan', default=None)
     new_goal = request.headers.get('new-goal', default=None)
     
