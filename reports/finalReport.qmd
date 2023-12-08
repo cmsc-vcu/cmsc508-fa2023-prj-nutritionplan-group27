@@ -10,8 +10,8 @@ format:
 ---
 
 1. Useful Links
-    * [Kaltura Video](https://cdnapisec.kaltura.com/index.php/extwidget/preview/partner_id/1888231/uiconf_id/28242191/entry_id/1_gz2tt2pm/embed/dynamic)
-    * [Repository](https://github.com/cmsc-vcu/cmsc508-fa2023-prj-nutritionplan-group27#welcome-to-semecter-project-repository)
+    * [Kaltura Video](TODO)
+    * [Repository](https://github.com/cmsc-vcu/cmsc508-fa2023-prj-nutritionplan-group27/tree/main)
 
 ## Problem Description 
 The rising trend in health and fitness has brought a keen focus on diet and nutrition, which is often considered the most challenging aspect of maintaining good health. With countless general websites, programs, and videos available online, many people find it difficult to stick to a diet, mainly due to its lack of personalization, leading to disinterest, impracticality, or unsatisfactory results. An effective nutritional plan must be tailored to each individual, taking into account their lifestyle, objectives, and health conditions. This need is amplified by the overwhelming amount of information available, often with conflicting advice, making it hard to find a suitable plan. Our nutritional database addresses this issue by factoring in dietary restrictions, allergies, health objectives, personal lifestyle, and meal preferences to create a nutritional plan that is not only sustainable and effective but also enjoyable.
@@ -53,7 +53,7 @@ users {
 ```
 
 ### DDL File Report
-The ddl.sql file was utilzed to create mealplans,recipes, mealplanrecipes, goals, and users tables as well as their corresponding primary keys, foreign keys, and entity specific attributes. The dml.sql file was utilzed to insert the actual information into these tables using the "insert into [insert table (name)] values [table values]". The next few following sections explain user functionality and how to create, update, and delete data in the tables.
+The ddl.sql file was utilzed to create mealplans,recipes, mealplanrecipes, goals, and users tables as well as their corresponding primary keys, foreign keys, and entity specific attributes. The dml.sql file was utilzed to insert the actual information into these tables using the "insert into [insert table (name)] values [table values]". The next few following sections explain user functionality and how to create, update, and delete data in the tables. These files are in the src/sql directory or you can find them at this [link](https://github.com/cmsc-vcu/cmsc508-fa2023-prj-nutritionplan-group27/tree/main/src/sql)
 
 ## API Definition
 Our API has many different methods depending on which topic you are searching for. To access the api the user must first create a new user by going to the /create/user url and put their newly created username and password as argument variables in their api request. Creating a user is the only action a user can do without having a valid username and password in their header variables.
