@@ -11,5 +11,3 @@ This folder houses all the information regarding the sql files we used to create
     - create.py, delete.py, goals.py, mealplans.py, recipes.py, update.py, users.py
 2. sql
     - ddl.sql, dml.sql
-3. visual
-    - visual.html, visual.qmd

@@ -53,7 +53,7 @@ users {
 ```
 
 ### DDL File Report
-The ddl.sql file was utilzed to create mealplans,recipes, mealplanrecipes, goals, and users tables as well as their corresponding primary keys, foreign keys, and entity specific attributes. The dml.sql file was utilzed to insert the actual information into these tables using the "insert into [insert table (name)] values [table values]". The next few following sections explain user functionality and how to create, update, and delete data in the tables. These files are in the src/sql directory or you can find them at this [link](https://github.com/cmsc-vcu/cmsc508-fa2023-prj-nutritionplan-group27/tree/main/src/sql)
+The ddl.sql file was utilzed to create mealplans,recipes, mealplanrecipes, goals, and users tables as well as their corresponding primary keys, foreign keys, and entity specific attributes. The dml.sql file was utilzed to insert the actual information into these tables using the "insert into [insert table (name)] values [table values]". The next few following sections explain user functionality and how to create, update, and delete data in the tables using the API. These files are in the src/sql directory or you can find them at this [link](https://github.com/cmsc-vcu/cmsc508-fa2023-prj-nutritionplan-group27/tree/main/src/sql)
 
 ## API Definition
 Our API has many different methods depending on which topic you are searching for. To access the api the user must first create a new user by going to the /create/user url and put their newly created username and password as argument variables in their api request. Creating a user is the only action a user can do without having a valid username and password in their header variables.

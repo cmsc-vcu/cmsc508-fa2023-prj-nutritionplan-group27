@@ -1,3 +1,0 @@
-- If the type of data is mentioned in the endpoint sort by that data
-    - Ex: recipes/name sort by recipe name
-- If they give nothing to query return the entire list
