@@ -1,16 +1,12 @@
 from flask import Flask, redirect, url_for, request, jsonify, Blueprint
 import pymysql.cursors
+import os
 from flask_cors import CORS
 
 goals_bp = Blueprint('goals_bp', __name__)
 
-config = {
-    'user': '23FA_dellimorez',
-    'password': 'Shout4_dellimorez_GOME',
-    'host': 'cmsc508.com',
-    'database': '23FA_groups_group27',
-    'raise_on_warnings': True
-}
+from dotenv import dotenv_values
+config = dotenv_values(".env")
 
 page_size = 25
 
@@ -47,7 +43,10 @@ def goals():
                 LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
                 """
                 
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
                 result = cursor.fetchall()
                 
                 if len(result) == page_size:
@@ -87,7 +86,6 @@ def sortByGoalName():
                 FROM goals
                 """
                 if(name != None):
-                    print("ball")
                     query+= f"""
                     WHERE goals.name LIKE '%{name}%'
                     """
@@ -96,7 +94,10 @@ def sortByGoalName():
                 LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
                 """
                 
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
                 result = cursor.fetchall()
                 
                 if len(result) == page_size:
@@ -123,8 +124,9 @@ def sortGoalsByPopularity():
     direction = "DESC"
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "ASC"
-        
     
+    exclude = request.args.get('exclude', default=False, type=bool)
+    mealplan_id = request.headers.get('mealplan-id', default=0)
     goal_id = request.headers.get('goal-id', default=0)
     
     data = {
@@ -139,6 +141,11 @@ def sortGoalsByPopularity():
                 JOIN(
                     SELECT goal_id, count(goal_id) as goal_count
                     FROM users
+                    """
+                if(mealplan_id != 0):
+                    exclusion = "" if(exclude == False) else "NOT"
+                    query += f"WHERE {exclusion} users.mealplan_id = {mealplan_id}"
+                query+=f"""
                     GROUP BY goal_id
                     ORDER BY goal_count {direction}
                     LIMIT {page_size} OFFSET {(current_page - 1) * page_size}
@@ -151,7 +158,10 @@ def sortGoalsByPopularity():
                 ORDER BY times_used {direction};
                 """
                 
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
                 result = cursor.fetchall()
                 
                 if len(result) == page_size:

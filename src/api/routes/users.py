@@ -1,16 +1,11 @@
 from flask import Flask, redirect, url_for, request, jsonify, Blueprint
 import pymysql.cursors
+from dotenv import dotenv_values
 from flask_cors import CORS
 
 users_bp = Blueprint('users_bp', __name__)
 
-config = {
-    'user': '23FA_dellimorez',
-    'password': 'Shout4_dellimorez_GOME',
-    'host': 'cmsc508.com',
-    'database': '23FA_groups_group27',
-    'raise_on_warnings': True
-}
+config = dotenv_values(".env")
 
 page_size = 25
 
@@ -48,7 +43,10 @@ def users():
                 ORDER BY users.id {direction}
                 LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
                 
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
                 result = cursor.fetchall()
                 
                 if len(result) == page_size:
@@ -90,12 +88,18 @@ def sortUsersByGoals():
                 FROM users
                 """
                 if(goal_id != 0):
-                    query += f"WHERE users.goal_id = {goal_id}"
+                    if(goal_id < 0):
+                        query += f"WHERE users.goal_id IS NULL"
+                    else:
+                        query += f"WHERE users.goal_id = {goal_id}"
                 query += f"""
                 ORDER BY users.goal_id {direction}
                 LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
                 
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
                 result = cursor.fetchall()
                 
                 if len(result) == page_size:
@@ -137,12 +141,18 @@ def sortUsersByMealplans():
                 FROM users
                 """
                 if(mealplan_id != 0):
-                    query += f"WHERE users.mealplan_id = {mealplan_id}"
+                    if(mealplan_id < 0):
+                        query += f"WHERE users.mealplan_id IS NULL"
+                    else:
+                        query += f"WHERE users.mealplan_id = {mealplan_id}"
                 query += f"""
                 ORDER BY users.mealplan_id {direction}
                 LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
                 
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
                 result = cursor.fetchall()
                 
                 if len(result) == page_size:
@@ -189,7 +199,10 @@ def getUserByUsername():
                 ORDER BY users.username {direction}
                 LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
                 
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
                 result = cursor.fetchall()
                 
                 if len(result) == page_size:
@@ -241,7 +254,10 @@ def sortusersByAboutMe():
                 LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
                 """
                 
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
                 result = cursor.fetchall()
                 
                 if len(result) == page_size:

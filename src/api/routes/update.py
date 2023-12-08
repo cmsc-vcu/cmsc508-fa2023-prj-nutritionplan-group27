@@ -4,13 +4,8 @@ from flask_cors import CORS
 
 update_bp = Blueprint('update_bp', __name__)
 
-config = {
-    'user': '23FA_dellimorez',
-    'password': 'Shout4_dellimorez_GOME',
-    'host': 'cmsc508.com',
-    'database': '23FA_groups_group27',
-    'raise_on_warnings': True
-}
+from dotenv import dotenv_values
+config = dotenv_values(".env")
 
 # Create User
 @update_bp.route('/update/user', methods=['GET'])
@@ -56,7 +51,10 @@ def createUser():
                 SET password = '{new_password}'
                 WHERE users.username = '{username}';
                 """
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
             
             if (new_about_me != None):
                 query = f"""
@@ -64,7 +62,10 @@ def createUser():
                 SET about_me = '{new_about_me}'
                 WHERE username = '{username}';
                 """
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
                 result = cursor.fetchall()
                 print("hello")
             
@@ -74,7 +75,10 @@ def createUser():
                 SET mealplan_id = '{new_mealplan}'
                 WHERE users.username = '{username}';
                 """
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
             
             if (new_goal != None):
                 query = f"""
@@ -82,7 +86,10 @@ def createUser():
                 SET goal_id = '{new_goal}'
                 WHERE users.username = '{username}';
                 """
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
             
             if (new_username != None):
                 query = f"""
@@ -91,7 +98,10 @@ def createUser():
                 WHERE users.username = '{new_username}';
                 """
                 
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
                 result = cursor.fetchall()
                 
                 if(len(result) != 0):
@@ -102,7 +112,10 @@ def createUser():
                 SET username = '{new_username}'
                 WHERE users.username = '{username}';
                 """
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
         
         cnx.commit()
     return jsonify( {'message': 'Account Updated Successfully'} ), 200

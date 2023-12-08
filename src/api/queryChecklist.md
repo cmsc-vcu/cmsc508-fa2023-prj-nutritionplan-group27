@@ -8,9 +8,9 @@
 - [X] List all the Meal Plans that do not contain peanut butter
 - [X] List the 3 most popular Goals
 - [X] List the 5 most popular Meal Plans
-- [ ] List the 5 most popular Meal Plan that users with the losing weight goal use
-- [ ] List the 5 most popular recipes
-- [ ] List all users without a meal plan
+- [X] List the 5 most popular Meal Plan that users with the losing weight goal use
+- [X] List the 5 most popular recipes by usage in mealplans
+- [X] List all users without a meal plan
 - [X] Order recipes by Calories
 - [ ] List all users with meal plans with salmon
 - [ ] List all users who have the goal set to “lose weight” and has a meal plan
@@ -20,4 +20,4 @@
 - [X] Sort by goal name
 - [X] Number of Users using the ProteinPunch MealPlan
 - [X] Sort users who have the goal maintaining weight
-- [ ] Sort by most popular goals
+- [X] Sort by most popular goals

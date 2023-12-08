@@ -19,13 +19,8 @@ app.register_blueprint(update_bp)
 app.register_blueprint(delete_bp)
 CORS(app)
 
-config = {
-    'user': '23FA_dellimorez',
-    'password': 'Shout4_dellimorez_GOME',
-    'host': 'cmsc508.com',
-    'database': '23FA_groups_group27',
-    'raise_on_warnings': True
-}
+from dotenv import dotenv_values
+config = dotenv_values(".env")
 
 page_size = 25 # Number of rows per page
 
@@ -35,6 +30,8 @@ def security_check():
     
     password = request.headers.get('password')  # Extract API key from header
     username = request.headers.get('username')
+    
+    print(config)
     
     if request.path == '/create/user':
         return

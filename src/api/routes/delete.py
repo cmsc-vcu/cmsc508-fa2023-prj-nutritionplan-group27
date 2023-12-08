@@ -1,16 +1,12 @@
 from flask import Flask, redirect, url_for, request, jsonify, Blueprint
 import pymysql.cursors
+import os
 from flask_cors import CORS
 
 delete_bp = Blueprint('delete_bp', __name__)
 
-config = {
-    'user': '23FA_dellimorez',
-    'password': 'Shout4_dellimorez_GOME',
-    'host': 'cmsc508.com',
-    'database': '23FA_groups_group27',
-    'raise_on_warnings': True
-}
+from dotenv import dotenv_values
+config = dotenv_values(".env")
 
 @delete_bp.route('/delete/user', methods=['GET'])
 def deleteUser():
@@ -31,7 +27,10 @@ def deleteUser():
             WHERE username = '{username}';
             """
             
-            cursor.execute(query)
+            try:
+                cursor.execute(query)
+            except:
+                return {'error': 'SQL syntax error'}
             result = cursor.fetchall()
             
             print(result)

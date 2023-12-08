@@ -1,16 +1,12 @@
 from flask import Flask, redirect, url_for, request, jsonify, Blueprint
 import pymysql.cursors
+import os
 from flask_cors import CORS
 
 recipes_bp = Blueprint('recipes_bp', __name__)
 
-config = {
-  'user': '23FA_dellimorez',
-  'password': 'Shout4_dellimorez_GOME',
-  'host': 'cmsc508.com',
-  'database': '23FA_groups_group27',
-  'raise_on_warnings': True
-}
+from dotenv import dotenv_values
+config = dotenv_values(".env")
 
 page_size = 25
 
@@ -48,7 +44,10 @@ def recipes():
                 LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
                 """
                 
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
                 result = cursor.fetchall()
                 
                 if len(result) == page_size:
@@ -99,7 +98,10 @@ def sortRecipesByName():
                 LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
                 """
                 
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
                 result = cursor.fetchall()
                 
                 if len(result) == page_size:
@@ -161,7 +163,10 @@ def sortRecipesBycalories():
                 LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
                 """
                 
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
                 result = cursor.fetchall()
                 
                 if len(result) == page_size:
@@ -212,7 +217,10 @@ def sortRecipesByIngredients():
                 LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
                 """
                 
-                cursor.execute(query)
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
                 result = cursor.fetchall()
                 
                 if len(result) == page_size:
@@ -229,4 +237,59 @@ def sortRecipesByIngredients():
                     
     return jsonify(data)
 
-# TODO: Add Update, Insert, and Delete functionality
+@recipes_bp.route('/recipes/popularity', methods=['GET'])
+def sortRecipesByPopularity():
+    cnx = pymysql.connect(host=config['host'],
+                        user=config['user'],
+                        password=config['password'],
+                        database=config['database'],
+                        cursorclass=pymysql.cursors.DictCursor)
+    
+    current_page = request.args.get('page', default=1, type=int)
+    direction = "DESC"
+    if(request.args.get('direction', default=0, type=int) == 1):
+        direction = "ASC"
+    
+    recipe_id = request.headers.get('recipe-id', default=0)
+    
+    data = {
+        'results': []
+    }
+    
+    with cnx:
+        with cnx.cursor() as cursor:
+                query = f"""
+                SELECT r.*, m.times_used
+                FROM recipes r
+                JOIN (
+                    SELECT recipe_id, COUNT(recipe_id) AS times_used
+                    FROM mealplanRecipes
+                    GROUP BY recipe_id
+                    ORDER BY times_used DESC
+                ) AS m 
+                ON r.id = m.recipe_id
+                """
+                if(recipe_id != 0):
+                    query += f"WHERE r.id = {recipe_id}"
+                query+=f"""
+                ORDER BY times_used {direction};
+                """
+                
+                try:
+                    cursor.execute(query)
+                except:
+                    return {'error': 'SQL syntax error'}
+                result = cursor.fetchall()
+                
+                if len(result) == page_size:
+                    data['next'] = f"{request.base_url}?page={current_page+1}"
+                
+                for row in result:
+                    formattedRow = {
+                        'id': row['id'],
+                        'name': row['name'],
+                        'times_used': row['times_used']
+                    }
+                    data['results'].append(formattedRow)
+                                            
+    return jsonify(data)
