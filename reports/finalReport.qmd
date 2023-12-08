@@ -20,8 +20,8 @@ The rising trend in health and fitness has brought a keen focus on diet and nutr
 The following Crows Foot diagram represents the relationships between the the users, mealplans, recipes, and goals.
 ```{mermaid}
 erDiagram
-users ||--|o mealplans : eats
-users ||--|o goals : has
+users }o--|o mealplans : eats
+users }o--|o goals : has
 mealplans }|--}| recipes : contain
 
 
