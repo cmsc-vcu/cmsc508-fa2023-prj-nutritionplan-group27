@@ -50,6 +50,44 @@ Example: /recipes?direction=1
 1. 'recipe-ingredients' (required in some): String used in the /create/recipe route to set the new recipe's ingredients
 1. 'recipe-instructions' (required in some): String used in the /create/recipe route to set the new recipe's instructions
 
+
+### Crows Foot Diagram
+The following Crows Foot diagram represents the relationships between the the users, mealplans, recipes, and goals.
+```{mermaid}
+erDiagram
+users ||--|o mealplans : eats
+users ||--|o goals : has
+mealplans }|--}| recipes : contain
+
+
+goals{
+  PRIMARY_KEY id
+  string name
+  string description
+}
+
+mealplans {
+  PRIMARY_KEY id
+  string name
+}
+recipes {
+  PRIMARY_KEY id
+  string name
+  int calories
+  string ingredients
+  string instructions
+}
+users {
+  PRIMARY_KEY id
+  string username
+  string password
+  string about_me
+  FOREIGN_KEY mealplan_id
+  FOREIGN_KEY goal_id
+}
+```
+
+
 ### Create
 To access this functionality you use the /create/ url with either user or recipe appended to it. We only allow people to create users and recipes for simplicity and because it is all a user would ever need to do. 
 
