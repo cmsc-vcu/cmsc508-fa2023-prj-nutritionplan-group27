@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+}
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -3057,10 +3091,10 @@ vertical-align: -.125em;
 <li>‘new-aboutme’ (optional): String used on the update route to update the current users about me</li>
 <li>‘new-mealplan’ (optional): Int used on the update route to update the current users mealplan</li>
 <li>‘new-goal’ (optional): Int used on the update route to update the current users goal</li>
-<li>‘recipe-name’ (required): String used in the /create/recipe route to set the new recipe’s name</li>
-<li>‘recipe-calories’ (required): Int used in the /create/recipe route to set the new recipe’s calorie count</li>
-<li>‘recipe-ingredients’ (required): String used in the /create/recipe route to set the new recipe’s ingredients</li>
-<li>‘recipe-instructions’ (required): String used in the /create/recipe route to set the new recipe’s instructions</li>
+<li>‘recipe-name’ (required in some): String used in the /create/recipe route to set the new recipe’s name</li>
+<li>‘recipe-calories’ (required in some): Int used in the /create/recipe route to set the new recipe’s calorie count</li>
+<li>‘recipe-ingredients’ (required in some): String used in the /create/recipe route to set the new recipe’s ingredients</li>
+<li>‘recipe-instructions’ (required in some): String used in the /create/recipe route to set the new recipe’s instructions</li>
 </ol>
 </section>
 <section id="create" class="level3">
@@ -3070,6 +3104,14 @@ vertical-align: -.125em;
 <li>/create/user: Requires the username and password arguments to create a new user and add it to the database.</li>
 </ol>
 <p>Example url: /create/user?username=NewUsername&amp;password=NewPassword</p>
+<p>Query:</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        insert into `users`</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        (`username`, `password`) </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        values (&quot;</span><span class="sc">{</span>username<span class="sc">}</span><span class="ss">&quot;, &quot;</span><span class="sc">{</span>password<span class="sc">}</span><span class="ss">&quot;);</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ol type="1">
 <li><p>/create/recipe: This route requires the name, calories, ingredients, and instructions headers. It will return whether it created an error or whether your recipe was created successfully.</p>
 <p>Example header: {</p>
@@ -3086,6 +3128,14 @@ vertical-align: -.125em;
      &#39;instructions&#39;: &#39;[Instructions]&#39;</code></pre>
 <p>}</p></li>
 </ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        insert into `recipes`</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        (`name`, `calories`, `ingredients`, `instructions`) </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        values (&quot;</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">&quot;, &quot;</span><span class="sc">{</span>calories<span class="sc">}</span><span class="ss">&quot;, &quot;</span><span class="sc">{</span>ingredients<span class="sc">}</span><span class="ss">&quot;, &quot;</span><span class="sc">{</span>instructions<span class="sc">}</span><span class="ss">&quot;);</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="update" class="level3">
 <h3 class="anchored" data-anchor-id="update">Update</h3>
@@ -3099,6 +3149,14 @@ vertical-align: -.125em;
  ‘new-password’: ‘[New Password]’</code></pre>
 <p>}</p></li>
 </ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        UPDATE users</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        SET username = &#39;</span><span class="sc">{</span>new_username<span class="sc">}</span><span class="ss">&#39;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        WHERE users.username = &#39;</span><span class="sc">{</span>username<span class="sc">}</span><span class="ss">&#39;;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="delete" class="level3">
 <h3 class="anchored" data-anchor-id="delete">Delete</h3>
@@ -3106,6 +3164,14 @@ vertical-align: -.125em;
 <ol type="1">
 <li>/delete/user: Will delete the users account using the username and password in the header.</li>
 </ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>query<span class="op">=</span><span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        DELETE FROM</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        users</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        WHERE username = &#39;</span><span class="sc">{</span>username<span class="sc">}</span><span class="ss">&#39;;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="users" class="level3">
 <h3 class="anchored" data-anchor-id="users">Users</h3>

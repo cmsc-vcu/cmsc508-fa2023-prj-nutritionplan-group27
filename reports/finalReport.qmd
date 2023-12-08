@@ -45,10 +45,10 @@ Example: /recipes?direction=1
 1. 'new-aboutme' (optional): String used on the update route to update the current users about me
 1. 'new-mealplan' (optional): Int used on the update route to update the current users mealplan
 1. 'new-goal' (optional): Int used on the update route to update the current users goal
-1. 'recipe-name' (required): String used in the /create/recipe route to set the new recipe's name
-1. 'recipe-calories' (required): Int used in the /create/recipe route to set the new recipe's calorie count
-1. 'recipe-ingredients' (required): String used in the /create/recipe route to set the new recipe's ingredients
-1. 'recipe-instructions' (required): String used in the /create/recipe route to set the new recipe's instructions
+1. 'recipe-name' (required in some): String used in the /create/recipe route to set the new recipe's name
+1. 'recipe-calories' (required in some): Int used in the /create/recipe route to set the new recipe's calorie count
+1. 'recipe-ingredients' (required in some): String used in the /create/recipe route to set the new recipe's ingredients
+1. 'recipe-instructions' (required in some): String used in the /create/recipe route to set the new recipe's instructions
 
 ### Create
 To access this functionality you use the /create/ url with either user or recipe appended to it. We only allow people to create users and recipes for simplicity and because it is all a user would ever need to do. 
@@ -56,6 +56,17 @@ To access this functionality you use the /create/ url with either user or recipe
 1. /create/user: Requires the username and password arguments to create a new user and add it to the database.
 
 Example url: /create/user?username=NewUsername&password=NewPassword
+
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        insert into `users`
+        (`username`, `password`) 
+        values ("{username}", "{password}");
+        """
+```
 
 1. /create/recipe: This route requires the name, calories, ingredients, and instructions headers. It will return whether it created an error or whether your recipe was created successfully.
 
@@ -75,6 +86,17 @@ Example url: /create/user?username=NewUsername&password=NewPassword
             'instructions': '[Instructions]'
     }
 
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        insert into `recipes`
+        (`name`, `calories`, `ingredients`, `instructions`) 
+        values ("{name}", "{calories}", "{ingredients}", "{instructions}");
+        """
+```
+
 ### Update
 1. /update/user: Requires one or more of the following headers: new-username, new-password, new-about-me, new-mealplan, new-goal
 
@@ -88,46 +110,364 @@ Example url: /create/user?username=NewUsername&password=NewPassword
         ‘new-password’: ‘[New Password]’
     }
 
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        UPDATE users
+        SET username = '{new_username}'
+        WHERE users.username = '{username}';
+        """
+```
+
 ### Delete
 Currently we only support a user deleting theirself
 
 1. /delete/user: Will delete the users account using the username and password in the header.
+
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query=f"""
+        DELETE FROM
+        users
+        WHERE username = '{username}';
+        """
+```
 
 ### Users
 Currently we only support a user updating their own personal user values
 
 1. /users: This route takes in the standard arguments as well as the header ‘user-id’ which is an integer. If user-id is not given then the api returns all users sorted by their ids. If user-id is given it returns the user with that user-id.
 
-1. /users/goals: This route takes in the standard arguments as well as the header ‘goal-id’. If goal-id is not given by the user then it returns all users sorted by their goal-id. If the user does give goal-id it returns all users with that specific goal-id.
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        SELECT *
+        FROM users
+        """
+        if(user_id != 0):
+            query += f"WHERE users.id = {user_id}"
+        query += f"""
+        ORDER BY users.id {direction}
+        LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
+```
 
-1. /users/mealplans: This route takes in the standard arguments as well as the header ‘mealplan-id’ which is an integer. If mealplan-id is not given the api returns all users sorted by their mealplan-id. If the user does give mealplan-id it returns all users with that specific mealplan-id
+1. /users/goals: This route takes in the standard arguments as well as the header ‘goal-id’. If goal-id is not given by the user then it returns all users sorted by their goal-id. If the user does give goal-id it returns all users with that specific goal-id. If goal-id is less than 0 it will return all users without goals.
+
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        SELECT *
+        FROM users
+        """
+        if(goal_id != 0):
+            if(goal_id < 0):
+                query += f"WHERE users.goal_id IS NULL"
+            else:
+                query += f"WHERE users.goal_id = {goal_id}"
+        query += f"""
+        ORDER BY users.goal_id {direction}
+        LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
+```
+
+1. /users/mealplans: This route takes in the standard arguments as well as the header ‘mealplan-id’ which is an integer. If mealplan-id is not given the api returns all users sorted by their mealplan-id. If the user does give mealplan-id it returns all users with that specific mealplan-id. If mealplan-id is less than 0 it will return all users without mealplans.
+
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        SELECT *
+        FROM users
+        """
+        if(mealplan_id != 0):
+            if(mealplan_id < 0):
+                query += f"WHERE users.mealplan_id IS NULL"
+            else:
+                query += f"WHERE users.mealplan_id = {mealplan_id}"
+        query += f"""
+        ORDER BY users.mealplan_id {direction}
+        LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
+```
 
 1. /users/username: This route takes in the standard arguments as well as the header ‘username’ which is a string. If username is not given the api returns all users sorted by their username. If username is given then it returns all users with usernames similar to that string
 
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        SELECT *
+        FROM users
+        """
+        if(username != ""):
+            query += f"WHERE users.username LIKE '%{username}%'"
+        query += f"""
+        ORDER BY users.username {direction}
+        LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
+```
+
 1. /users/aboutme: This route takes in the standard arguments as well as the header ‘aboutme’ which is a string. If aboutme is not given it returns all users sorted by their about_me. If aboutme is given it returns all users with an about_me similar to the aboutme the user supplied.
+
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        SELECT *
+        FROM users
+        """
+        if(search != ""):
+            exclusion = "" if(exclude == False) else "NOT"
+            query += f"WHERE {exclusion} users.about_me LIKE '%{search}%'"
+        query+= f"""
+        ORDER BY users.about_me {direction}
+        LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
+        """
+```
 
 ### Recipes
 1. /recipes: This route takes in the standard arguments as well as the ‘recipe-id’ header which is an integer. If the recipe-id header is not given then the API returns all recipes sorted by their id. If recipe-id is given then it returns the recipe with that id.
 
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        SELECT *
+        FROM recipes
+        """
+        if(recipe_id != 0):
+            query += f"WHERE recipes.id = {recipe_id}"
+        query+= f"""
+        ORDER BY recipes.id {direction}
+        LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
+        """
+```
+
 1. /recipes/name: This route takes in the standard arguments as well as the headers ‘search’ and ‘exclude’. The API returns the recipes ordered by name.
+
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        SELECT *
+        FROM recipes
+        """
+        if(recipe != ""):
+            exclusion = "" if(exclude == False) else "NOT"
+            query += f"WHERE {exclusion} recipes.name LIKE '%{recipe}%'"
+        query+= f"""
+        ORDER BY recipes.name {direction}
+        LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
+        """
+```
 
 1. /recipes/calories: This route takes in the standard headers as well as the ‘search’, ‘exclude’, ‘limit’, and ‘greater_than’ headers. The API returns the recipes ordered by calories.
 
-1. /recipe/ingredients: This route takes in the standard arguments as well as the ‘search’ and ‘exclude’ headers. The API returns the recipes ordered by ingredients.
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        SELECT *
+        FROM recipes
+        """
+        if(recipe != ""):
+            exclusion = "" if(exclude == False) else "NOT"
+            query += f"WHERE {exclusion} recipes.name LIKE '%{recipe}%'"
+        query+= f"""
+        WHERE recipes.calories {symbol} {limit}
+        ORDER BY recipes.calories {direction}
+        LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
+        """
+```
+
+1. /recipes/ingredients: This route takes in the standard arguments as well as the ‘search’ and ‘exclude’ headers. The API returns the recipes ordered by ingredients.
+
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        SELECT *
+        FROM recipes
+        """
+        if(ingredient != ""):
+            exclusion = "" if(exclude == False) else "NOT"
+            query += f"WHERE {exclusion} recipes.ingredients LIKE '%{ingredient}%'"
+        query+= f"""
+        ORDER BY recipes.ingredients {direction}
+        LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
+        """
+```
+
+1. /recipes/popularity: This route takes in the standard arguments as well as the 'recipe-id' headers. The API returns the recipes ordered by their popularity.
+
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        SELECT *
+        FROM recipes
+        """
+        if(ingredient != ""):
+            exclusion = "" if(exclude == False) else "NOT"
+            query += f"WHERE {exclusion} recipes.ingredients LIKE '%{ingredient}%'"
+        query+= f"""
+        ORDER BY recipes.ingredients {direction}
+        LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
+        """
+```
 
 ### Mealplans
 1. /mealplans: This route takes in the standard arguments as well as the ‘mealplan-id’ header. If the mealplan-id header is not given then the API returns all mealplans sorted by their id. If mealplan-id is given then it returns the mealplan with that id.
 
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+            SELECT *
+            FROM mealplans
+            """
+            if(mealplan_id != 0):
+                query+=f"WHERE mealplans.id = {mealplan_id}"
+            query+=f"""
+            ORDER BY mealplans.id {direction}
+            LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
+            """
+```
+
 1. /mealplans/recipe: This route takes in the standard arguments as well as the ‘mealplan-id’, and 'search' headers. the mealplan-id is required and the API will return with an error if one is not given. The search header is optional and lets you find recipes in the given mealplan. The API returns the found recipes ordered by name.
 
-1. /mealplans/popularity: This route takes in the standard arguments as well as the 'mealplan-id' header. If the mealplan-id is not given it will return the list of most popular mealplans sorted by their popularity which will be included in the return json. If mealplan-id is given it will return the mealplan with that mealplan-id and the number of times it was used.
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        SELECT *
+        FROM recipes
+        JOIN mealplanRecipes ON recipes.id = mealplanRecipes.recipe_id
+        WHERE mealplanRecipes.mealplan_id = {mealplan_id}
+        """
+        
+        if recipe != None:
+            query += f"AND recipes.name LIKE '%{recipe}%'"
+            
+        query += f"""
+        ORDER BY recipes.name {direction}
+        LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
+        """
+```
+
+1. /mealplans/popularity: This route takes in the standard arguments as well as the 'mealplan-id', 'goal-id', and 'exclude' headers. If the mealplan-id is not given it will return the list of most popular mealplans sorted by their popularity which will be included in the return json. If mealplan-id is given it will return the mealplan with that mealplan-id and the number of times it was used. The 'goal-id' header returns the mealplans sorted by popularity with users with that goal. The exclude header modifies the 'goal-id' header, returning mealplans sorted by their popularity with users without that goal.
+
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        SELECT m.id AS mealplan_id, m.name, COALESCE(popular_mealplans.mealplan_count, 0) AS times_used
+        FROM mealplans m
+        JOIN(
+            SELECT mealplan_id, count(mealplan_id) as mealplan_count
+            FROM users
+        """
+        if(goal_id != 0):
+            exclusion = "" if(exclude == False) else "NOT"
+            query += f"WHERE {exclusion} users.goal_id = {goal_id}"
+        query+=f"""
+            GROUP BY mealplan_id
+            ORDER BY mealplan_count {direction}
+            LIMIT {page_size} OFFSET {(current_page - 1) * page_size}
+        ) AS popular_mealplans
+        ON m.id = popular_mealplans.mealplan_id
+        """
+        if(mealplan_id != 0):
+            query += f"WHERE m.id = {mealplan_id}"
+        query+=f"""
+        ORDER BY times_used {direction};
+        """
+```
 
 ### Goals
 1. /goals: This route takes in the standard arguments as well as the 'goal-id' header. If goal-id is not provided it will return the list of goals sorted by id. If goal-id is provided then it will return the goal with that id.
 
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        SELECT *
+        FROM goals
+        """
+        if(goal_id != 0):
+            query+=f"WHERE goals.id = {goal_id}"
+        query+=f"""
+        ORDER BY goals.id {direction}
+        LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
+        """
+```
+
 1. /goals/name: This route takes in the standard arguments as well as the 'search' header. If search is not provided it will return the list of goals sorted by name. If search is provided it will return all goals with similar names to search.
 
-1. /goals/popularity: This route takes in the standard arguments as well as the 'goal-id' header. If the goal-id is not given it will return the list of most popular goals sorted by their number of users which will be included in the return json. If goal-id is given it will return the goal with that goal-id and the number of users using that goal.
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        SELECT *
+        FROM goals
+        """
+        if(name != None):
+            query+= f"""
+            WHERE goals.name LIKE '%{name}%'
+            """
+        query+=f"""
+        ORDER BY goals.name {direction}
+        LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
+        """
+```
+
+1. /goals/popularity: This route takes in the standard arguments as well as the 'goal-id', 'mealplan-id', and 'exclude' headers. If the goal-id is not given it will return the list of most popular goals sorted by their number of users which will be included in the return json. If goal-id is given it will return the goal with that goal-id and the number of users using that goal. If 'mealplan-id' is given it will return the goals sorted by the number of users who use the chose mealplan. The 'exclude' header reverses this and returns the most popular goal of users not using the specified mealplan.
+
+Query: 
+```{python}
+#| eval: false
+#| echo: true
+query = f"""
+        SELECT g.id AS goal_id, g.name, g.description, COALESCE(popular_goals.goal_count, 0) AS times_used
+        FROM goals g
+        JOIN(
+            SELECT goal_id, count(goal_id) as goal_count
+            FROM users
+            """
+        if(mealplan_id != 0):
+            exclusion = "" if(exclude == False) else "NOT"
+            query += f"WHERE {exclusion} users.mealplan_id = {mealplan_id}"
+        query+=f"""
+            GROUP BY goal_id
+            ORDER BY goal_count {direction}
+            LIMIT {page_size} OFFSET {(current_page - 1) * page_size}
+        ) AS popular_goals
+        ON g.id = popular_goals.goal_id
+        """
+        if(goal_id != 0):
+            query += f"WHERE g.id = {goal_id}"
+        query+=f"""
+        ORDER BY times_used {direction};
+        """
+```
 
 ## Future Considerations
 To access this functionality you use the /delete/user url. Currently we only support a user deleting theirself but if we were given more time we would like to add users being able to delete the recipes they made.

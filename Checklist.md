@@ -1,22 +1,24 @@
 # Project Checklist
 
-## Project Report
+## HTML
 - [ ] Html was submitted and looks clean
 - [ ] Report contains link to kaltura video
 - [ ] Report contains link to this repo
 - [ ] Project description is well organized
+- [ ] The report describes the problem description
 - [ ] The report documents how users will use the API
 - [ ] The report includes crows-foot diagrams to describe database architecture
-- [ ] Report documents creating tables and other objects
+- [ ] Report documents creating tables and other objects with the ddl file
 - [ ] Tables include foreign keys and other integrity constraints relative to the problem and solution
 - [ ] Tables are loaded with appropriate data and samples are presented in the report
-- [ ] Contains API design with all endpoints documented
-- [ ] The API includes a mechanism (tokens or other) to secure access
+- [X] Contains API design with all endpoints documented
+- [X] The API includes a mechanism (tokens or other) to secure access
+- [ ] The report documents the SQL queries that support the various API endpoints.
+- [ ] The report includes a section on reflections about the project and the class.
 
-## Github Project Repo
+## Github
 - [ ] README for this repo is satisfactory
 - [ ] Repository is clean and easy to follow
-- [X] Create security
 
 ## Kaltura Video
 - [ ] Length is less than 5 minutes
@@ -25,5 +27,9 @@
 - [ ] The entire project design and implementation described
 - [ ] The video contains our reflections
 
-## TODO
-- Add more to mealplans.py
+## API
+- [X] The api contains endpoints to return objects from the database
+- [X] The api contains endpoints to query, filter, and return subsets of objects
+- [X] The api contains endpoints to insert new objects to the database.
+- [X] The API includes endpoints to update objects in the database.
+- [X] The API includes endpoints to delete objects from the database

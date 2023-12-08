@@ -40,7 +40,12 @@ from IPython.display import HTML
 #| eval: true
 #| echo: false
 # Use requests to perform a GET request to the API.
-res = requests.get("http://localhost:5000/users")
+headers = {
+    'username': 'dellimorez',
+    'password': 'password1'
+}
+
+res = requests.get("http://localhost:5000/users", headers=headers)
 
 # Parse the JSON response to print the names of the first 5 characters.
 if res.status_code == 200:
@@ -56,14 +61,17 @@ if res.status_code == 200:
 ```{python}
 #| eval: true
 #| echo: false
-# Use a loop to navigate through the first 3 pages.
-# Collect and print the names of the characters from these pages.
 names = []
+
+headers = {
+    'username': 'dellimorez',
+    'password': 'password1'
+}
 
 # Loop through the first three pages.
 for page in range(3):
     # Perform a GET request to retrieve information about characters on the current page.
-    page_response = requests.get(f"http://localhost:5000/recipes?page={page+1}")
+    page_response = requests.get(f"http://localhost:5000/recipes?page={page+1}", headers=headers)
     
     # Check if the request was successful.
     if page_response.status_code == 200:
@@ -78,21 +86,27 @@ for name in names:
 
 ## Exercise 3: Query Parameters
 
-**Objective:** Find and print all recipes with the word "apple".
+**Objective:** Find and print all recipes with the ingredient chicken.
 
 **Concepts:** Utilizing query parameters, conditional logic.
 ```{python}
 #| eval: true
 #| echo: false
 
-url = "http://localhost:5000/recipes/apple"
+url = "http://localhost:5000/recipes/ingredients"
+
+headers = {
+    'username': 'dellimorez',
+    'password': 'password1',
+    'search': 'chicken'
+}
 
 recipes = []
 
 nextPage = url
 
 while nextPage is not None:
-    res = requests.get(nextPage)
+    res = requests.get(nextPage, headers=headers)
 
     if res.status_code == 200:
         data = res.json()
@@ -108,171 +122,5 @@ while nextPage is not None:
 
 # print names
 for recipe in recipes:
-    print(recipe)
+    print(recipe[0]['name'])
 ```
-
-## Exercise 4: Error Handling
-
-**Objective:** Write a function that takes a character ID and prints the character's information. It should handle cases where the character does not exist.
-
-**Concepts:** Error handling, function definition.
-```{python}
-#| eval: false
-#| echo: false
-# Define a function that accepts a character ID.
-# Make a request to the API and handle any potential errors, like a 404.
-
-def printCharacter(character_id):
-
-    url = f"https://rickandmortyapi.com/api/character/{character_id}"
-
-    try:
-        res = requests.get(url)
-
-        #checks if response is successful
-        if res.status_code == 200: 
-            character = res.json()
-            print(f"Name: {character['name']}")
-            print(f"Status: {character['status']}")
-            print(f"Species: {character['species']}")
-            print(f"Type: {character['type'] if character['type'] else 'N/A'}")
-            print(f"Gender: {character['gender']}")
-            print(f"Origin: {character['origin']['name']}")
-            print(f"Location: {character['location']['name']}")
-            print(f"Image: {character['image']}")
-        elif res.status_code == 404:
-            print(f"Character not found: {res.status_code}")
-        else:
-            print(f"Error: {res.status_code}")
-    
-    # other errors
-    except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
-
-printCharacter(21)
-```
-
-## Exercise 5: Data Manipulation
-
-**Objective:** Retrieve all locations and their associated characters, and present this information in a dictionary with location names as keys and lists of character names as values.
-
-**Concepts:** Data structuring, nested API calls.
-```{python}
-#| eval: false
-#| echo: false
-# Retrieve all locations.
-# For each location, make an API call to get the characters for that location.
-# Store the results in a dictionary and print it.
-
-def getCharacters(urls):
-    names = []
-    for url in urls:
-        res = requests.get(url)
-        if res.status_code == 200:
-            data = res.json()
-            # append to array
-            names.append(data['name']) 
-    return names
-
-# gets location and their characters
-def getLocationsResidents():
-    url = "https://rickandmortyapi.com/api/location"
-
-    names = {}
-
-    while url:
-        res = requests.get(url)
-        if res.status_code == 200:
-            data = res.json()
-            for location in data['results']:
-                locationName = location['name']
-                urls = location['residents']
-                names[locationName] = getCharacters(urls)
-
-            url = data['info']['next']
-        else:
-            break
-
-    return names
-
-# Call the function and print the results.
-names = getLocationsResidents()
-for location, characters in names.items():
-    print(f"{location}: {characters}")
-
-
-```
-
-## Exercise 6: Create a high-school yearbook style listing of images
-
-This exercise incorporates all the skills from above, adding additional craziness to display the data in a yearbook-style layout within your quarto HTML file.
-
-<center>
-![](assets/yearbook-example.png)
-</center>
-
-**Objective:** Use the "Rick and Morty" API to generate a yearbook-style grid of headshots and names of characters within this HTML.
-
-**Concepts:** API data extraction, structured text generation, file I/O, basic web design.
-
-```{python}
-#| eval: false
-#| echo: false
-# Retrieve all characters
-# For each character print header
-from IPython.display import HTML
-
-def displayCharacters():
-    url = "https://rickandmortyapi.com/api/character"
-    html = "<div style='display: grid; grid-template-columns: auto auto auto; gap: 10px;'>"
-
-    while url:
-        res = requests.get(url)
-        if res.status_code == 200:
-            data = res.json()
-
-            # adds characters to grid.
-            for character in data['results']:
-                html += f"<div style='text-align: center;'><img src='{character['image']}' alt='{character['name']}' style='max-height: 100px;'/><p>{character['name']}</p></div>"
-
-            # Get the next page URL.
-            url = data['info']['next']
-        else:
-            break
-
-    html += "</div>"
-    return HTML(html)
-
-displayCharacters()
-```
-
-# Reflection
-
-Reflecting on exercises and the broader concepts behind API design can help consolidate learning and encourage deeper understanding.
-
-Please respond to the following questions.  Make sure that your responses are INSIDE the blocks marked with semi-colons.  You will not receive credit if your responses are outside the blocks.
-
-**Adaptation and Challenges**: How did you have to adapt your approach as the exercises increased in complexity, and what was the most challenging aspect of working with the "Rick and Morty" API? This question prompts students to think about their learning process, problem-solving strategies, and any difficulties they encountered with the API's structure or data.
-
-::: {#reflection1}
-As the exercises increased in complexity I had to look up how to do more things and think about what I wanted to do more. The most challenging part for me was dealing with apis in general, I do not have a lot of experience with this getting used to json and python dictionaries was hard.
-:::
-
-**Data Handling and Processing**: In working with the data returned by the API, what considerations did you take into account for handling and presenting the data? This encourages students to reflect on the importance of data manipulation, presentation, and the user experience of their own code.
-
-::: {#reflection2}
-I wanted to make the code readable but still sufficiecntly efficient. I don't have much experience writing code in python and python api code so I wanted to fully understand it and make it readable when I look back at it later.
-:::
-
-**Reflection Questions on API Design**:
-Ease of Use: Based on your experience as a consumer of the "Rick and Morty" API, what features or design elements did you find made the API particularly easy or difficult to use? This reflection can lead to discussions on good documentation, clear endpoint naming conventions, response structures, and error handling.
-
-::: {#reflection3}
-I thought that it was easy to use and all the api had lots of easy to use features. All of the dictionary names were understandable and I found myself correctly assuming some towards the end. I think it had many amazing features that made it very easy to use.
-:::
-
-**API Best Practices**: If you were to design your own API, what best practices would you implement based on what you've learned from both using the "Rick and Morty" API and from the challenges you encountered during these exercises? This encourages students to think critically about the architecture and design choices that go into creating a user-friendly and robust API. 
-
-::: {#reflection4}
-I would try to give the developers the features that they need and make them as simple and easy to understand as possible. I don't want a developer to be forced to stare at the documentation while they code and I also don't want them to be forced to implement certain things on their own that could easily be implemented by me.
-:::
