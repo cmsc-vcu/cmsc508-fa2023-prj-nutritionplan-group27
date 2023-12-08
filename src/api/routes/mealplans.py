@@ -5,11 +5,11 @@ from flask_cors import CORS
 mealplans_bp = Blueprint('mealplans_bp', __name__)
 
 config = {
-  'user': '23FA_dellimorez',
-  'password': 'Shout4_dellimorez_GOME',
-  'host': 'cmsc508.com',
-  'database': '23FA_groups_group27',
-  'raise_on_warnings': True
+    'user': '23FA_dellimorez',
+    'password': 'Shout4_dellimorez_GOME',
+    'host': 'cmsc508.com',
+    'database': '23FA_groups_group27',
+    'raise_on_warnings': True
 }
 
 page_size = 25
@@ -26,6 +26,8 @@ def mealplan():
     direction = "ASC"
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "DESC"
+        
+    mealplan_id = request.headers.get('mealplan-id', default=0)
     
     data = {
         'results': []
@@ -36,6 +38,10 @@ def mealplan():
                 query = f"""
                 SELECT *
                 FROM mealplans
+                """
+                if(mealplan_id != 0):
+                    query+=f"WHERE mealplans.id = {mealplan_id}"
+                query+=f"""
                 ORDER BY mealplans.id {direction}
                 LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
                 """
@@ -64,12 +70,12 @@ def getMealplan():
                         cursorclass=pymysql.cursors.DictCursor)
 
     current_page = request.args.get('page', default=1, type=int)
-    mealplan_id = request.args.get('id', default=0)
+    mealplan_id = request.headers.get('mealplan-id', default=0)
     
     if mealplan_id == 0:
-        return jsonify({'message': 'Please enter an id in the arguments'}), 401
+        return jsonify({'error': 'Please enter a mealplan_id in the arguments'}), 401
     
-    recipe = request.args.get('recipe', default=None)
+    recipe = request.headers.get('search', default=None)
 
     direction = "ASC"
     if(request.args.get('direction', default=0, type=int) == 1):
@@ -126,6 +132,8 @@ def sortMealplansByPopularity():
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "ASC"
     
+    mealplan_id = request.headers.get('mealplan-id', default=0)
+    
     data = {
         'results': []
     }
@@ -143,6 +151,10 @@ def sortMealplansByPopularity():
                     LIMIT {page_size} OFFSET {(current_page - 1) * page_size}
                 ) AS popular_mealplans
                 ON m.id = popular_mealplans.mealplan_id
+                """
+                if(mealplan_id != 0):
+                    query += f"WHERE m.id = {mealplan_id}"
+                query+=f"""
                 ORDER BY times_used {direction};
                 """
                 

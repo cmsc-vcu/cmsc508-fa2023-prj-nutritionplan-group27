@@ -27,7 +27,7 @@ def users():
                     cursorclass=pymysql.cursors.DictCursor)
     
     current_page = request.args.get('page', default=1, type=int)
-    user_id = request.headers.get('user_id', default=0, type=int)
+    user_id = request.headers.get('user-id', default=0, type=int)
     direction = "ASC"
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "DESC"
@@ -58,8 +58,8 @@ def users():
                     formattedRow = {
                         'username': row['username'],
                         'id': row['id'],
-                        'mealplan_id': row['mealplan_id'],
-                        'goal_id': row['goal_id'],
+                        'mealplan-id': row['mealplan_id'],
+                        'goal-id': row['goal_id'],
                         'about_me': row['about_me']
                     }
                     data['results'].append(formattedRow)
@@ -74,7 +74,7 @@ def sortUsersByGoals():
                     cursorclass=pymysql.cursors.DictCursor)
     
     current_page = request.args.get('page', default=1, type=int)
-    goal_id = request.headers.get('goal_id', default=0, type=int)
+    goal_id = request.headers.get('goal-id', default=0, type=int)
     direction = "ASC"
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "DESC"
@@ -105,8 +105,8 @@ def sortUsersByGoals():
                     formattedRow = {
                         'username': row['username'],
                         'id': row['id'],
-                        'mealplan_id': row['mealplan_id'],
-                        'goal_id': row['goal_id'],
+                        'mealplan-id': row['mealplan_id'],
+                        'goal-id': row['goal_id'],
                         'about_me': row['about_me']
                     }
                     data['results'].append(formattedRow)
@@ -121,7 +121,7 @@ def sortUsersByMealplans():
                     cursorclass=pymysql.cursors.DictCursor)
     
     current_page = request.args.get('page', default=1, type=int)
-    mealplan_id = request.headers.get('mealplan_id', default=0, type=int)
+    mealplan_id = request.headers.get('mealplan-id', default=0, type=int)
     direction = "ASC"
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "DESC"
@@ -152,8 +152,8 @@ def sortUsersByMealplans():
                     formattedRow = {
                         'username': row['username'],
                         'id': row['id'],
-                        'mealplan_id': row['mealplan_id'],
-                        'goal_id': row['goal_id'],
+                        'mealplan-id': row['mealplan_id'],
+                        'goal-id': row['goal_id'],
                         'about_me': row['about_me']
                     }
                     data['results'].append(formattedRow)
@@ -199,8 +199,8 @@ def getUserByUsername():
                     formattedRow = {
                         'username': row['username'],
                         'id': row['id'],
-                        'mealplan_id': row['mealplan_id'],
-                        'goal_id': row['goal_id'],
+                        'mealplan-id': row['mealplan_id'],
+                        'goal-id': row['goal_id'],
                         'about_me': row['about_me']
                     }
                     data['results'].append(formattedRow)

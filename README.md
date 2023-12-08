@@ -1,4 +1,4 @@
-# Welcome to Semecter Project repository
+# Welcome to Semester Project repository
 
 ## Team Members
 * Jeffi Thomas

@@ -8,10 +8,7 @@ if len(sys.argv) >= 2:
 headers = {
     'username': 'dellimorez',
     'password': 'password1',
-    'name': 'your-recipe-name',
-    'calories': '123',
-    'ingredients': 'lorem ipsum',
-    'instructions': 'dolar sit'
+    'goal-id': '1'
     }
 
 print(headers)

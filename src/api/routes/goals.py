@@ -5,11 +5,11 @@ from flask_cors import CORS
 goals_bp = Blueprint('goals_bp', __name__)
 
 config = {
-  'user': '23FA_dellimorez',
-  'password': 'Shout4_dellimorez_GOME',
-  'host': 'cmsc508.com',
-  'database': '23FA_groups_group27',
-  'raise_on_warnings': True
+    'user': '23FA_dellimorez',
+    'password': 'Shout4_dellimorez_GOME',
+    'host': 'cmsc508.com',
+    'database': '23FA_groups_group27',
+    'raise_on_warnings': True
 }
 
 page_size = 25
@@ -28,6 +28,8 @@ def goals():
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "DESC"
     
+    goal_id = request.headers.get('goal-id', default=0)
+    
     data = {
         'results': []
     }
@@ -37,6 +39,10 @@ def goals():
                 query = f"""
                 SELECT *
                 FROM goals
+                """
+                if(goal_id != 0):
+                    query+=f"WHERE goals.id = {goal_id}"
+                query+=f"""
                 ORDER BY goals.id {direction}
                 LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
                 """
@@ -54,7 +60,6 @@ def goals():
                         'description': row['description']
                     }
                     data['results'].append(formattedRow)
-                                              
     return jsonify(data)
 
 @goals_bp.route('/goals/name', methods=['GET'])
@@ -66,7 +71,7 @@ def sortByGoalName():
                         cursorclass=pymysql.cursors.DictCursor)
     
     current_page = request.args.get('page', default=1, type=int)
-    name = request.args.get('name', default=None)
+    name = request.headers.get('search', default=None)
     direction = "ASC"
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "DESC"
@@ -104,7 +109,6 @@ def sortByGoalName():
                         'description': row['description']
                     }
                     data['results'].append(formattedRow)
-                                              
     return jsonify(data)
 
 @goals_bp.route('/goals/popularity', methods=['GET'])
@@ -119,6 +123,9 @@ def sortGoalsByPopularity():
     direction = "DESC"
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "ASC"
+        
+    
+    goal_id = request.headers.get('goal-id', default=0)
     
     data = {
         'results': []
@@ -137,6 +144,10 @@ def sortGoalsByPopularity():
                     LIMIT {page_size} OFFSET {(current_page - 1) * page_size}
                 ) AS popular_goals
                 ON g.id = popular_goals.goal_id
+                """
+                if(goal_id != 0):
+                    query += f"WHERE g.id = {goal_id}"
+                query+=f"""
                 ORDER BY times_used {direction};
                 """
                 
@@ -153,5 +164,4 @@ def sortGoalsByPopularity():
                         'times_used': row['times_used']
                     }
                     data['results'].append(formattedRow)
-                                            
     return jsonify(data)

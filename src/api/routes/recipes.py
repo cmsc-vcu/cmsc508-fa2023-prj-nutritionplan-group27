@@ -29,7 +29,7 @@ def recipes():
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "DESC"
     
-    recipe_id = request.headers.get('recipe_id', default=0, type=int)
+    recipe_id = request.headers.get('recipe-id', default=0, type=int)
     
     data = {
         'results': []

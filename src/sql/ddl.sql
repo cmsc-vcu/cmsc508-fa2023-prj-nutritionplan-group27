@@ -8,14 +8,6 @@ DROP TABLE IF EXISTS goals;
 DROP TABLE IF EXISTS mealplanRecipes;
 SET FOREIGN_KEY_CHECKS=1;
 
-CREATE TABLE users (
-    id int NOT NULL AUTO_INCREMENT,
-    username varchar(256) NOT NULL,
-    password varchar(256) NOT NULL,
-    mealplan_id int,
-    PRIMARY KEY (id)
-);
-
 CREATE TABLE mealplans (
     id int NOT NULL AUTO_INCREMENT,
     name varchar(256) NOT NULL,
@@ -25,7 +17,7 @@ CREATE TABLE mealplans (
 CREATE TABLE recipes (
     id int NOT NULL AUTO_INCREMENT,
     name varchar(256) NOT NULL,
-    nutrition varchar(50) NOT NULL,
+    calories int NOT NULL,
     ingredients varchar(4096) NOT NULL,
     instructions varchar(4096) NOT NULL,
     PRIMARY KEY (id)
@@ -45,4 +37,16 @@ CREATE TABLE goals (
     name varchar(256) NOT NULL,
     description varchar(2048) NOT NULL,
     PRIMARY KEY (id)
+);
+
+CREATE TABLE users (
+    id int NOT NULL AUTO_INCREMENT,
+    username varchar(256) NOT NULL,
+    password varchar(256) NOT NULL,
+    about_me varchar(256),
+    mealplan_id int,
+    goal_id int,
+    PRIMARY KEY (id),
+    FOREIGN KEY (mealplan_id) REFERENCES mealplans(id),
+    FOREIGN KEY (goal_id) REFERENCES goals(id)
 );
