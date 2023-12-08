@@ -53,8 +53,6 @@ Example: /recipes?direction=1
 1. 'recipe-ingredients' (required in some): String used in the /create/recipe route to set the new recipe's ingredients
 1. 'recipe-instructions' (required in some): String used in the /create/recipe route to set the new recipe's instructions
 
-
-
 ### Crows Foot Diagram
 The following Crows Foot diagram represents the relationships between the the users, mealplans, recipes, and goals.
 ```{mermaid}
@@ -91,6 +89,8 @@ users {
 }
 ```
 
+### DDL File Report
+The ddl.sql file was utilzed to create mealplans,recipes, mealplanrecipes, goals, and users tables as well as their corresponding primary keys, foreign keys, and entity specific attributes. The dml.sql file was utilzed to insert the actual information into these tables using the "insert into [insert table (name)] values [table values]". The next few following sections explain user functionality and how to create, update, and delete data in the tables.
 
 ### Create
 To access this functionality you use the /create/ url with either user or recipe appended to it. We only allow people to create users and recipes for simplicity and because it is all a user would ever need to do. 
