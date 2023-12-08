@@ -83,7 +83,6 @@ def sortRecipesByName():
     data = {
         'results': []
     }
-    
     with cnx:
         with cnx.cursor() as cursor:
                 query = f"""
@@ -210,7 +209,8 @@ def sortRecipesByIngredients():
                 FROM recipes
                 """
                 if(ingredient != ""):
-                    exclusion = "" if(exclude == False) else "NOT"
+                    exclusion = "" if exclude == False else "NOT"
+                    print(exclude)
                     query += f"WHERE {exclusion} recipes.ingredients LIKE '%{ingredient}%'"
                 query+= f"""
                 ORDER BY recipes.ingredients {direction}

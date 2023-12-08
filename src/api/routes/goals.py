@@ -125,7 +125,7 @@ def sortGoalsByPopularity():
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "ASC"
     
-    exclude = request.args.get('exclude', default=False, type=bool)
+    exclude = request.headers.get('exclude', default=False, type=bool)
     mealplan_id = request.headers.get('mealplan-id', default=0)
     goal_id = request.headers.get('goal-id', default=0)
     
@@ -148,7 +148,6 @@ def sortGoalsByPopularity():
                 query+=f"""
                     GROUP BY goal_id
                     ORDER BY goal_count {direction}
-                    LIMIT {page_size} OFFSET {(current_page - 1) * page_size}
                 ) AS popular_goals
                 ON g.id = popular_goals.goal_id
                 """

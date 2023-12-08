@@ -73,6 +73,8 @@ def sortUsersByGoals():
     
     current_page = request.args.get('page', default=1, type=int)
     goal_id = request.headers.get('goal-id', default=0, type=int)
+    mealplan_id = request.headers.get('mealplan-id', default=0, type=int)
+    exclude = request.headers.get('exclude', default=False, type=bool)
     direction = "ASC"
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "DESC"
@@ -88,18 +90,21 @@ def sortUsersByGoals():
                 FROM users
                 """
                 if(goal_id != 0):
+                    exclusion = "" if(exclude == False) else "NOT"
                     if(goal_id < 0):
-                        query += f"WHERE users.goal_id IS NULL"
+                        query += f"WHERE users.goal_id IS {exclusion} NULL "
                     else:
-                        query += f"WHERE users.goal_id = {goal_id}"
+                        query += f"WHERE {exclusion} users.goal_id = {goal_id} "
+                    if(mealplan_id != 0):
+                        query += f"AND {exclusion} users.mealplan_id = {mealplan_id}"
                 query += f"""
                 ORDER BY users.goal_id {direction}
                 LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
                 
                 try:
                     cursor.execute(query)
-                except:
-                    return {'error': 'SQL syntax error'}
+                except pymysql.Error as e:
+                    return {'error': f'SQL syntax error {e}'}
                 result = cursor.fetchall()
                 
                 if len(result) == page_size:
@@ -126,6 +131,8 @@ def sortUsersByMealplans():
     
     current_page = request.args.get('page', default=1, type=int)
     mealplan_id = request.headers.get('mealplan-id', default=0, type=int)
+    goal_id = request.headers.get('goal-id', default=0, type=int)
+    exclude = request.headers.get('exclude', default=False, type=bool)
     direction = "ASC"
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "DESC"
@@ -141,18 +148,21 @@ def sortUsersByMealplans():
                 FROM users
                 """
                 if(mealplan_id != 0):
+                    exclusion = "" if(exclude == False) else "NOT"
                     if(mealplan_id < 0):
-                        query += f"WHERE users.mealplan_id IS NULL"
+                        query += f"WHERE users.mealplan_id IS {exclusion} NULL "
                     else:
-                        query += f"WHERE users.mealplan_id = {mealplan_id}"
+                        query += f"WHERE {exclusion} users.mealplan_id = {mealplan_id} "
+                    if(goal_id != 0):
+                        query += f"AND {exclusion} users.goal_id = {goal_id}"
                 query += f"""
                 ORDER BY users.mealplan_id {direction}
                 LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
                 
                 try:
                     cursor.execute(query)
-                except:
-                    return {'error': 'SQL syntax error'}
+                except pymysql.Error as e:
+                    return {'error': f'SQL syntax error {e}'}
                 result = cursor.fetchall()
                 
                 if len(result) == page_size:
@@ -178,7 +188,7 @@ def getUserByUsername():
                     cursorclass=pymysql.cursors.DictCursor)
     
     current_page = request.args.get('page', default=1, type=int)
-    username = request.headers.get('username', default="")
+    username = request.headers.get('search', default="")
     direction = "ASC"
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "DESC"
@@ -266,9 +276,9 @@ def sortusersByAboutMe():
                 for row in result:
                     formattedRow = {
                         'name': row['username'],
-                        'ingredients': row['about_me'],
-                        'instructions': row['mealplan_id'],
-                        'nutrition': row['goal_id']
+                        'about_me': row['about_me'],
+                        'mealplan_id': row['mealplan_id'],
+                        'goal_id': row['goal_id']
                     }
                     data['results'].append(formattedRow)
                     

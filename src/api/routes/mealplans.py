@@ -121,6 +121,69 @@ def getMealplan():
                                             
     return jsonify(data)
 
+@mealplans_bp.route('/mealplans/ingredients', methods=['GET'])
+def getMealplanByIngredients():
+    cnx = pymysql.connect(host=config['host'],
+                        user=config['user'],
+                        password=config['password'],
+                        database=config['database'],
+                        cursorclass=pymysql.cursors.DictCursor)
+
+    current_page = request.args.get('page', default=1, type=int)
+    
+    ingredient = request.headers.get('search', default=None)
+    exclude = request.headers.get('exclude', default=False, type=bool)
+    
+    if ingredient == None:
+        return {'error': 'please enter a search query'}
+
+    direction = "ASC"
+    if(request.args.get('direction', default=0, type=int) == 1):
+        direction = "DESC"
+    
+    data = {
+        'results': []
+    }
+    
+    print(exclude)
+    
+    with cnx:
+        with cnx.cursor() as cursor:
+                query = f"""
+                SELECT DISTINCT mealplans.name, mealplans.id
+                FROM mealplans
+                JOIN mealplanRecipes ON mealplans.id = mealplanRecipes.mealplan_id
+                JOIN recipes ON mealplanRecipes.recipe_id = recipes.id
+                """
+                
+                if ingredient != None:
+                    print(exclude)
+                    exclude = '' if(exclude==False) else 'NOT'
+                    query += f"WHERE {exclude} recipes.ingredients LIKE '%{ingredient}%'"
+                    
+                query += f"""
+                ORDER BY mealplans.name {direction}
+                LIMIT {page_size} OFFSET {(current_page - 1) * page_size};
+                """
+                print(query)
+                
+                try:
+                    cursor.execute(query)
+                except pymysql.Error as e:
+                    return {'error': f'SQL syntax error: {e}'}
+                result = cursor.fetchall()
+                if len(result) == page_size:
+                    data['next'] = f"{request.base_url}?page={current_page+1}"
+                
+                for row in result:
+                    formattedRow = {
+                        'name': row['name'],
+                        'ID': row['id']
+                    }
+                    data['results'].append(formattedRow)
+                                            
+    return jsonify(data)
+
 @mealplans_bp.route('/mealplans/popularity', methods=['GET'])
 def sortMealplansByPopularity():
     cnx = pymysql.connect(host=config['host'],
@@ -134,7 +197,7 @@ def sortMealplansByPopularity():
     if(request.args.get('direction', default=0, type=int) == 1):
         direction = "ASC"
     
-    exclude = request.args.get('exclude', default=False, type=bool)
+    exclude = request.headers.get('exclude', default=False, type=bool)
     mealplan_id = request.headers.get('mealplan-id', default=0)
     goal_id = request.headers.get('goal-id', default=0)
     

@@ -37,7 +37,7 @@ Example: /recipes?direction=1
 1. 'username' (optional): String used on some routes to find similar usernames
 1. 'aboutme' (optional): String used on some routes to find similar users with similar aboutmes
 1. 'search' (optional): String used on some routes to indicate what to search for
-1. 'exclude' (optional): Boolean used on some routes to find all rows that are not similar to the search header
+1. 'exclude' (optional): Boolean used on some routes to find all rows that are not similar to the search header. Enter any value to be true, remove from header file to be false.
 1. 'limit' (optional): Int used on some routes to find numerical values above/below the limit
 1. 'greater_than' (optional): Boolean used on some routes to either find the values above/below the limit
 1. 'new-username' (optional): String used on the update route to update the current users username
@@ -197,7 +197,7 @@ query = f"""
         LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
 ```
 
-1. /users/username: This route takes in the standard arguments as well as the header ‘username’ which is a string. If username is not given the api returns all users sorted by their username. If username is given then it returns all users with usernames similar to that string
+1. /users/username: This route takes in the standard arguments as well as the header 'search' which is a string. If search is not given the api returns all users sorted by their search. If search is given then it returns all users with usernames similar to that string
 
 Query: 
 ```{python}
@@ -370,7 +370,7 @@ query = f"""
         """
 ```
 
-1. /mealplans/popularity: This route takes in the standard arguments as well as the 'mealplan-id', 'goal-id', and 'exclude' headers. If the mealplan-id is not given it will return the list of most popular mealplans sorted by their popularity which will be included in the return json. If mealplan-id is given it will return the mealplan with that mealplan-id and the number of times it was used. The 'goal-id' header returns the mealplans sorted by popularity with users with that goal. The exclude header modifies the 'goal-id' header, returning mealplans sorted by their popularity with users without that goal.
+1. /mealplans/ingredients: This route takes in the standard arguments as well as the 'search' and 'exclude' headers. If search is not given it will return an error telling the user to give a search query. Exclude will return all mealplans without a certain ingredient. This endpoint returns the list ordered by mealplan name.
 
 Query: 
 ```{python}
@@ -467,6 +467,251 @@ query = f"""
         query+=f"""
         ORDER BY times_used {direction};
         """
+```
+
+## API in action
+```{python}
+#| echo: false
+#| eval: true
+import requests, sys, pandas
+url = 'http://localhost:5000'
+```
+*1. Sort users by name alphabetically*
+```{python}
+headers = {
+    'username': 'dellimorez',
+    'password': 'password1'
+}
+response = requests.get(url+'/users/username', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*2. List all users that have Eating Healthier as their goal*
+```{python}
+headers = {
+    'username': 'dellimorez',
+    'password': 'password1',
+    'goal-id': '6'
+}
+response = requests.get(url+'/users/goals', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*3. List all recipes that contain the ingredient Rice*
+```{python}
+headers = {
+    'username': 'dellimorez',
+    'password': 'password1',
+    'search': 'Rice'
+}
+response = requests.get(url+'/recipes/ingredients', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*4. List all the recipes that are less than 750 calories*
+```{python}
+headers = {
+    'username': 'dellimorez',
+    'password': 'password1',
+    'limit': '750'
+}
+response = requests.get(url+'/recipes/calories', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*5. List all the Meal Plans that do not contain rice*
+```{python}
+headers = {
+    'username': 'tester',
+    'password': 'test',
+    'search': 'Rice',
+    'exclude': 'True'
+}
+response = requests.get(url+'/mealplans/ingredients', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*6. List the most popular Goals*
+```{python}
+headers = {
+    'username': 'tester',
+    'password': 'test'
+}
+response = requests.get(url+'/goals/popularity', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*7. List the most popular Mealplans*
+```{python}
+headers = {
+    'username': 'tester',
+    'password': 'test'
+}
+response = requests.get(url+'/mealplans/popularity', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*8. List all users without a meal plan*
+```{python}
+headers = {
+    'username': 'tester',
+    'password': 'test',
+    'mealplan-id': '-1'
+}
+response = requests.get(url+'/users/mealplans', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*9. List all users who have the "Weight Gain" mealplan and has the "Weight Gain" goal*
+```{python}
+headers = {
+    'username': 'dellimorez',
+    'password': 'password1',
+    'mealplan-id': '3',
+    'goal-id': '2'
+}
+response = requests.get(url+'/users/mealplans', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*10. Sort by user about me*
+```{python}
+headers = {
+    'username': 'tester',
+    'password': 'test'
+}
+response = requests.get(url+'/users/aboutme', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*11. Sort by user about me*
+```{python}
+headers = {
+    'username': 'tester',
+    'password': 'test'
+}
+response = requests.get(url+'/users/aboutme', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*12. Sort the recipes by name*
+```{python}
+headers = {
+    'username': 'tester',
+    'password': 'test'
+}
+response = requests.get(url+'/recipes/name', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*13. List all recipes that are more than 400 calories*
+```{python}
+headers = {
+    'username': 'dellimorez',
+    'password': 'password1',
+    'limit': '400',
+    'greater_than': ''
+}
+response = requests.get(url+'/recipes/calories', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*14. Sort by goal name*
+```{python}
+headers = {
+    'username': 'dellimorez',
+    'password': 'password1',
+    'limit': '400',
+    'greater_than': ''
+}
+response = requests.get(url+'/goals/name', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*15. Number of Users using the ProteinPunch MealPlan*
+```{python}
+headers = {
+    'username': 'dellimorez',
+    'password': 'password1',
+    'mealplan-id': '1'
+}
+response = requests.get(url+'/mealplans/popularity', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*16. Sort users who have the goal maintaining weight*
+```{python}
+headers = {
+    'username': 'dellimorez',
+    'password': 'password1',
+    'goal-id': '3'
+}
+response = requests.get(url+'/users/goals', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*17. Sort by most popular goals*
+```{python}
+headers = {
+    'username': 'dellimorez',
+    'password': 'password1'
+}
+response = requests.get(url+'/goals/popularity', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*18. List all users who have the goal set to “lose weight” and has the lose weight meal plan*
+```{python}
+headers = {
+    'username': 'dellimorez',
+    'password': 'password1',
+    'mealplan-id': '2',
+    'goal-id': '1'
+}
+response = requests.get(url+'/users/goals', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*19. Order recipes by Calories*
+```{python}
+headers = {
+    'username': 'tester',
+    'password': 'test'
+}
+response = requests.get(url+'/recipes/calories?direction=1', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
+```
+
+*20. List Goals by popularity of users not using the "Protein Punch" mealplan*
+```{python}
+headers = {
+    'username': 'tester',
+    'password': 'test',
+    'mealplan-id': '1',
+    'exclude': 'True'
+}
+response = requests.get(url+'/goals/popularity', headers=headers)
+df = pandas.DataFrame.from_dict(response.json()['results'])
+df
 ```
 
 ## Future Considerations

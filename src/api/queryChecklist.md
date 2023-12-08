@@ -3,17 +3,17 @@
 
 - [X] Sort users by name alphabetically
 - [X] List all users that have losing weight as their goal
-- [X] List all recipes that contain an ingredient
+- [X] List all recipes that contain chicken
 - [X] List all the recipes that are less than 750 calories
 - [X] List all the Meal Plans that do not contain peanut butter
-- [X] List the 3 most popular Goals
-- [X] List the 5 most popular Meal Plans
-- [X] List the 5 most popular Meal Plan that users with the losing weight goal use
-- [X] List the 5 most popular recipes by usage in mealplans
+- [X] List the most popular Goals
+- [X] List the most popular Meal Plans
+- [X] List the most popular Meal Plan that users with the losing weight goal use
+- [X] List the most popular recipes by usage in mealplans
 - [X] List all users without a meal plan
 - [X] Order recipes by Calories
-- [ ] List all users with meal plans with salmon
-- [ ] List all users who have the goal set to “lose weight” and has a meal plan
+- [X] List Goals by popularity of users with the "Protein Punch" mealplan
+- [X] List all users who have the goal set to “lose weight” and has the lose weight meal plan
 - [X] Sort by user about me
 - [X] Sort the recipes by name
 - [X] List all recipes that are more than 400 calories

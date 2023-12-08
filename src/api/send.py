@@ -1,4 +1,4 @@
-import requests, sys
+import requests, sys, pandas
 
 url = 'http://localhost:5000'
 
@@ -8,7 +8,8 @@ if len(sys.argv) >= 2:
 headers = {
     'username': 'tester',
     'password': 'test',
-    'mealplan-id': '1'
+    'search': 'Steak',
+    'exclude': 'True'
     }
 
 print(headers)
