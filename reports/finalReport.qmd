@@ -16,43 +16,6 @@ format:
 ## Problem Description 
 The rising trend in health and fitness has brought a keen focus on diet and nutrition, which is often considered the most challenging aspect of maintaining good health. With countless general websites, programs, and videos available online, many people find it difficult to stick to a diet, mainly due to its lack of personalization, leading to disinterest, impracticality, or unsatisfactory results. An effective nutritional plan must be tailored to each individual, taking into account their lifestyle, objectives, and health conditions. This need is amplified by the overwhelming amount of information available, often with conflicting advice, making it hard to find a suitable plan. Our nutritional database addresses this issue by factoring in dietary restrictions, allergies, health objectives, personal lifestyle, and meal preferences to create a nutritional plan that is not only sustainable and effective but also enjoyable.
 
-## API Definition
-Our API has many different methods depending on which topic you are searching for. To access the api the user must first create a new user by going to the /create/user url and put their newly created username and password as argument variables in their api request. Creating a user is the only action a user can do without having a valid username and password in their header variables.
-
-### Arguments
-1. 'page': Int argument to get the specified page of data. The page argument has a default value of 1 but if the user wants to go to the second page they would put 2 for the page argument. 
-Example: /recipes?page=2
-
-2. 'direction': Int argument to reverse the order of what is returned by the API. Input 1 to reverse the order.
-Example: /recipes?direction=1
-
-3. 'username': String only used when creating a new user to set the new user's username
-
-4. 'password': String only used when creating a new user to set the new user's password
-
-### Headers
-1. 'username' (required): String of user's account's username
-1. 'password' (required): String of user's account's password
-1. 'user-id' (optional): Int used on some routes to find a user by their id
-1. 'goal-id' (optional): Int used on some routes to find a goal by its id
-1. 'recipe-id' (optional): Int used on some routes to find a recipe by its id
-1. 'mealplan-id' (optional): Int used on some routes to find a mealplan by its id
-1. 'username' (optional): String used on some routes to find similar usernames
-1. 'aboutme' (optional): String used on some routes to find similar users with similar aboutmes
-1. 'search' (optional): String used on some routes to indicate what to search for
-1. 'exclude' (optional): Boolean used on some routes to find all rows that are not similar to the search header. Enter any value to be true, remove from header file to be false.
-1. 'limit' (optional): Int used on some routes to find numerical values above/below the limit
-1. 'greater_than' (optional): Boolean used on some routes to either find the values above/below the limit
-1. 'new-username' (optional): String used on the update route to update the current users username
-1. 'new-password' (optional): String used on the update route to update the current users password
-1. 'new-aboutme' (optional): String used on the update route to update the current users about me
-1. 'new-mealplan' (optional): Int used on the update route to update the current users mealplan
-1. 'new-goal' (optional): Int used on the update route to update the current users goal
-1. 'recipe-name' (required in some): String used in the /create/recipe route to set the new recipe's name
-1. 'recipe-calories' (required in some): Int used in the /create/recipe route to set the new recipe's calorie count
-1. 'recipe-ingredients' (required in some): String used in the /create/recipe route to set the new recipe's ingredients
-1. 'recipe-instructions' (required in some): String used in the /create/recipe route to set the new recipe's instructions
-
 ### Crows Foot Diagram
 The following Crows Foot diagram represents the relationships between the the users, mealplans, recipes, and goals.
 ```{mermaid}
@@ -92,6 +55,43 @@ users {
 ### DDL File Report
 The ddl.sql file was utilzed to create mealplans,recipes, mealplanrecipes, goals, and users tables as well as their corresponding primary keys, foreign keys, and entity specific attributes. The dml.sql file was utilzed to insert the actual information into these tables using the "insert into [insert table (name)] values [table values]". The next few following sections explain user functionality and how to create, update, and delete data in the tables.
 
+## API Definition
+Our API has many different methods depending on which topic you are searching for. To access the api the user must first create a new user by going to the /create/user url and put their newly created username and password as argument variables in their api request. Creating a user is the only action a user can do without having a valid username and password in their header variables.
+
+### Arguments
+1. 'page': Int argument to get the specified page of data. The page argument has a default value of 1 but if the user wants to go to the second page they would put 2 for the page argument. 
+Example: /recipes?page=2
+
+2. 'direction': Int argument to reverse the order of what is returned by the API. Input 1 to reverse the order.
+Example: /recipes?direction=1
+
+3. 'username': String only used when creating a new user to set the new user's username
+
+4. 'password': String only used when creating a new user to set the new user's password
+
+### Headers
+1. 'username' (required): String of user's account's username
+1. 'password' (required): String of user's account's password
+1. 'user-id' (optional): Int used on some routes to find a user by their id
+1. 'goal-id' (optional): Int used on some routes to find a goal by its id
+1. 'recipe-id' (optional): Int used on some routes to find a recipe by its id
+1. 'mealplan-id' (optional): Int used on some routes to find a mealplan by its id
+1. 'username' (optional): String used on some routes to find similar usernames
+1. 'aboutme' (optional): String used on some routes to find similar users with similar aboutmes
+1. 'search' (optional): String used on some routes to indicate what to search for
+1. 'exclude' (optional): Boolean used on some routes to find all rows that are not similar to the search header. Enter any value to be true, remove from header file to be false.
+1. 'limit' (optional): Int used on some routes to find numerical values above/below the limit
+1. 'greater_than' (optional): Boolean used on some routes to either find the values above/below the limit
+1. 'new-username' (optional): String used on the update route to update the current users username
+1. 'new-password' (optional): String used on the update route to update the current users password
+1. 'new-aboutme' (optional): String used on the update route to update the current users about me
+1. 'new-mealplan' (optional): Int used on the update route to update the current users mealplan
+1. 'new-goal' (optional): Int used on the update route to update the current users goal
+1. 'recipe-name' (required in some): String used in the /create/recipe route to set the new recipe's name
+1. 'recipe-calories' (required in some): Int used in the /create/recipe route to set the new recipe's calorie count
+1. 'recipe-ingredients' (required in some): String used in the /create/recipe route to set the new recipe's ingredients
+1. 'recipe-instructions' (required in some): String used in the /create/recipe route to set the new recipe's instructions
+
 ### Create
 To access this functionality you use the /create/ url with either user or recipe appended to it. We only allow people to create users and recipes for simplicity and because it is all a user would ever need to do. 
 
@@ -110,7 +110,7 @@ query = f"""
         """
 ```
 
-1. /create/recipe: This route requires the name, calories, ingredients, and instructions headers. It will return whether it created an error or whether your recipe was created successfully.
+2. /create/recipe: This route requires the name, calories, ingredients, and instructions headers. It will return whether it created an error or whether your recipe was created successfully.
 
     Example header: 
     {
@@ -199,7 +199,7 @@ query = f"""
         LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
 ```
 
-1. /users/goals: This route takes in the standard arguments as well as the header ‘goal-id’. If goal-id is not given by the user then it returns all users sorted by their goal-id. If the user does give goal-id it returns all users with that specific goal-id. If goal-id is less than 0 it will return all users without goals.
+2. /users/goals: This route takes in the standard arguments as well as the header ‘goal-id’. If goal-id is not given by the user then it returns all users sorted by their goal-id. If the user does give goal-id it returns all users with that specific goal-id. If goal-id is less than 0 it will return all users without goals.
 
 Query: 
 ```{python}
@@ -219,7 +219,7 @@ query = f"""
         LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
 ```
 
-1. /users/mealplans: This route takes in the standard arguments as well as the header ‘mealplan-id’ which is an integer. If mealplan-id is not given the api returns all users sorted by their mealplan-id. If the user does give mealplan-id it returns all users with that specific mealplan-id. If mealplan-id is less than 0 it will return all users without mealplans.
+3. /users/mealplans: This route takes in the standard arguments as well as the header ‘mealplan-id’ which is an integer. If mealplan-id is not given the api returns all users sorted by their mealplan-id. If the user does give mealplan-id it returns all users with that specific mealplan-id. If mealplan-id is less than 0 it will return all users without mealplans.
 
 Query: 
 ```{python}
@@ -239,7 +239,7 @@ query = f"""
         LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
 ```
 
-1. /users/username: This route takes in the standard arguments as well as the header 'search' which is a string. If search is not given the api returns all users sorted by their search. If search is given then it returns all users with usernames similar to that string
+4. /users/username: This route takes in the standard arguments as well as the header 'search' which is a string. If search is not given the api returns all users sorted by their search. If search is given then it returns all users with usernames similar to that string
 
 Query: 
 ```{python}
@@ -256,7 +256,7 @@ query = f"""
         LIMIT {page_size} OFFSET {(current_page - 1) * page_size};"""
 ```
 
-1. /users/aboutme: This route takes in the standard arguments as well as the header ‘aboutme’ which is a string. If aboutme is not given it returns all users sorted by their about_me. If aboutme is given it returns all users with an about_me similar to the aboutme the user supplied.
+5. /users/aboutme: This route takes in the standard arguments as well as the header ‘aboutme’ which is a string. If aboutme is not given it returns all users sorted by their about_me. If aboutme is given it returns all users with an about_me similar to the aboutme the user supplied.
 
 Query: 
 ```{python}
@@ -294,7 +294,7 @@ query = f"""
         """
 ```
 
-1. /recipes/name: This route takes in the standard arguments as well as the headers ‘search’ and ‘exclude’. The API returns the recipes ordered by name.
+2. /recipes/name: This route takes in the standard arguments as well as the headers ‘search’ and ‘exclude’. The API returns the recipes ordered by name.
 
 Query: 
 ```{python}
@@ -313,7 +313,7 @@ query = f"""
         """
 ```
 
-1. /recipes/calories: This route takes in the standard headers as well as the ‘search’, ‘exclude’, ‘limit’, and ‘greater_than’ headers. The API returns the recipes ordered by calories.
+3. /recipes/calories: This route takes in the standard headers as well as the ‘search’, ‘exclude’, ‘limit’, and ‘greater_than’ headers. The API returns the recipes ordered by calories.
 
 Query: 
 ```{python}
@@ -333,7 +333,7 @@ query = f"""
         """
 ```
 
-1. /recipes/ingredients: This route takes in the standard arguments as well as the ‘search’ and ‘exclude’ headers. The API returns the recipes ordered by ingredients.
+4. /recipes/ingredients: This route takes in the standard arguments as well as the ‘search’ and ‘exclude’ headers. The API returns the recipes ordered by ingredients.
 
 Query: 
 ```{python}
@@ -352,7 +352,7 @@ query = f"""
         """
 ```
 
-1. /recipes/popularity: This route takes in the standard arguments as well as the 'recipe-id' headers. The API returns the recipes ordered by their popularity.
+5. /recipes/popularity: This route takes in the standard arguments as well as the 'recipe-id' headers. The API returns the recipes ordered by their popularity.
 
 Query: 
 ```{python}
@@ -390,7 +390,7 @@ query = f"""
             """
 ```
 
-1. /mealplans/recipe: This route takes in the standard arguments as well as the ‘mealplan-id’, and 'search' headers. the mealplan-id is required and the API will return with an error if one is not given. The search header is optional and lets you find recipes in the given mealplan. The API returns the found recipes ordered by name.
+2. /mealplans/recipe: This route takes in the standard arguments as well as the ‘mealplan-id’, and 'search' headers. the mealplan-id is required and the API will return with an error if one is not given. The search header is optional and lets you find recipes in the given mealplan. The API returns the found recipes ordered by name.
 
 Query: 
 ```{python}
@@ -412,7 +412,7 @@ query = f"""
         """
 ```
 
-1. /mealplans/ingredients: This route takes in the standard arguments as well as the 'search' and 'exclude' headers. If search is not given it will return an error telling the user to give a search query. Exclude will return all mealplans without a certain ingredient. This endpoint returns the list ordered by mealplan name.
+3. /mealplans/ingredients: This route takes in the standard arguments as well as the 'search' and 'exclude' headers. If search is not given it will return an error telling the user to give a search query. Exclude will return all mealplans without a certain ingredient. This endpoint returns the list ordered by mealplan name.
 
 Query: 
 ```{python}
@@ -461,7 +461,7 @@ query = f"""
         """
 ```
 
-1. /goals/name: This route takes in the standard arguments as well as the 'search' header. If search is not provided it will return the list of goals sorted by name. If search is provided it will return all goals with similar names to search.
+2. /goals/name: This route takes in the standard arguments as well as the 'search' header. If search is not provided it will return the list of goals sorted by name. If search is provided it will return all goals with similar names to search.
 
 Query: 
 ```{python}
@@ -481,7 +481,7 @@ query = f"""
         """
 ```
 
-1. /goals/popularity: This route takes in the standard arguments as well as the 'goal-id', 'mealplan-id', and 'exclude' headers. If the goal-id is not given it will return the list of most popular goals sorted by their number of users which will be included in the return json. If goal-id is given it will return the goal with that goal-id and the number of users using that goal. If 'mealplan-id' is given it will return the goals sorted by the number of users who use the chose mealplan. The 'exclude' header reverses this and returns the most popular goal of users not using the specified mealplan.
+3. /goals/popularity: This route takes in the standard arguments as well as the 'goal-id', 'mealplan-id', and 'exclude' headers. If the goal-id is not given it will return the list of most popular goals sorted by their number of users which will be included in the return json. If goal-id is given it will return the goal with that goal-id and the number of users using that goal. If 'mealplan-id' is given it will return the goals sorted by the number of users who use the chose mealplan. The 'exclude' header reverses this and returns the most popular goal of users not using the specified mealplan.
 
 Query: 
 ```{python}
@@ -518,7 +518,7 @@ query = f"""
 import requests, sys, pandas
 url = 'http://localhost:5000'
 ```
-*1. Sort users by name alphabetically*
+### 1. Sort users by name alphabetically
 ```{python}
 headers = {
     'username': 'dellimorez',
@@ -529,7 +529,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*2. List all users that have Eating Healthier as their goal*
+### 2. List all users that have Eating Healthier as their goal
 ```{python}
 headers = {
     'username': 'dellimorez',
@@ -541,7 +541,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*3. List all recipes that contain the ingredient Rice*
+### 3. List all recipes that contain the ingredient Rice
 ```{python}
 headers = {
     'username': 'dellimorez',
@@ -553,7 +553,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*4. List all the recipes that are less than 750 calories*
+### 4. List all the recipes that are less than 750 calories
 ```{python}
 headers = {
     'username': 'dellimorez',
@@ -565,7 +565,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*5. List all the Meal Plans that do not contain rice*
+### 5. List all the Meal Plans that do not contain rice
 ```{python}
 headers = {
     'username': 'tester',
@@ -578,7 +578,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*6. List the most popular Goals*
+### 6. List the most popular Goals
 ```{python}
 headers = {
     'username': 'tester',
@@ -589,7 +589,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*7. List the most popular Mealplans*
+### 7. List the most popular Mealplans
 ```{python}
 headers = {
     'username': 'tester',
@@ -600,7 +600,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*8. List all users without a meal plan*
+### 8. List all users without a meal plan
 ```{python}
 headers = {
     'username': 'tester',
@@ -612,7 +612,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*9. List all users who have the "Weight Gain" mealplan and has the "Weight Gain" goal*
+### 9. List all users who have the "Weight Gain" mealplan and has the "Weight Gain" goal
 ```{python}
 headers = {
     'username': 'dellimorez',
@@ -625,7 +625,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*10. Sort by user about me*
+### 10. Sort by user about me
 ```{python}
 headers = {
     'username': 'tester',
@@ -636,7 +636,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*11. Sort by user about me*
+### 11. Sort by user about me
 ```{python}
 headers = {
     'username': 'tester',
@@ -647,7 +647,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*12. Sort the recipes by name*
+### 12. Sort the recipes by name
 ```{python}
 headers = {
     'username': 'tester',
@@ -658,7 +658,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*13. List all recipes that are more than 400 calories*
+### 13. List all recipes that are more than 400 calories
 ```{python}
 headers = {
     'username': 'dellimorez',
@@ -671,7 +671,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*14. Sort by goal name*
+### 14. Sort by goal name
 ```{python}
 headers = {
     'username': 'dellimorez',
@@ -684,7 +684,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*15. Number of Users using the ProteinPunch MealPlan*
+### 15. Number of Users using the ProteinPunch MealPlan
 ```{python}
 headers = {
     'username': 'dellimorez',
@@ -696,7 +696,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*16. Sort users who have the goal maintaining weight*
+### 16. Sort users who have the goal maintaining weight
 ```{python}
 headers = {
     'username': 'dellimorez',
@@ -708,7 +708,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*17. Sort by most popular goals*
+### 17. Sort by most popular goals
 ```{python}
 headers = {
     'username': 'dellimorez',
@@ -719,7 +719,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*18. List all users who have the goal set to “lose weight” and has the lose weight meal plan*
+### 18. List all users who have the goal set to “lose weight” and has the lose weight meal plan
 ```{python}
 headers = {
     'username': 'dellimorez',
@@ -732,7 +732,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*19. Order recipes by Calories*
+### 19. Order recipes by Calories
 ```{python}
 headers = {
     'username': 'tester',
@@ -743,7 +743,7 @@ df = pandas.DataFrame.from_dict(response.json()['results'])
 df
 ```
 
-*20. List Goals by popularity of users not using the "Protein Punch" mealplan*
+### 20. List Goals by popularity of users not using the "Protein Punch" mealplan
 ```{python}
 headers = {
     'username': 'tester',
@@ -757,15 +757,11 @@ df
 ```
 
 ## Future Considerations
-To access this functionality you use the /delete/user url. Currently we only support a user deleting theirself but if we were given more time we would like to add users being able to delete the recipes they made.
-
-To access this functionality you use the /update/user url. Currently we only support a user updating their own personal user values but if we were given more time we would like to add users being able to edit the recipes they made.
-
 As we look towards the future expansion ( looking at a possible product) of our nutritional database project, several  enhancements stand out, each aiming to significantly elevate the platform's impact and user experience.
 
 Firstly, introducing an Interactive Recipe Customization feature would mark a significant advancement. This would empower users to modify and refine their recipes directly within the database, allowing for a high degree of personalization. Such a feature is not only beneficial for adjusting to personal taste preferences but also essential for correcting any errors, ensuring the recipes evolve and improve over time.
 
- Implementing a reward system where users earn points for consistently logging meals or sticking to meal plans, we add a layer of motivation and fun to the platform. These points could be redeemed for exclusive recipe suggestions or additional customization options, creating an engaging and rewarding user experience.
+Implementing a reward system where users earn points for consistently logging meals or sticking to meal plans, we add a layer of motivation and fun to the platform. These points could be redeemed for exclusive recipe suggestions or additional customization options, creating an engaging and rewarding user experience.
 
 Lastly, the possibility of Integration with Fitness Trackers opens a new dimension for the project. Collaborating with fitness apps or devices to incorporate exercise data would enable us to provide dietary recommendations that are informed by individual physical activity levels. This holistic approach to health and wellness would offer users a more comprehensive and tailored health management experience.
 
