@@ -13,7 +13,7 @@
 - [ ] Tables are loaded with appropriate data and samples are presented in the report
 - [X] Contains API design with all endpoints documented
 - [X] The API includes a mechanism (tokens or other) to secure access
-- [ ] The report documents the SQL queries that support the various API endpoints.
+- [X] The report documents the SQL queries that support the various API endpoints.
 - [ ] The report includes a section on reflections about the project and the class.
 
 ## Github

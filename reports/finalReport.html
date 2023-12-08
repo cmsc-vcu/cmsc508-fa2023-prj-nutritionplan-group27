@@ -3177,37 +3177,308 @@ vertical-align: -.125em;
 <h3 class="anchored" data-anchor-id="users">Users</h3>
 <p>Currently we only support a user updating their own personal user values</p>
 <ol type="1">
-<li><p>/users: This route takes in the standard arguments as well as the header ‘user-id’ which is an integer. If user-id is not given then the api returns all users sorted by their ids. If user-id is given it returns the user with that user-id.</p></li>
-<li><p>/users/goals: This route takes in the standard arguments as well as the header ‘goal-id’. If goal-id is not given by the user then it returns all users sorted by their goal-id. If the user does give goal-id it returns all users with that specific goal-id.</p></li>
-<li><p>/users/mealplans: This route takes in the standard arguments as well as the header ‘mealplan-id’ which is an integer. If mealplan-id is not given the api returns all users sorted by their mealplan-id. If the user does give mealplan-id it returns all users with that specific mealplan-id</p></li>
-<li><p>/users/username: This route takes in the standard arguments as well as the header ‘username’ which is a string. If username is not given the api returns all users sorted by their username. If username is given then it returns all users with usernames similar to that string</p></li>
-<li><p>/users/aboutme: This route takes in the standard arguments as well as the header ‘aboutme’ which is a string. If aboutme is not given it returns all users sorted by their about_me. If aboutme is given it returns all users with an about_me similar to the aboutme the user supplied.</p></li>
+<li>/users: This route takes in the standard arguments as well as the header ‘user-id’ which is an integer. If user-id is not given then the api returns all users sorted by their ids. If user-id is given it returns the user with that user-id.</li>
 </ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM users</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(user_id <span class="op">!=</span> <span class="dv">0</span>):</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            query <span class="op">+=</span> <span class="ss">f&quot;WHERE users.id = </span><span class="sc">{</span>user_id<span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        query <span class="op">+=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ss">        ORDER BY users.id </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="ss">        LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span><span class="ss">;&quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>/users/goals: This route takes in the standard arguments as well as the header ‘goal-id’. If goal-id is not given by the user then it returns all users sorted by their goal-id. If the user does give goal-id it returns all users with that specific goal-id. If goal-id is less than 0 it will return all users without goals.</li>
+</ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM users</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(goal_id <span class="op">!=</span> <span class="dv">0</span>):</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span>(goal_id <span class="op">&lt;</span> <span class="dv">0</span>):</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                query <span class="op">+=</span> <span class="ss">f&quot;WHERE users.goal_id IS NULL&quot;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                query <span class="op">+=</span> <span class="ss">f&quot;WHERE users.goal_id = </span><span class="sc">{</span>goal_id<span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        query <span class="op">+=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="ss">        ORDER BY users.goal_id </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="ss">        LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span><span class="ss">;&quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>/users/mealplans: This route takes in the standard arguments as well as the header ‘mealplan-id’ which is an integer. If mealplan-id is not given the api returns all users sorted by their mealplan-id. If the user does give mealplan-id it returns all users with that specific mealplan-id. If mealplan-id is less than 0 it will return all users without mealplans.</li>
+</ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM users</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(mealplan_id <span class="op">!=</span> <span class="dv">0</span>):</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span>(mealplan_id <span class="op">&lt;</span> <span class="dv">0</span>):</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                query <span class="op">+=</span> <span class="ss">f&quot;WHERE users.mealplan_id IS NULL&quot;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                query <span class="op">+=</span> <span class="ss">f&quot;WHERE users.mealplan_id = </span><span class="sc">{</span>mealplan_id<span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        query <span class="op">+=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="ss">        ORDER BY users.mealplan_id </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="ss">        LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span><span class="ss">;&quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>/users/username: This route takes in the standard arguments as well as the header ‘username’ which is a string. If username is not given the api returns all users sorted by their username. If username is given then it returns all users with usernames similar to that string</li>
+</ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM users</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(username <span class="op">!=</span> <span class="st">&quot;&quot;</span>):</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>            query <span class="op">+=</span> <span class="ss">f&quot;WHERE users.username LIKE &#39;%</span><span class="sc">{</span>username<span class="sc">}</span><span class="ss">%&#39;&quot;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        query <span class="op">+=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="ss">        ORDER BY users.username </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="ss">        LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span><span class="ss">;&quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>/users/aboutme: This route takes in the standard arguments as well as the header ‘aboutme’ which is a string. If aboutme is not given it returns all users sorted by their about_me. If aboutme is given it returns all users with an about_me similar to the aboutme the user supplied.</li>
+</ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM users</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(search <span class="op">!=</span> <span class="st">&quot;&quot;</span>):</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>            exclusion <span class="op">=</span> <span class="st">&quot;&quot;</span> <span class="cf">if</span>(exclude <span class="op">==</span> <span class="va">False</span>) <span class="cf">else</span> <span class="st">&quot;NOT&quot;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>            query <span class="op">+=</span> <span class="ss">f&quot;WHERE </span><span class="sc">{</span>exclusion<span class="sc">}</span><span class="ss"> users.about_me LIKE &#39;%</span><span class="sc">{</span>search<span class="sc">}</span><span class="ss">%&#39;&quot;</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        query<span class="op">+=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="ss">        ORDER BY users.about_me </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="ss">        LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span><span class="ss">;</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="recipes" class="level3">
 <h3 class="anchored" data-anchor-id="recipes">Recipes</h3>
 <ol type="1">
-<li><p>/recipes: This route takes in the standard arguments as well as the ‘recipe-id’ header which is an integer. If the recipe-id header is not given then the API returns all recipes sorted by their id. If recipe-id is given then it returns the recipe with that id.</p></li>
-<li><p>/recipes/name: This route takes in the standard arguments as well as the headers ‘search’ and ‘exclude’. The API returns the recipes ordered by name.</p></li>
-<li><p>/recipes/calories: This route takes in the standard headers as well as the ‘search’, ‘exclude’, ‘limit’, and ‘greater_than’ headers. The API returns the recipes ordered by calories.</p></li>
-<li><p>/recipe/ingredients: This route takes in the standard arguments as well as the ‘search’ and ‘exclude’ headers. The API returns the recipes ordered by ingredients.</p></li>
+<li>/recipes: This route takes in the standard arguments as well as the ‘recipe-id’ header which is an integer. If the recipe-id header is not given then the API returns all recipes sorted by their id. If recipe-id is given then it returns the recipe with that id.</li>
 </ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM recipes</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(recipe_id <span class="op">!=</span> <span class="dv">0</span>):</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>            query <span class="op">+=</span> <span class="ss">f&quot;WHERE recipes.id = </span><span class="sc">{</span>recipe_id<span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        query<span class="op">+=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="ss">        ORDER BY recipes.id </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="ss">        LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span><span class="ss">;</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>/recipes/name: This route takes in the standard arguments as well as the headers ‘search’ and ‘exclude’. The API returns the recipes ordered by name.</li>
+</ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM recipes</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(recipe <span class="op">!=</span> <span class="st">&quot;&quot;</span>):</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>            exclusion <span class="op">=</span> <span class="st">&quot;&quot;</span> <span class="cf">if</span>(exclude <span class="op">==</span> <span class="va">False</span>) <span class="cf">else</span> <span class="st">&quot;NOT&quot;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>            query <span class="op">+=</span> <span class="ss">f&quot;WHERE </span><span class="sc">{</span>exclusion<span class="sc">}</span><span class="ss"> recipes.name LIKE &#39;%</span><span class="sc">{</span>recipe<span class="sc">}</span><span class="ss">%&#39;&quot;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        query<span class="op">+=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="ss">        ORDER BY recipes.name </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="ss">        LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span><span class="ss">;</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>/recipes/calories: This route takes in the standard headers as well as the ‘search’, ‘exclude’, ‘limit’, and ‘greater_than’ headers. The API returns the recipes ordered by calories.</li>
+</ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM recipes</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(recipe <span class="op">!=</span> <span class="st">&quot;&quot;</span>):</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>            exclusion <span class="op">=</span> <span class="st">&quot;&quot;</span> <span class="cf">if</span>(exclude <span class="op">==</span> <span class="va">False</span>) <span class="cf">else</span> <span class="st">&quot;NOT&quot;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>            query <span class="op">+=</span> <span class="ss">f&quot;WHERE </span><span class="sc">{</span>exclusion<span class="sc">}</span><span class="ss"> recipes.name LIKE &#39;%</span><span class="sc">{</span>recipe<span class="sc">}</span><span class="ss">%&#39;&quot;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        query<span class="op">+=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="ss">        WHERE recipes.calories </span><span class="sc">{</span>symbol<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>limit<span class="sc">}</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="ss">        ORDER BY recipes.calories </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="ss">        LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span><span class="ss">;</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>/recipes/ingredients: This route takes in the standard arguments as well as the ‘search’ and ‘exclude’ headers. The API returns the recipes ordered by ingredients.</li>
+</ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM recipes</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(ingredient <span class="op">!=</span> <span class="st">&quot;&quot;</span>):</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>            exclusion <span class="op">=</span> <span class="st">&quot;&quot;</span> <span class="cf">if</span>(exclude <span class="op">==</span> <span class="va">False</span>) <span class="cf">else</span> <span class="st">&quot;NOT&quot;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>            query <span class="op">+=</span> <span class="ss">f&quot;WHERE </span><span class="sc">{</span>exclusion<span class="sc">}</span><span class="ss"> recipes.ingredients LIKE &#39;%</span><span class="sc">{</span>ingredient<span class="sc">}</span><span class="ss">%&#39;&quot;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        query<span class="op">+=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="ss">        ORDER BY recipes.ingredients </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="ss">        LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span><span class="ss">;</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>/recipes/popularity: This route takes in the standard arguments as well as the ‘recipe-id’ headers. The API returns the recipes ordered by their popularity.</li>
+</ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM recipes</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(ingredient <span class="op">!=</span> <span class="st">&quot;&quot;</span>):</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>            exclusion <span class="op">=</span> <span class="st">&quot;&quot;</span> <span class="cf">if</span>(exclude <span class="op">==</span> <span class="va">False</span>) <span class="cf">else</span> <span class="st">&quot;NOT&quot;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>            query <span class="op">+=</span> <span class="ss">f&quot;WHERE </span><span class="sc">{</span>exclusion<span class="sc">}</span><span class="ss"> recipes.ingredients LIKE &#39;%</span><span class="sc">{</span>ingredient<span class="sc">}</span><span class="ss">%&#39;&quot;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        query<span class="op">+=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="ss">        ORDER BY recipes.ingredients </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="ss">        LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span><span class="ss">;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="mealplans" class="level3">
 <h3 class="anchored" data-anchor-id="mealplans">Mealplans</h3>
 <ol type="1">
-<li><p>/mealplans: This route takes in the standard arguments as well as the ‘mealplan-id’ header. If the mealplan-id header is not given then the API returns all mealplans sorted by their id. If mealplan-id is given then it returns the mealplan with that id.</p></li>
-<li><p>/mealplans/recipe: This route takes in the standard arguments as well as the ‘mealplan-id’, and ‘search’ headers. the mealplan-id is required and the API will return with an error if one is not given. The search header is optional and lets you find recipes in the given mealplan. The API returns the found recipes ordered by name.</p></li>
-<li><p>/mealplans/popularity: This route takes in the standard arguments as well as the ‘mealplan-id’ header. If the mealplan-id is not given it will return the list of most popular mealplans sorted by their popularity which will be included in the return json. If mealplan-id is given it will return the mealplan with that mealplan-id and the number of times it was used.</p></li>
+<li>/mealplans: This route takes in the standard arguments as well as the ‘mealplan-id’ header. If the mealplan-id header is not given then the API returns all mealplans sorted by their id. If mealplan-id is given then it returns the mealplan with that id.</li>
 </ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ss">            SELECT *</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="ss">            FROM mealplans</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="ss">            &quot;&quot;&quot;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span>(mealplan_id <span class="op">!=</span> <span class="dv">0</span>):</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>                query<span class="op">+=</span><span class="ss">f&quot;WHERE mealplans.id = </span><span class="sc">{</span>mealplan_id<span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>            query<span class="op">+=</span><span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="ss">            ORDER BY mealplans.id </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="ss">            LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span><span class="ss">;</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="ss">            &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>/mealplans/recipe: This route takes in the standard arguments as well as the ‘mealplan-id’, and ‘search’ headers. the mealplan-id is required and the API will return with an error if one is not given. The search header is optional and lets you find recipes in the given mealplan. The API returns the found recipes ordered by name.</li>
+</ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM recipes</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        JOIN mealplanRecipes ON recipes.id = mealplanRecipes.recipe_id</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="ss">        WHERE mealplanRecipes.mealplan_id = </span><span class="sc">{</span>mealplan_id<span class="sc">}</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> recipe <span class="op">!=</span> <span class="va">None</span>:</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>            query <span class="op">+=</span> <span class="ss">f&quot;AND recipes.name LIKE &#39;%</span><span class="sc">{</span>recipe<span class="sc">}</span><span class="ss">%&#39;&quot;</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        query <span class="op">+=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="ss">        ORDER BY recipes.name </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="ss">        LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span><span class="ss">;</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>/mealplans/popularity: This route takes in the standard arguments as well as the ‘mealplan-id’, ‘goal-id’, and ‘exclude’ headers. If the mealplan-id is not given it will return the list of most popular mealplans sorted by their popularity which will be included in the return json. If mealplan-id is given it will return the mealplan with that mealplan-id and the number of times it was used. The ‘goal-id’ header returns the mealplans sorted by popularity with users with that goal. The exclude header modifies the ‘goal-id’ header, returning mealplans sorted by their popularity with users without that goal.</li>
+</ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT m.id AS mealplan_id, m.name, COALESCE(popular_mealplans.mealplan_count, 0) AS times_used</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM mealplans m</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        JOIN(</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="ss">            SELECT mealplan_id, count(mealplan_id) as mealplan_count</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="ss">            FROM users</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(goal_id <span class="op">!=</span> <span class="dv">0</span>):</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>            exclusion <span class="op">=</span> <span class="st">&quot;&quot;</span> <span class="cf">if</span>(exclude <span class="op">==</span> <span class="va">False</span>) <span class="cf">else</span> <span class="st">&quot;NOT&quot;</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>            query <span class="op">+=</span> <span class="ss">f&quot;WHERE </span><span class="sc">{</span>exclusion<span class="sc">}</span><span class="ss"> users.goal_id = </span><span class="sc">{</span>goal_id<span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>        query<span class="op">+=</span><span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="ss">            GROUP BY mealplan_id</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="ss">            ORDER BY mealplan_count </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="ss">            LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="ss">        ) AS popular_mealplans</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="ss">        ON m.id = popular_mealplans.mealplan_id</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(mealplan_id <span class="op">!=</span> <span class="dv">0</span>):</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>            query <span class="op">+=</span> <span class="ss">f&quot;WHERE m.id = </span><span class="sc">{</span>mealplan_id<span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>        query<span class="op">+=</span><span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="ss">        ORDER BY times_used </span><span class="sc">{</span>direction<span class="sc">}</span><span class="ss">;</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="goals" class="level3">
 <h3 class="anchored" data-anchor-id="goals">Goals</h3>
 <ol type="1">
-<li><p>/goals: This route takes in the standard arguments as well as the ‘goal-id’ header. If goal-id is not provided it will return the list of goals sorted by id. If goal-id is provided then it will return the goal with that id.</p></li>
-<li><p>/goals/name: This route takes in the standard arguments as well as the ‘search’ header. If search is not provided it will return the list of goals sorted by name. If search is provided it will return all goals with similar names to search.</p></li>
-<li><p>/goals/popularity: This route takes in the standard arguments as well as the ‘goal-id’ header. If the goal-id is not given it will return the list of most popular goals sorted by their number of users which will be included in the return json. If goal-id is given it will return the goal with that goal-id and the number of users using that goal.</p></li>
+<li>/goals: This route takes in the standard arguments as well as the ‘goal-id’ header. If goal-id is not provided it will return the list of goals sorted by id. If goal-id is provided then it will return the goal with that id.</li>
 </ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM goals</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(goal_id <span class="op">!=</span> <span class="dv">0</span>):</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>            query<span class="op">+=</span><span class="ss">f&quot;WHERE goals.id = </span><span class="sc">{</span>goal_id<span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        query<span class="op">+=</span><span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="ss">        ORDER BY goals.id </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="ss">        LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span><span class="ss">;</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>/goals/name: This route takes in the standard arguments as well as the ‘search’ header. If search is not provided it will return the list of goals sorted by name. If search is provided it will return all goals with similar names to search.</li>
+</ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM goals</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(name <span class="op">!=</span> <span class="va">None</span>):</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>            query<span class="op">+=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="ss">            WHERE goals.name LIKE &#39;%</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">%&#39;</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="ss">            &quot;&quot;&quot;</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>        query<span class="op">+=</span><span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="ss">        ORDER BY goals.name </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="ss">        LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span><span class="ss">;</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>/goals/popularity: This route takes in the standard arguments as well as the ‘goal-id’, ‘mealplan-id’, and ‘exclude’ headers. If the goal-id is not given it will return the list of most popular goals sorted by their number of users which will be included in the return json. If goal-id is given it will return the goal with that goal-id and the number of users using that goal. If ‘mealplan-id’ is given it will return the goals sorted by the number of users who use the chose mealplan. The ‘exclude’ header reverses this and returns the most popular goal of users not using the specified mealplan.</li>
+</ol>
+<p>Query:</p>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT g.id AS goal_id, g.name, g.description, COALESCE(popular_goals.goal_count, 0) AS times_used</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM goals g</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="ss">        JOIN(</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="ss">            SELECT goal_id, count(goal_id) as goal_count</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="ss">            FROM users</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="ss">            &quot;&quot;&quot;</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(mealplan_id <span class="op">!=</span> <span class="dv">0</span>):</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>            exclusion <span class="op">=</span> <span class="st">&quot;&quot;</span> <span class="cf">if</span>(exclude <span class="op">==</span> <span class="va">False</span>) <span class="cf">else</span> <span class="st">&quot;NOT&quot;</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>            query <span class="op">+=</span> <span class="ss">f&quot;WHERE </span><span class="sc">{</span>exclusion<span class="sc">}</span><span class="ss"> users.mealplan_id = </span><span class="sc">{</span>mealplan_id<span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>        query<span class="op">+=</span><span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="ss">            GROUP BY goal_id</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="ss">            ORDER BY goal_count </span><span class="sc">{</span>direction<span class="sc">}</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="ss">            LIMIT </span><span class="sc">{</span>page_size<span class="sc">}</span><span class="ss"> OFFSET </span><span class="sc">{</span>(current_page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> page_size<span class="sc">}</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="ss">        ) AS popular_goals</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="ss">        ON g.id = popular_goals.goal_id</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(goal_id <span class="op">!=</span> <span class="dv">0</span>):</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>            query <span class="op">+=</span> <span class="ss">f&quot;WHERE g.id = </span><span class="sc">{</span>goal_id<span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>        query<span class="op">+=</span><span class="ss">f&quot;&quot;&quot;</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="ss">        ORDER BY times_used </span><span class="sc">{</span>direction<span class="sc">}</span><span class="ss">;</span></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
 <section id="future-considerations" class="level2">
