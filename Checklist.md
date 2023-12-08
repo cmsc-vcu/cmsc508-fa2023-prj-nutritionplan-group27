@@ -4,17 +4,17 @@
 - [ ] Html was submitted and looks clean
 - [ ] Report contains link to kaltura video
 - [ ] Report contains link to this repo
-- [ ] Project description is well organized
-- [ ] The report describes the problem description
+- [X] Project description is well organized
+- [X] The report describes the problem description
 - [ ] The report documents how users will use the API
-- [ ] The report includes crows-foot diagrams to describe database architecture
-- [ ] Report documents creating tables and other objects with the ddl file
+- [X] The report includes crows-foot diagrams to describe database architecture
+- [X] Report documents creating tables and other objects with the ddl file
 - [ ] Tables include foreign keys and other integrity constraints relative to the problem and solution
 - [ ] Tables are loaded with appropriate data and samples are presented in the report
 - [X] Contains API design with all endpoints documented
 - [X] The API includes a mechanism (tokens or other) to secure access
 - [X] The report documents the SQL queries that support the various API endpoints.
-- [ ] The report includes a section on reflections about the project and the class.
+- [X] The report includes a section on reflections about the project and the class.
 
 ## Github
 - [ ] README for this repo is satisfactory
