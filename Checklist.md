@@ -4,7 +4,7 @@
 - [ ] Html was submitted and looks clean
 - [ ] Report contains link to kaltura video
 - [ ] Report contains link to this repo
-- [ ] Project description is well organized
+- [X] Project description is well organized
 - [X] The report describes the problem description
 - [ ] The report documents how users will use the API
 - [X] The report includes crows-foot diagrams to describe database architecture

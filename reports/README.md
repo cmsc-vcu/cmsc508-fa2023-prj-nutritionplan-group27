@@ -6,6 +6,15 @@ Deliverables for Nutrition Database.
 ## Project Description
 This folder houses the deliverables which each show what we have learned and changed about our project as tie has gone on.
 
+## Table of Contents - Reports folder
+1. reports
+    - contains the final report html as well as deliverable 4 information
+2. api
+    - routes
+        - contains queries information in create, delete, goals, mealplans, recipes, update, users python files
+    - sql 
+        - contains ddl.sql and dml.sql sql files used to create and populate tables
+
 ## How to run/build this project
 To run/build this project run the following command in the reports foler
 "quarto render <'file name you want to render'>"
