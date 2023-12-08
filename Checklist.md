@@ -8,7 +8,7 @@
 - [X] The report describes the problem description
 - [ ] The report documents how users will use the API
 - [X] The report includes crows-foot diagrams to describe database architecture
-- [ ] Report documents creating tables and other objects with the ddl file
+- [X] Report documents creating tables and other objects with the ddl file
 - [ ] Tables include foreign keys and other integrity constraints relative to the problem and solution
 - [ ] Tables are loaded with appropriate data and samples are presented in the report
 - [X] Contains API design with all endpoints documented
