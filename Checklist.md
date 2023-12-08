@@ -7,7 +7,7 @@
 - [ ] Project description is well organized
 - [ ] The report describes the problem description
 - [ ] The report documents how users will use the API
-- [ ] The report includes crows-foot diagrams to describe database architecture
+- [X] The report includes crows-foot diagrams to describe database architecture
 - [ ] Report documents creating tables and other objects with the ddl file
 - [ ] Tables include foreign keys and other integrity constraints relative to the problem and solution
 - [ ] Tables are loaded with appropriate data and samples are presented in the report
