@@ -10,11 +10,22 @@ format:
 ---
 
 1. Useful Links
-    * [Kaltura Video](TODO)
+    * [Kaltura Video](https://vcu.zoom.us/rec/share/oGu6rKQvq-oqmSZdYNrGn59-JYlrVEd6ALSHX2NrSHGkoNgP1ILyU9uYEroCiE4f.J-rPCN6RjMQUguSZ?startTime=1702321084000)
     * [Repository](https://github.com/cmsc-vcu/cmsc508-fa2023-prj-nutritionplan-group27/tree/main)
 
 ## Problem Description 
 The rising trend in health and fitness has brought a keen focus on diet and nutrition, which is often considered the most challenging aspect of maintaining good health. With countless general websites, programs, and videos available online, many people find it difficult to stick to a diet, mainly due to its lack of personalization, leading to disinterest, impracticality, or unsatisfactory results. An effective nutritional plan must be tailored to each individual, taking into account their lifestyle, objectives, and health conditions. This need is amplified by the overwhelming amount of information available, often with conflicting advice, making it hard to find a suitable plan. Our nutritional database addresses this issue by factoring in dietary restrictions, allergies, health objectives, personal lifestyle, and meal preferences to create a nutritional plan that is not only sustainable and effective but also enjoyable.
+
+## User roles and use cases
+* Individuals seeking dietary plans:
+    * Needs: Access to personalized dietary plans, tracking and analysis of food intake, viewing and adding recipes, setting health goals.
+    * Usage: Will log in to view or update their profile, input daily food consumption, view recipes, and monitor progress towards their dietary goals.
+* Nutritionists:
+    * Needs: Access to client profiles (with permission), ability to customize and assign dietary plans, monitor and provide feedback on client progress, add new dietary plans or modify existing ones.
+    * Usage: After accessing a client's profile, they'll review dietary records, adjust meal plans, and provide notes or feedback to the individual
+* Fitness Trainer:
+    * Needs: View (with permission) the dietary habits of clients to adjust fitness routines accordingly, and possibly provide input or feedback on the balance between diet and exercise.
+    * Usage: After reviewing the dietary intake of a client, they might adjust workout plans to complement the client's nutritional intake.
 
 ### Crows Foot Diagram
 The following Crows Foot diagram represents the relationships between the the users, mealplans, recipes, and goals.
@@ -56,7 +67,7 @@ users {
 The ddl.sql file was utilzed to create mealplans,recipes, mealplanrecipes, goals, and users tables as well as their corresponding primary keys, foreign keys, and entity specific attributes. The dml.sql file was utilzed to insert the actual information into these tables using the "insert into [insert table (name)] values [table values]". The next few following sections explain user functionality and how to create, update, and delete data in the tables using the API. These files are in the src/sql directory or you can find them at this [link](https://github.com/cmsc-vcu/cmsc508-fa2023-prj-nutritionplan-group27/tree/main/src/sql)
 
 ## API Definition
-Our API has many different methods depending on which topic you are searching for. To access the api the user must first create a new user by going to the /create/user url and put their newly created username and password as argument variables in their api request. Creating a user is the only action a user can do without having a valid username and password in their header variables.
+Our API has many different methods depending on which topic you are searching for. To access the api the user must first create a new user by going to the /create/user url and put their desired username and password as argument variables in their api request. Creating a user is the only action a user can do without having a valid username and password in their header variables.
 
 ### Arguments
 1. 'page': Int argument to get the specified page of data. The page argument has a default value of 1 but if the user wants to go to the second page they would put 2 for the page argument. 

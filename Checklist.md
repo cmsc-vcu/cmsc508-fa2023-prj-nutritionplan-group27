@@ -1,8 +1,8 @@
 # Project Checklist
 
 ## HTML
-- [ ] Html was submitted and looks clean
-- [ ] Report contains link to kaltura video
+- [X] Html was submitted and looks clean
+- [X] Report contains link to kaltura video
 - [X] Report contains link to this repo
 - [X] Project description is well organized
 - [X] The report describes the problem description
@@ -21,11 +21,11 @@
 - [X] Repository is clean and easy to follow
 
 ## Kaltura Video
-- [ ] Length is less than 5 minutes
-- [ ] Video is clean and sounds good, all team members present
-- [ ] Video is well organized and easy to follow
-- [ ] The entire project design and implementation described
-- [ ] The video contains our reflections
+- [X] Length is less than 5 minutes
+- [X] Video is clean and sounds good, all team members present
+- [X] Video is well organized and easy to follow
+- [X] The entire project design and implementation described
+- [X] The video contains our reflections
 
 ## API
 - [X] The api contains endpoints to return objects from the database
