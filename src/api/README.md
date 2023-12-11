@@ -8,5 +8,5 @@ This is the file that contains the base server code. It links to several routes 
 ## send.py
 This is the file that was used to send data to the API
 1. To send data to the API first tweak the headers based on the API's definition to ensure you get the responses you desire
-2. Then use the command 'python send.py <endpoint>' where <endpoint> is the endpoint you want to reach, for example /users/mealplans
+2. Then use the command 'python send.py 'endpoint'' where 'endpoint' is the endpoint you want to reach, for example /users/mealplans
 3. send.py will print the returned json to the console for you
