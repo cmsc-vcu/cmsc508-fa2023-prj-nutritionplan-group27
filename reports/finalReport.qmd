@@ -1,11 +1,11 @@
 ---
-title: Phase 1 Deliverable 
+title: Final Report
 date: 10-13-2024
 author: Zachariah Dellimore, Suhas Narayanan, Jeffi Thomas
 format:
     html:
         theme: cosmo
-        toc: false
+        toc: true
         embed-resources: true
 ---
 
@@ -112,21 +112,17 @@ query = f"""
 
 2. /create/recipe: This route requires the name, calories, ingredients, and instructions headers. It will return whether it created an error or whether your recipe was created successfully.
 
-    Example header: 
-    {
-            
+Example header: 
+```{python}
+    headers = {
             'username': '[Your Username]',
-
             'password': '[Your Password]',
-            
             'recipe-name': '[Recipe Name]',
-
             'calories': '[Calorie Count]',
-
             'ingredients': '[Ingredients]',
-
             'instructions': '[Instructions]'
     }
+```
 
 Query: 
 ```{python}
@@ -142,15 +138,15 @@ query = f"""
 ### Update
 1. /update/user: Requires one or more of the following headers: new-username, new-password, new-about-me, new-mealplan, new-goal
 
-    Example header: 
-    {
-        
-        'username': '[Your Username]',
-
-        'password': '[Your Password]',
-
-        ‘new-password’: ‘[New Password]’
+```{python}
+#| eval: false
+#| echo: true
+headers = {
+    'username': '[Your Username]',
+    'password': '[Your Password]',
+    'new-username': '[New Username]'
     }
+```
 
 Query: 
 ```{python}
@@ -568,21 +564,22 @@ df
 ### 5. List all the Meal Plans that do not contain rice
 ```{python}
 headers = {
-    'username': 'tester',
-    'password': 'test',
-    'search': 'Rice',
+    'username': 'dellimorez',
+    'password': 'password1',
+    'search': 'Salt',
     'exclude': 'True'
 }
 response = requests.get(url+'/mealplans/ingredients', headers=headers)
-df = pandas.DataFrame.from_dict(response.json()['results'])
-df
+print(response.json())
+#df = pandas.DataFrame.from_dict(response.json()['results'])
+#df
 ```
 
 ### 6. List the most popular Goals
 ```{python}
 headers = {
-    'username': 'tester',
-    'password': 'test'
+    'username': 'dellimorez',
+    'password': 'password1',
 }
 response = requests.get(url+'/goals/popularity', headers=headers)
 df = pandas.DataFrame.from_dict(response.json()['results'])
@@ -592,8 +589,8 @@ df
 ### 7. List the most popular Mealplans
 ```{python}
 headers = {
-    'username': 'tester',
-    'password': 'test'
+    'username': 'dellimorez',
+    'password': 'password1',
 }
 response = requests.get(url+'/mealplans/popularity', headers=headers)
 df = pandas.DataFrame.from_dict(response.json()['results'])
@@ -603,8 +600,8 @@ df
 ### 8. List all users without a meal plan
 ```{python}
 headers = {
-    'username': 'tester',
-    'password': 'test',
+    'username': 'dellimorez',
+    'password': 'password1',
     'mealplan-id': '-1'
 }
 response = requests.get(url+'/users/mealplans', headers=headers)
@@ -628,8 +625,8 @@ df
 ### 10. Sort by user about me
 ```{python}
 headers = {
-    'username': 'tester',
-    'password': 'test'
+    'username': 'dellimorez',
+    'password': 'password1',
 }
 response = requests.get(url+'/users/aboutme', headers=headers)
 df = pandas.DataFrame.from_dict(response.json()['results'])
@@ -639,8 +636,8 @@ df
 ### 11. Sort by user about me
 ```{python}
 headers = {
-    'username': 'tester',
-    'password': 'test'
+    'username': 'dellimorez',
+    'password': 'password1',
 }
 response = requests.get(url+'/users/aboutme', headers=headers)
 df = pandas.DataFrame.from_dict(response.json()['results'])
@@ -650,8 +647,8 @@ df
 ### 12. Sort the recipes by name
 ```{python}
 headers = {
-    'username': 'tester',
-    'password': 'test'
+    'username': 'dellimorez',
+    'password': 'password1',
 }
 response = requests.get(url+'/recipes/name', headers=headers)
 df = pandas.DataFrame.from_dict(response.json()['results'])
@@ -735,8 +732,8 @@ df
 ### 19. Order recipes by Calories
 ```{python}
 headers = {
-    'username': 'tester',
-    'password': 'test'
+    'username': 'dellimorez',
+    'password': 'password1',
 }
 response = requests.get(url+'/recipes/calories?direction=1', headers=headers)
 df = pandas.DataFrame.from_dict(response.json()['results'])
@@ -746,8 +743,8 @@ df
 ### 20. List Goals by popularity of users not using the "Protein Punch" mealplan
 ```{python}
 headers = {
-    'username': 'tester',
-    'password': 'test',
+    'username': 'dellimorez',
+    'password': 'password1',
     'mealplan-id': '1',
     'exclude': 'True'
 }

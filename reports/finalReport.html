@@ -9,7 +9,7 @@
 <meta name="author" content="Zachariah Dellimore, Suhas Narayanan, Jeffi Thomas">
 <meta name="dcterms.date" content="2024-10-13">
 
-<title>Phase 1 Deliverable</title>
+<title>Final Report</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3310,15 +3310,64 @@ z-index: 1000;
 
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#problem-description" id="toc-problem-description" class="nav-link active" data-scroll-target="#problem-description">Problem Description</a>
+  <ul class="collapse">
+  <li><a href="#crows-foot-diagram" id="toc-crows-foot-diagram" class="nav-link" data-scroll-target="#crows-foot-diagram">Crows Foot Diagram</a></li>
+  <li><a href="#ddl-file-report" id="toc-ddl-file-report" class="nav-link" data-scroll-target="#ddl-file-report">DDL File Report</a></li>
+  </ul></li>
+  <li><a href="#api-definition" id="toc-api-definition" class="nav-link" data-scroll-target="#api-definition">API Definition</a>
+  <ul class="collapse">
+  <li><a href="#arguments" id="toc-arguments" class="nav-link" data-scroll-target="#arguments">Arguments</a></li>
+  <li><a href="#headers" id="toc-headers" class="nav-link" data-scroll-target="#headers">Headers</a></li>
+  <li><a href="#create" id="toc-create" class="nav-link" data-scroll-target="#create">Create</a></li>
+  <li><a href="#update" id="toc-update" class="nav-link" data-scroll-target="#update">Update</a></li>
+  <li><a href="#delete" id="toc-delete" class="nav-link" data-scroll-target="#delete">Delete</a></li>
+  <li><a href="#users" id="toc-users" class="nav-link" data-scroll-target="#users">Users</a></li>
+  <li><a href="#recipes" id="toc-recipes" class="nav-link" data-scroll-target="#recipes">Recipes</a></li>
+  <li><a href="#mealplans" id="toc-mealplans" class="nav-link" data-scroll-target="#mealplans">Mealplans</a></li>
+  <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
+  </ul></li>
+  <li><a href="#api-in-action" id="toc-api-in-action" class="nav-link" data-scroll-target="#api-in-action">API in action</a>
+  <ul class="collapse">
+  <li><a href="#sort-users-by-name-alphabetically" id="toc-sort-users-by-name-alphabetically" class="nav-link" data-scroll-target="#sort-users-by-name-alphabetically">1. Sort users by name alphabetically</a></li>
+  <li><a href="#list-all-users-that-have-eating-healthier-as-their-goal" id="toc-list-all-users-that-have-eating-healthier-as-their-goal" class="nav-link" data-scroll-target="#list-all-users-that-have-eating-healthier-as-their-goal">2. List all users that have Eating Healthier as their goal</a></li>
+  <li><a href="#list-all-recipes-that-contain-the-ingredient-rice" id="toc-list-all-recipes-that-contain-the-ingredient-rice" class="nav-link" data-scroll-target="#list-all-recipes-that-contain-the-ingredient-rice">3. List all recipes that contain the ingredient Rice</a></li>
+  <li><a href="#list-all-the-recipes-that-are-less-than-750-calories" id="toc-list-all-the-recipes-that-are-less-than-750-calories" class="nav-link" data-scroll-target="#list-all-the-recipes-that-are-less-than-750-calories">4. List all the recipes that are less than 750 calories</a></li>
+  <li><a href="#list-all-the-meal-plans-that-do-not-contain-rice" id="toc-list-all-the-meal-plans-that-do-not-contain-rice" class="nav-link" data-scroll-target="#list-all-the-meal-plans-that-do-not-contain-rice">5. List all the Meal Plans that do not contain rice</a></li>
+  <li><a href="#list-the-most-popular-goals" id="toc-list-the-most-popular-goals" class="nav-link" data-scroll-target="#list-the-most-popular-goals">6. List the most popular Goals</a></li>
+  <li><a href="#list-the-most-popular-mealplans" id="toc-list-the-most-popular-mealplans" class="nav-link" data-scroll-target="#list-the-most-popular-mealplans">7. List the most popular Mealplans</a></li>
+  <li><a href="#list-all-users-without-a-meal-plan" id="toc-list-all-users-without-a-meal-plan" class="nav-link" data-scroll-target="#list-all-users-without-a-meal-plan">8. List all users without a meal plan</a></li>
+  <li><a href="#list-all-users-who-have-the-weight-gain-mealplan-and-has-the-weight-gain-goal" id="toc-list-all-users-who-have-the-weight-gain-mealplan-and-has-the-weight-gain-goal" class="nav-link" data-scroll-target="#list-all-users-who-have-the-weight-gain-mealplan-and-has-the-weight-gain-goal">9. List all users who have the “Weight Gain” mealplan and has the “Weight Gain” goal</a></li>
+  <li><a href="#sort-by-user-about-me" id="toc-sort-by-user-about-me" class="nav-link" data-scroll-target="#sort-by-user-about-me">10. Sort by user about me</a></li>
+  <li><a href="#sort-by-user-about-me-1" id="toc-sort-by-user-about-me-1" class="nav-link" data-scroll-target="#sort-by-user-about-me-1">11. Sort by user about me</a></li>
+  <li><a href="#sort-the-recipes-by-name" id="toc-sort-the-recipes-by-name" class="nav-link" data-scroll-target="#sort-the-recipes-by-name">12. Sort the recipes by name</a></li>
+  <li><a href="#list-all-recipes-that-are-more-than-400-calories" id="toc-list-all-recipes-that-are-more-than-400-calories" class="nav-link" data-scroll-target="#list-all-recipes-that-are-more-than-400-calories">13. List all recipes that are more than 400 calories</a></li>
+  <li><a href="#sort-by-goal-name" id="toc-sort-by-goal-name" class="nav-link" data-scroll-target="#sort-by-goal-name">14. Sort by goal name</a></li>
+  <li><a href="#number-of-users-using-the-proteinpunch-mealplan" id="toc-number-of-users-using-the-proteinpunch-mealplan" class="nav-link" data-scroll-target="#number-of-users-using-the-proteinpunch-mealplan">15. Number of Users using the ProteinPunch MealPlan</a></li>
+  <li><a href="#sort-users-who-have-the-goal-maintaining-weight" id="toc-sort-users-who-have-the-goal-maintaining-weight" class="nav-link" data-scroll-target="#sort-users-who-have-the-goal-maintaining-weight">16. Sort users who have the goal maintaining weight</a></li>
+  <li><a href="#sort-by-most-popular-goals" id="toc-sort-by-most-popular-goals" class="nav-link" data-scroll-target="#sort-by-most-popular-goals">17. Sort by most popular goals</a></li>
+  <li><a href="#list-all-users-who-have-the-goal-set-to-lose-weight-and-has-the-lose-weight-meal-plan" id="toc-list-all-users-who-have-the-goal-set-to-lose-weight-and-has-the-lose-weight-meal-plan" class="nav-link" data-scroll-target="#list-all-users-who-have-the-goal-set-to-lose-weight-and-has-the-lose-weight-meal-plan">18. List all users who have the goal set to “lose weight” and has the lose weight meal plan</a></li>
+  <li><a href="#order-recipes-by-calories" id="toc-order-recipes-by-calories" class="nav-link" data-scroll-target="#order-recipes-by-calories">19. Order recipes by Calories</a></li>
+  <li><a href="#list-goals-by-popularity-of-users-not-using-the-protein-punch-mealplan" id="toc-list-goals-by-popularity-of-users-not-using-the-protein-punch-mealplan" class="nav-link" data-scroll-target="#list-goals-by-popularity-of-users-not-using-the-protein-punch-mealplan">20. List Goals by popularity of users not using the “Protein Punch” mealplan</a></li>
+  </ul></li>
+  <li><a href="#future-considerations" id="toc-future-considerations" class="nav-link" data-scroll-target="#future-considerations">Future Considerations</a></li>
+  <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Phase 1 Deliverable</h1>
+<h1 class="title">Final Report</h1>
 </div>
 
 
@@ -3363,8 +3412,8 @@ z-index: 1000;
 <div>
 <div>
 <pre class="mermaid mermaid-js">erDiagram
-users ||--|o mealplans : eats
-users ||--|o goals : has
+users }o--|o mealplans : eats
+users }o--|o goals : has
 mealplans }|--}| recipes : contain
 
 
@@ -3401,7 +3450,7 @@ users {
 </section>
 <section id="ddl-file-report" class="level3">
 <h3 class="anchored" data-anchor-id="ddl-file-report">DDL File Report</h3>
-<p>The ddl.sql file was utilzed to create mealplans,recipes, mealplanrecipes, goals, and users tables as well as their corresponding primary keys, foreign keys, and entity specific attributes. The dml.sql file was utilzed to insert the actual information into these tables using the “insert into [insert table (name)] values [table values]”. The next few following sections explain user functionality and how to create, update, and delete data in the tables. These files are in the src/sql directory or you can find them at this <a href="https://github.com/cmsc-vcu/cmsc508-fa2023-prj-nutritionplan-group27/tree/main/src/sql">link</a></p>
+<p>The ddl.sql file was utilzed to create mealplans,recipes, mealplanrecipes, goals, and users tables as well as their corresponding primary keys, foreign keys, and entity specific attributes. The dml.sql file was utilzed to insert the actual information into these tables using the “insert into [insert table (name)] values [table values]”. The next few following sections explain user functionality and how to create, update, and delete data in the tables using the API. These files are in the src/sql directory or you can find them at this <a href="https://github.com/cmsc-vcu/cmsc508-fa2023-prj-nutritionplan-group27/tree/main/src/sql">link</a></p>
 </section>
 </section>
 <section id="api-definition" class="level2">
@@ -3458,23 +3507,21 @@ users {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ss">        &quot;&quot;&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="2" type="1">
-<li><p>/create/recipe: This route requires the name, calories, ingredients, and instructions headers. It will return whether it created an error or whether your recipe was created successfully.</p>
-<p>Example header: {</p>
-<pre><code>     &#39;username&#39;: &#39;[Your Username]&#39;,
-
-     &#39;password&#39;: &#39;[Your Password]&#39;,
-
-     &#39;recipe-name&#39;: &#39;[Recipe Name]&#39;,
-
-     &#39;calories&#39;: &#39;[Calorie Count]&#39;,
-
-     &#39;ingredients&#39;: &#39;[Ingredients]&#39;,
-
-     &#39;instructions&#39;: &#39;[Instructions]&#39;</code></pre>
-<p>}</p></li>
+<li>/create/recipe: This route requires the name, calories, ingredients, and instructions headers. It will return whether it created an error or whether your recipe was created successfully.</li>
 </ol>
-<p>Query:</p>
+<p>Example header:</p>
 <div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    headers <span class="op">=</span> {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;username&#39;</span>: <span class="st">&#39;[Your Username]&#39;</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;password&#39;</span>: <span class="st">&#39;[Your Password]&#39;</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;recipe-name&#39;</span>: <span class="st">&#39;[Recipe Name]&#39;</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;calories&#39;</span>: <span class="st">&#39;[Calorie Count]&#39;</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;ingredients&#39;</span>: <span class="st">&#39;[Ingredients]&#39;</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;instructions&#39;</span>: <span class="st">&#39;[Instructions]&#39;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Query:</p>
+<div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        insert into `recipes`</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        (`name`, `calories`, `ingredients`, `instructions`) </span></span>
@@ -3485,17 +3532,17 @@ users {
 <section id="update" class="level3">
 <h3 class="anchored" data-anchor-id="update">Update</h3>
 <ol type="1">
-<li><p>/update/user: Requires one or more of the following headers: new-username, new-password, new-about-me, new-mealplan, new-goal</p>
-<p>Example header: {</p>
-<pre><code> &#39;username&#39;: &#39;[Your Username]&#39;,
-
- &#39;password&#39;: &#39;[Your Password]&#39;,
-
- ‘new-password’: ‘[New Password]’</code></pre>
-<p>}</p></li>
+<li>/update/user: Requires one or more of the following headers: new-username, new-password, new-about-me, new-mealplan, new-goal</li>
 </ol>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;[Your Username]&#39;</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;[Your Password]&#39;</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;new-username&#39;</span>: <span class="st">&#39;[New Username]&#39;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Query:</p>
-<div class="cell" data-execution_count="3">
+<div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        UPDATE users</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        SET username = &#39;</span><span class="sc">{</span>new_username<span class="sc">}</span><span class="ss">&#39;</span></span>
@@ -3510,7 +3557,7 @@ users {
 <li>/delete/user: Will delete the users account using the username and password in the header.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>query<span class="op">=</span><span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        DELETE FROM</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        users</span></span>
@@ -3525,7 +3572,7 @@ users {
 <li>/users: This route takes in the standard arguments as well as the header ‘user-id’ which is an integer. If user-id is not given then the api returns all users sorted by their ids. If user-id is given it returns the user with that user-id.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="5">
+<div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM users</span></span>
@@ -3540,7 +3587,7 @@ users {
 <li>/users/goals: This route takes in the standard arguments as well as the header ‘goal-id’. If goal-id is not given by the user then it returns all users sorted by their goal-id. If the user does give goal-id it returns all users with that specific goal-id. If goal-id is less than 0 it will return all users without goals.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="6">
+<div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM users</span></span>
@@ -3558,7 +3605,7 @@ users {
 <li>/users/mealplans: This route takes in the standard arguments as well as the header ‘mealplan-id’ which is an integer. If mealplan-id is not given the api returns all users sorted by their mealplan-id. If the user does give mealplan-id it returns all users with that specific mealplan-id. If mealplan-id is less than 0 it will return all users without mealplans.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="7">
+<div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM users</span></span>
@@ -3576,7 +3623,7 @@ users {
 <li>/users/username: This route takes in the standard arguments as well as the header ‘search’ which is a string. If search is not given the api returns all users sorted by their search. If search is given then it returns all users with usernames similar to that string</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="8">
+<div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM users</span></span>
@@ -3591,7 +3638,7 @@ users {
 <li>/users/aboutme: This route takes in the standard arguments as well as the header ‘aboutme’ which is a string. If aboutme is not given it returns all users sorted by their about_me. If aboutme is given it returns all users with an about_me similar to the aboutme the user supplied.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="9">
+<div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM users</span></span>
@@ -3611,7 +3658,7 @@ users {
 <li>/recipes: This route takes in the standard arguments as well as the ‘recipe-id’ header which is an integer. If the recipe-id header is not given then the API returns all recipes sorted by their id. If recipe-id is given then it returns the recipe with that id.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="10">
+<div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM recipes</span></span>
@@ -3627,7 +3674,7 @@ users {
 <li>/recipes/name: This route takes in the standard arguments as well as the headers ‘search’ and ‘exclude’. The API returns the recipes ordered by name.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="11">
+<div class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM recipes</span></span>
@@ -3644,7 +3691,7 @@ users {
 <li>/recipes/calories: This route takes in the standard headers as well as the ‘search’, ‘exclude’, ‘limit’, and ‘greater_than’ headers. The API returns the recipes ordered by calories.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="12">
+<div class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM recipes</span></span>
@@ -3662,7 +3709,7 @@ users {
 <li>/recipes/ingredients: This route takes in the standard arguments as well as the ‘search’ and ‘exclude’ headers. The API returns the recipes ordered by ingredients.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="13">
+<div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM recipes</span></span>
@@ -3679,7 +3726,7 @@ users {
 <li>/recipes/popularity: This route takes in the standard arguments as well as the ‘recipe-id’ headers. The API returns the recipes ordered by their popularity.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="14">
+<div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM recipes</span></span>
@@ -3699,7 +3746,7 @@ users {
 <li>/mealplans: This route takes in the standard arguments as well as the ‘mealplan-id’ header. If the mealplan-id header is not given then the API returns all mealplans sorted by their id. If mealplan-id is given then it returns the mealplan with that id.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ss">            SELECT *</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="ss">            FROM mealplans</span></span>
@@ -3715,7 +3762,7 @@ users {
 <li>/mealplans/recipe: This route takes in the standard arguments as well as the ‘mealplan-id’, and ‘search’ headers. the mealplan-id is required and the API will return with an error if one is not given. The search header is optional and lets you find recipes in the given mealplan. The API returns the found recipes ordered by name.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="16">
+<div class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM recipes</span></span>
@@ -3735,7 +3782,7 @@ users {
 <li>/mealplans/ingredients: This route takes in the standard arguments as well as the ‘search’ and ‘exclude’ headers. If search is not given it will return an error telling the user to give a search query. Exclude will return all mealplans without a certain ingredient. This endpoint returns the list ordered by mealplan name.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="17">
+<div class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT m.id AS mealplan_id, m.name, COALESCE(popular_mealplans.mealplan_count, 0) AS times_used</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM mealplans m</span></span>
@@ -3766,7 +3813,7 @@ users {
 <li>/goals: This route takes in the standard arguments as well as the ‘goal-id’ header. If goal-id is not provided it will return the list of goals sorted by id. If goal-id is provided then it will return the goal with that id.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="18">
+<div class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM goals</span></span>
@@ -3782,7 +3829,7 @@ users {
 <li>/goals/name: This route takes in the standard arguments as well as the ‘search’ header. If search is not provided it will return the list of goals sorted by name. If search is provided it will return all goals with similar names to search.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="19">
+<div class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT *</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM goals</span></span>
@@ -3800,7 +3847,7 @@ users {
 <li>/goals/popularity: This route takes in the standard arguments as well as the ‘goal-id’, ‘mealplan-id’, and ‘exclude’ headers. If the goal-id is not given it will return the list of most popular goals sorted by their number of users which will be included in the return json. If goal-id is given it will return the goal with that goal-id and the number of users using that goal. If ‘mealplan-id’ is given it will return the goals sorted by the number of users who use the chose mealplan. The ‘exclude’ header reverses this and returns the most popular goal of users not using the specified mealplan.</li>
 </ol>
 <p>Query:</p>
-<div class="cell" data-execution_count="20">
+<div class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="ss">f&quot;&quot;&quot;</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ss">        SELECT g.id AS goal_id, g.name, g.description, COALESCE(popular_goals.goal_count, 0) AS times_used</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        FROM goals g</span></span>
@@ -3830,7 +3877,7 @@ users {
 <h2 class="anchored" data-anchor-id="api-in-action">API in action</h2>
 <section id="sort-users-by-name-alphabetically" class="level3">
 <h3 class="anchored" data-anchor-id="sort-users-by-name-alphabetically">1. Sort users by name alphabetically</h3>
-<div class="cell" data-execution_count="22">
+<div class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span></span>
@@ -3838,7 +3885,7 @@ users {
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/users/username&#39;</span>, headers<span class="op">=</span>headers)</span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="25">
 <div>
 
 
@@ -3888,43 +3935,43 @@ users {
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
+<td>Hello everybody I am new here and don&#39;t have a...</td>
+<td>NaN</td>
+<td>11</td>
+<td>NaN</td>
+<td>Newbie</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
 <td>Allergic to bees but ready to partee!</td>
 <td>1.0</td>
 <td>4</td>
 <td>2.0</td>
 <td>StarNova</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
 <td>Gym rat, love to cook, and cat dad &lt;3</td>
 <td>3.0</td>
 <td>5</td>
 <td>1.0</td>
 <td>SuhasNar</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
 <td>Yo wut up!</td>
-<td>7.0</td>
+<td>6.0</td>
 <td>8</td>
 <td>2.0</td>
 <td>SwagMan9</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
 <td>I love my family!</td>
 <td>6.0</td>
 <td>7</td>
 <td>7.0</td>
 <td>TaylorZa</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">8</td>
-<td>None</td>
-<td>NaN</td>
-<td>12</td>
-<td>NaN</td>
-<td>tester</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">9</td>
@@ -3951,7 +3998,7 @@ users {
 </section>
 <section id="list-all-users-that-have-eating-healthier-as-their-goal" class="level3">
 <h3 class="anchored" data-anchor-id="list-all-users-that-have-eating-healthier-as-their-goal">2. List all users that have Eating Healthier as their goal</h3>
-<div class="cell" data-execution_count="23">
+<div class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
@@ -3960,7 +4007,7 @@ users {
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/users/goals&#39;</span>, headers<span class="op">=</span>headers)</span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="26">
 <div>
 
 
@@ -3992,6 +4039,14 @@ users {
 <td>7</td>
 <td>TaylorZa</td>
 </tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Yo wut up!</td>
+<td>6</td>
+<td>8</td>
+<td>2</td>
+<td>SwagMan9</td>
+</tr>
 </tbody>
 </table>
 
@@ -4001,7 +4056,7 @@ users {
 </section>
 <section id="list-all-recipes-that-contain-the-ingredient-rice" class="level3">
 <h3 class="anchored" data-anchor-id="list-all-recipes-that-contain-the-ingredient-rice">3. List all recipes that contain the ingredient Rice</h3>
-<div class="cell" data-execution_count="24">
+<div class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
@@ -4010,7 +4065,7 @@ users {
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/recipes/ingredients&#39;</span>, headers<span class="op">=</span>headers)</span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="27">
 <div>
 
 
@@ -4048,7 +4103,7 @@ users {
 </section>
 <section id="list-all-the-recipes-that-are-less-than-750-calories" class="level3">
 <h3 class="anchored" data-anchor-id="list-all-the-recipes-that-are-less-than-750-calories">4. List all the recipes that are less than 750 calories</h3>
-<div class="cell" data-execution_count="25">
+<div class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
@@ -4057,7 +4112,7 @@ users {
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/recipes/calories&#39;</span>, headers<span class="op">=</span>headers)</span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="28">
 <div>
 
 
@@ -4074,66 +4129,59 @@ users {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>123</td>
-<td>lorem ipsum</td>
-<td>dolar sit</td>
-<td>your-recipe-name</td>
+<td>228</td>
+<td>Mushrooms, Corn, Salt, ...</td>
+<td>Roast mushrooms ...</td>
+<td>Mushrooms and Corn</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>228</td>
-<td>2 tablespoons reduced-sodium soy sauce 3 scall...</td>
-<td>Roast mushrooms ...</td>
-<td>Roasted Corn &amp; Shiitake Mushrooms</td>
+<td>255</td>
+<td>Pesto, Cheese, ...</td>
+<td>Chop celery ...</td>
+<td>Pesto Soup</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>255</td>
-<td>2 Tablespoons olive oil 1 medium onion, choppe...</td>
-<td>Chop celery ...</td>
-<td>Pesto Pasta Soup</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
 <td>289</td>
 <td>Lettuce, Salt, ...</td>
 <td>Wash Lettuce ...</td>
 <td>Caesar Salad</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
 <td>400</td>
 <td>Strawberry, Milk, ...</td>
 <td>Wash Strawberry ...</td>
 <td>Strawberry Shake</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
 <td>452</td>
 <td>Salmon, Salt, ...</td>
 <td>Cook Salmon ...</td>
 <td>Salmon Bake</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
 <td>500</td>
 <td>Chicken, Rice, ...</td>
 <td>Season chicken ...</td>
 <td>Chicken and Rice</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
 <td>552</td>
 <td>Tofu, Salt, ...</td>
 <td>Press Tofu ...</td>
 <td>Tofu Lasagna</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">8</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
 <td>584</td>
-<td>1/4 cup canola oil 1/4 cup Meat Seasoning* 2 t...</td>
+<td>Skirt steak, Garlic, ...</td>
 <td>Season steak ...</td>
-<td>Perfect Grilled Skirt Steak Recipe</td>
+<td>Skirt Steak</td>
 </tr>
 </tbody>
 </table>
@@ -4144,77 +4192,33 @@ users {
 </section>
 <section id="list-all-the-meal-plans-that-do-not-contain-rice" class="level3">
 <h3 class="anchored" data-anchor-id="list-all-the-meal-plans-that-do-not-contain-rice">5. List all the Meal Plans that do not contain rice</h3>
-<div class="cell" data-execution_count="26">
+<div class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;tester&#39;</span>,</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;test&#39;</span>,</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;search&#39;</span>: <span class="st">&#39;Rice&#39;</span>,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;search&#39;</span>: <span class="st">&#39;Salt&#39;</span>,</span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;exclude&#39;</span>: <span class="st">&#39;True&#39;</span></span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/mealplans/ingredients&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">ID</th>
-<th data-quarto-table-cell-role="th">name</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>7</td>
-<td>Dirty Bulk</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>6</td>
-<td>Pescatarian</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>5</td>
-<td>Vegan</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>4</td>
-<td>Vegetarian</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>3</td>
-<td>Weight Gain</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
-<td>2</td>
-<td>Weight Loss</td>
-</tr>
-</tbody>
-</table>
-
-</div>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response.json())</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co">#df = pandas.DataFrame.from_dict(response.json()[&#39;results&#39;])</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co">#df</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{&#39;results&#39;: [{&#39;ID&#39;: 7, &#39;name&#39;: &#39;Dirty Bulk&#39;}, {&#39;ID&#39;: 1, &#39;name&#39;: &#39;Protein Punch&#39;}, {&#39;ID&#39;: 5, &#39;name&#39;: &#39;Vegan&#39;}, {&#39;ID&#39;: 4, &#39;name&#39;: &#39;Vegetarian&#39;}, {&#39;ID&#39;: 3, &#39;name&#39;: &#39;Weight Gain&#39;}, {&#39;ID&#39;: 2, &#39;name&#39;: &#39;Weight Loss&#39;}]}</code></pre>
 </div>
 </div>
 </section>
 <section id="list-the-most-popular-goals" class="level3">
 <h3 class="anchored" data-anchor-id="list-the-most-popular-goals">6. List the most popular Goals</h3>
-<div class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;tester&#39;</span>,</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;test&#39;</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/goals/popularity&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/goals/popularity&#39;</span>, headers<span class="op">=</span>headers)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
 <div>
 
 
@@ -4230,20 +4234,20 @@ users {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
+<td>Eat more organic foods</td>
+<td>Eat Healthier</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
 <td>Gain Healthy 20lbs in 6 months</td>
 <td>Weight Gain</td>
 <td>2</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>Gain weight fast</td>
-<td>Dirty Bulk</td>
-<td>2</td>
-</tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>Eat more organic foods</td>
-<td>Eat Healthier</td>
+<td>Gain weight fast</td>
+<td>Dirty Bulk</td>
 <td>2</td>
 </tr>
 <tr class="even">
@@ -4273,15 +4277,15 @@ users {
 </section>
 <section id="list-the-most-popular-mealplans" class="level3">
 <h3 class="anchored" data-anchor-id="list-the-most-popular-mealplans">7. List the most popular Mealplans</h3>
-<div class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;tester&#39;</span>,</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;test&#39;</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/mealplans/popularity&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/mealplans/popularity&#39;</span>, headers<span class="op">=</span>headers)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
 <div>
 
 
@@ -4333,16 +4337,16 @@ users {
 </section>
 <section id="list-all-users-without-a-meal-plan" class="level3">
 <h3 class="anchored" data-anchor-id="list-all-users-without-a-meal-plan">8. List all users without a meal plan</h3>
-<div class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;tester&#39;</span>,</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;test&#39;</span>,</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;mealplan-id&#39;</span>: <span class="st">&#39;-1&#39;</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/users/mealplans&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;mealplan-id&#39;</span>: <span class="st">&#39;-1&#39;</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/users/mealplans&#39;</span>, headers<span class="op">=</span>headers)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
 <div>
 
 
@@ -4360,11 +4364,11 @@ users {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
+<td>Hello everybody I am new here and don&#39;t have a...</td>
 <td>None</td>
+<td>11</td>
 <td>None</td>
-<td>12</td>
-<td>None</td>
-<td>tester</td>
+<td>Newbie</td>
 </tr>
 </tbody>
 </table>
@@ -4375,17 +4379,17 @@ users {
 </section>
 <section id="list-all-users-who-have-the-weight-gain-mealplan-and-has-the-weight-gain-goal" class="level3">
 <h3 class="anchored" data-anchor-id="list-all-users-who-have-the-weight-gain-mealplan-and-has-the-weight-gain-goal">9. List all users who have the “Weight Gain” mealplan and has the “Weight Gain” goal</h3>
-<div class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;mealplan-id&#39;</span>: <span class="st">&#39;3&#39;</span>,</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;goal-id&#39;</span>: <span class="st">&#39;2&#39;</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/users/mealplans&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;mealplan-id&#39;</span>: <span class="st">&#39;3&#39;</span>,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;goal-id&#39;</span>: <span class="st">&#39;2&#39;</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/users/mealplans&#39;</span>, headers<span class="op">=</span>headers)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
 <div>
 
 
@@ -4426,15 +4430,15 @@ users {
 </section>
 <section id="sort-by-user-about-me" class="level3">
 <h3 class="anchored" data-anchor-id="sort-by-user-about-me">10. Sort by user about me</h3>
-<div class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;tester&#39;</span>,</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;test&#39;</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/users/aboutme&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/users/aboutme&#39;</span>, headers<span class="op">=</span>headers)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
 <div>
 
 
@@ -4451,45 +4455,45 @@ users {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>None</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>tester</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
 <td>Allergic to bees but ready to partee!</td>
 <td>1.0</td>
 <td>2.0</td>
 <td>StarNova</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
 <td>Big boy on tha block</td>
 <td>2.0</td>
 <td>3.0</td>
 <td>narayanans</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
 <td>Co-creator of this database!</td>
 <td>6.0</td>
 <td>1.0</td>
 <td>dellimorez</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
 <td>Fish stink!</td>
 <td>5.0</td>
 <td>5.0</td>
 <td>Groudon3</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
 <td>Gym rat, love to cook, and cat dad &lt;3</td>
 <td>3.0</td>
 <td>1.0</td>
 <td>SuhasNar</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Hello everybody I am new here and don&#39;t have a...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Newbie</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
@@ -4522,7 +4526,7 @@ users {
 <tr class="odd">
 <td data-quarto-table-cell-role="th">10</td>
 <td>Yo wut up!</td>
-<td>7.0</td>
+<td>6.0</td>
 <td>2.0</td>
 <td>SwagMan9</td>
 </tr>
@@ -4535,15 +4539,15 @@ users {
 </section>
 <section id="sort-by-user-about-me-1" class="level3">
 <h3 class="anchored" data-anchor-id="sort-by-user-about-me-1">11. Sort by user about me</h3>
-<div class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;tester&#39;</span>,</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;test&#39;</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/users/aboutme&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/users/aboutme&#39;</span>, headers<span class="op">=</span>headers)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
 <div>
 
 
@@ -4560,45 +4564,45 @@ users {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>None</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>tester</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
 <td>Allergic to bees but ready to partee!</td>
 <td>1.0</td>
 <td>2.0</td>
 <td>StarNova</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
 <td>Big boy on tha block</td>
 <td>2.0</td>
 <td>3.0</td>
 <td>narayanans</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
 <td>Co-creator of this database!</td>
 <td>6.0</td>
 <td>1.0</td>
 <td>dellimorez</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
 <td>Fish stink!</td>
 <td>5.0</td>
 <td>5.0</td>
 <td>Groudon3</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
 <td>Gym rat, love to cook, and cat dad &lt;3</td>
 <td>3.0</td>
 <td>1.0</td>
 <td>SuhasNar</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Hello everybody I am new here and don&#39;t have a...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Newbie</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
@@ -4631,7 +4635,7 @@ users {
 <tr class="odd">
 <td data-quarto-table-cell-role="th">10</td>
 <td>Yo wut up!</td>
-<td>7.0</td>
+<td>6.0</td>
 <td>2.0</td>
 <td>SwagMan9</td>
 </tr>
@@ -4644,15 +4648,15 @@ users {
 </section>
 <section id="sort-the-recipes-by-name" class="level3">
 <h3 class="anchored" data-anchor-id="sort-the-recipes-by-name">12. Sort the recipes by name</h3>
-<div class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;tester&#39;</span>,</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;test&#39;</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/recipes/name&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/recipes/name&#39;</span>, headers<span class="op">=</span>headers)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
 <div>
 
 
@@ -4669,59 +4673,59 @@ users {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>1000</td>
-<td>5 pound pork shoulder roast (bone-in recommend...</td>
-<td>Roast Pork ...</td>
-<td>BBQ Pulled Pork Enchiladas</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
 <td>899</td>
 <td>Beef, Sauce, ...</td>
 <td>Cook Patty ...</td>
 <td>Big Mac</td>
 </tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
 <td>289</td>
 <td>Lettuce, Salt, ...</td>
 <td>Wash Lettuce ...</td>
 <td>Caesar Salad</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
 <td>500</td>
 <td>Chicken, Rice, ...</td>
 <td>Season chicken ...</td>
 <td>Chicken and Rice</td>
 </tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>228</td>
+<td>Mushrooms, Corn, Salt, ...</td>
+<td>Roast mushrooms ...</td>
+<td>Mushrooms and Corn</td>
+</tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>584</td>
-<td>1/4 cup canola oil 1/4 cup Meat Seasoning* 2 t...</td>
-<td>Season steak ...</td>
-<td>Perfect Grilled Skirt Steak Recipe</td>
+<td>255</td>
+<td>Pesto, Cheese, ...</td>
+<td>Chop celery ...</td>
+<td>Pesto Soup</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
-<td>255</td>
-<td>2 Tablespoons olive oil 1 medium onion, choppe...</td>
-<td>Chop celery ...</td>
-<td>Pesto Pasta Soup</td>
+<td>1000</td>
+<td>Pork shoulder, flour tortillas, ...</td>
+<td>Roast Pork ...</td>
+<td>Pulled Pork Enchiladas</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
-<td>228</td>
-<td>2 tablespoons reduced-sodium soy sauce 3 scall...</td>
-<td>Roast mushrooms ...</td>
-<td>Roasted Corn &amp; Shiitake Mushrooms</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
 <td>452</td>
 <td>Salmon, Salt, ...</td>
 <td>Cook Salmon ...</td>
 <td>Salmon Bake</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>584</td>
+<td>Skirt steak, Garlic, ...</td>
+<td>Season steak ...</td>
+<td>Skirt Steak</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">8</td>
@@ -4744,13 +4748,6 @@ users {
 <td>Press Tofu ...</td>
 <td>Tofu Lasagna</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">11</td>
-<td>123</td>
-<td>lorem ipsum</td>
-<td>dolar sit</td>
-<td>your-recipe-name</td>
-</tr>
 </tbody>
 </table>
 
@@ -4760,17 +4757,17 @@ users {
 </section>
 <section id="list-all-recipes-that-are-more-than-400-calories" class="level3">
 <h3 class="anchored" data-anchor-id="list-all-recipes-that-are-more-than-400-calories">13. List all recipes that are more than 400 calories</h3>
-<div class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;limit&#39;</span>: <span class="st">&#39;400&#39;</span>,</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;greater_than&#39;</span>: <span class="st">&#39;&#39;</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/recipes/calories&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;limit&#39;</span>: <span class="st">&#39;400&#39;</span>,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;greater_than&#39;</span>: <span class="st">&#39;&#39;</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/recipes/calories&#39;</span>, headers<span class="op">=</span>headers)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="37">
 <div>
 
 
@@ -4787,27 +4784,20 @@ users {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>123</td>
-<td>lorem ipsum</td>
-<td>dolar sit</td>
-<td>your-recipe-name</td>
+<td>228</td>
+<td>Mushrooms, Corn, Salt, ...</td>
+<td>Roast mushrooms ...</td>
+<td>Mushrooms and Corn</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>228</td>
-<td>2 tablespoons reduced-sodium soy sauce 3 scall...</td>
-<td>Roast mushrooms ...</td>
-<td>Roasted Corn &amp; Shiitake Mushrooms</td>
+<td>255</td>
+<td>Pesto, Cheese, ...</td>
+<td>Chop celery ...</td>
+<td>Pesto Soup</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>255</td>
-<td>2 Tablespoons olive oil 1 medium onion, choppe...</td>
-<td>Chop celery ...</td>
-<td>Pesto Pasta Soup</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
 <td>289</td>
 <td>Lettuce, Salt, ...</td>
 <td>Wash Lettuce ...</td>
@@ -4822,17 +4812,17 @@ users {
 </section>
 <section id="sort-by-goal-name" class="level3">
 <h3 class="anchored" data-anchor-id="sort-by-goal-name">14. Sort by goal name</h3>
-<div class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;limit&#39;</span>: <span class="st">&#39;400&#39;</span>,</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;greater_than&#39;</span>: <span class="st">&#39;&#39;</span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/goals/name&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;limit&#39;</span>: <span class="st">&#39;400&#39;</span>,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;greater_than&#39;</span>: <span class="st">&#39;&#39;</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/goals/name&#39;</span>, headers<span class="op">=</span>headers)</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
 <div>
 
 
@@ -4891,16 +4881,16 @@ users {
 </section>
 <section id="number-of-users-using-the-proteinpunch-mealplan" class="level3">
 <h3 class="anchored" data-anchor-id="number-of-users-using-the-proteinpunch-mealplan">15. Number of Users using the ProteinPunch MealPlan</h3>
-<div class="cell" data-execution_count="36">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;mealplan-id&#39;</span>: <span class="st">&#39;1&#39;</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/mealplans/popularity&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;mealplan-id&#39;</span>: <span class="st">&#39;1&#39;</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/mealplans/popularity&#39;</span>, headers<span class="op">=</span>headers)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
 <div>
 
 
@@ -4927,16 +4917,16 @@ users {
 </section>
 <section id="sort-users-who-have-the-goal-maintaining-weight" class="level3">
 <h3 class="anchored" data-anchor-id="sort-users-who-have-the-goal-maintaining-weight">16. Sort users who have the goal maintaining weight</h3>
-<div class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;goal-id&#39;</span>: <span class="st">&#39;3&#39;</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/users/goals&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;goal-id&#39;</span>: <span class="st">&#39;3&#39;</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/users/goals&#39;</span>, headers<span class="op">=</span>headers)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="40">
 <div>
 
 
@@ -4969,15 +4959,15 @@ users {
 </section>
 <section id="sort-by-most-popular-goals" class="level3">
 <h3 class="anchored" data-anchor-id="sort-by-most-popular-goals">17. Sort by most popular goals</h3>
-<div class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/goals/popularity&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/goals/popularity&#39;</span>, headers<span class="op">=</span>headers)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="41">
 <div>
 
 
@@ -4993,20 +4983,20 @@ users {
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
+<td>Eat more organic foods</td>
+<td>Eat Healthier</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
 <td>Gain Healthy 20lbs in 6 months</td>
 <td>Weight Gain</td>
 <td>2</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>Gain weight fast</td>
-<td>Dirty Bulk</td>
-<td>2</td>
-</tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>Eat more organic foods</td>
-<td>Eat Healthier</td>
+<td>Gain weight fast</td>
+<td>Dirty Bulk</td>
 <td>2</td>
 </tr>
 <tr class="even">
@@ -5036,17 +5026,17 @@ users {
 </section>
 <section id="list-all-users-who-have-the-goal-set-to-lose-weight-and-has-the-lose-weight-meal-plan" class="level3">
 <h3 class="anchored" data-anchor-id="list-all-users-who-have-the-goal-set-to-lose-weight-and-has-the-lose-weight-meal-plan">18. List all users who have the goal set to “lose weight” and has the lose weight meal plan</h3>
-<div class="cell" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;mealplan-id&#39;</span>: <span class="st">&#39;2&#39;</span>,</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;goal-id&#39;</span>: <span class="st">&#39;1&#39;</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/users/goals&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;mealplan-id&#39;</span>: <span class="st">&#39;2&#39;</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;goal-id&#39;</span>: <span class="st">&#39;1&#39;</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/users/goals&#39;</span>, headers<span class="op">=</span>headers)</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
 <div>
 
 
@@ -5079,15 +5069,15 @@ users {
 </section>
 <section id="order-recipes-by-calories" class="level3">
 <h3 class="anchored" data-anchor-id="order-recipes-by-calories">19. Order recipes by Calories</h3>
-<div class="cell" data-execution_count="40">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;tester&#39;</span>,</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;test&#39;</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/recipes/calories?direction=1&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/recipes/calories?direction=1&#39;</span>, headers<span class="op">=</span>headers)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="43">
 <div>
 
 
@@ -5105,9 +5095,9 @@ users {
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
 <td>1000</td>
-<td>5 pound pork shoulder roast (bone-in recommend...</td>
+<td>Pork shoulder, flour tortillas, ...</td>
 <td>Roast Pork ...</td>
-<td>BBQ Pulled Pork Enchiladas</td>
+<td>Pulled Pork Enchiladas</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
@@ -5126,9 +5116,9 @@ users {
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>584</td>
-<td>1/4 cup canola oil 1/4 cup Meat Seasoning* 2 t...</td>
+<td>Skirt steak, Garlic, ...</td>
 <td>Season steak ...</td>
-<td>Perfect Grilled Skirt Steak Recipe</td>
+<td>Skirt Steak</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
@@ -5168,23 +5158,16 @@ users {
 <tr class="even">
 <td data-quarto-table-cell-role="th">9</td>
 <td>255</td>
-<td>2 Tablespoons olive oil 1 medium onion, choppe...</td>
+<td>Pesto, Cheese, ...</td>
 <td>Chop celery ...</td>
-<td>Pesto Pasta Soup</td>
+<td>Pesto Soup</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">10</td>
 <td>228</td>
-<td>2 tablespoons reduced-sodium soy sauce 3 scall...</td>
+<td>Mushrooms, Corn, Salt, ...</td>
 <td>Roast mushrooms ...</td>
-<td>Roasted Corn &amp; Shiitake Mushrooms</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">11</td>
-<td>123</td>
-<td>lorem ipsum</td>
-<td>dolar sit</td>
-<td>your-recipe-name</td>
+<td>Mushrooms and Corn</td>
 </tr>
 </tbody>
 </table>
@@ -5195,17 +5178,17 @@ users {
 </section>
 <section id="list-goals-by-popularity-of-users-not-using-the-protein-punch-mealplan" class="level3">
 <h3 class="anchored" data-anchor-id="list-goals-by-popularity-of-users-not-using-the-protein-punch-mealplan">20. List Goals by popularity of users not using the “Protein Punch” mealplan</h3>
-<div class="cell" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;tester&#39;</span>,</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;test&#39;</span>,</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;mealplan-id&#39;</span>: <span class="st">&#39;1&#39;</span>,</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;exclude&#39;</span>: <span class="st">&#39;True&#39;</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/goals/popularity&#39;</span>, headers<span class="op">=</span>headers)</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;username&#39;</span>: <span class="st">&#39;dellimorez&#39;</span>,</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;password&#39;</span>: <span class="st">&#39;password1&#39;</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;mealplan-id&#39;</span>: <span class="st">&#39;1&#39;</span>,</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;exclude&#39;</span>: <span class="st">&#39;True&#39;</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">+</span><span class="st">&#39;/goals/popularity&#39;</span>, headers<span class="op">=</span>headers)</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.DataFrame.from_dict(response.json()[<span class="st">&#39;results&#39;</span>])</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="44">
 <div>
 
 
@@ -5233,20 +5216,20 @@ users {
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
+<td>Eat more organic foods</td>
+<td>Eat Healthier</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
 <td>Lose 20lbs healthily in 6 months</td>
 <td>Weight Loss</td>
 <td>1</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>Have vegetarian diet</td>
-<td>Vegetarianism</td>
-<td>1</td>
-</tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>Eat more organic foods</td>
-<td>Eat Healthier</td>
+<td>Have vegetarian diet</td>
+<td>Vegetarianism</td>
 <td>1</td>
 </tr>
 </tbody>

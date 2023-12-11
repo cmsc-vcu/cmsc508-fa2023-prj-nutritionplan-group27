@@ -17,8 +17,8 @@
 - [X] The report includes a section on reflections about the project and the class.
 
 ## Github
-- [ ] README for this repo is satisfactory
-- [ ] Repository is clean and easy to follow
+- [X] README for this repo is satisfactory
+- [X] Repository is clean and easy to follow
 
 ## Kaltura Video
 - [ ] Length is less than 5 minutes
