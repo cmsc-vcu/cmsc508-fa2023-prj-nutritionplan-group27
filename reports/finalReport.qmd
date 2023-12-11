@@ -757,7 +757,7 @@ df
 ```
 
 ## Future Considerations
-As we look towards the future expansion ( looking at a possible product) of our nutritional database project, several  enhancements stand out, each aiming to significantly elevate the platform's impact and user experience.
+As we look towards the future expansion (looking at a possible product) of our nutritional database project, several  enhancements stand out, each aiming to significantly elevate the platform's impact and user experience.
 
 Firstly, introducing an Interactive Recipe Customization feature would mark a significant advancement. This would empower users to modify and refine their recipes directly within the database, allowing for a high degree of personalization. Such a feature is not only beneficial for adjusting to personal taste preferences but also essential for correcting any errors, ensuring the recipes evolve and improve over time.
 
